@@ -40,8 +40,10 @@ body {
   color: white;
 }
 
-a {
-  color: inherit;
+@layer base {
+  a {
+    color: inherit;
+  }
 }
 
 img {
