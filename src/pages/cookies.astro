@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalHeader from '../components/LegalHeader.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'إعدادات ملفات تعريف الارتباط | دليل غابة رغدان';
+const description = 'إدارة ملفات تعريف الارتباط وتفضيلات التحليلات في دليل غابة رغدان.';
+---
+<BaseLayout title={title} description={description}>
+  <LegalHeader />
+  <main id="main-content" class="section-space">
+    <article class="container-site max-w-4xl">
+      <span class="eyebrow">التحكم في التفضيلات</span>
+      <h1 class="section-title">إعدادات ملفات تعريف الارتباط</h1>
+      <p class="text-sm font-bold text-[var(--forest-700)]">آخر تحديث: أغسطس 2026</p>
+
+      <div class="mt-10 rounded-[2rem] border border-[var(--line)] bg-white/75 p-6 shadow-[0_12px_40px_rgba(17,37,29,.05)] sm:p-9 lg:p-12">
+        <p class="text-[var(--muted)]">نستخدم الحد الأدنى من تقنيات التخزين لتشغيل خياراتك. يمكنك تعديل التفضيلات أدناه في أي وقت. لا يستخدم هذا الموقع حالياً تقنية إعلانات مخصصة.</p>
+
+        <form id="cookie-form" class="mt-10 space-y-4">
+          <section class="rounded-[1.5rem] border border-[var(--line)] p-5 sm:p-6">
+            <div class="flex items-start justify-between gap-6">
+              <div>
+                <h2 class="text-lg font-black">التخزين الضروري</h2>
+                <p class="mt-2 text-sm text-[var(--muted)]">ضروري لحفظ قرارك بشأن الخصوصية والتفضيلات الأساسية. لا يمكن تعطيله من هذه الصفحة لأنه يحفظ اختيار التعطيل نفسه.</p>
+              </div>
+              <span class="shrink-0 rounded-full bg-[var(--mist-100)] px-3 py-1 text-xs font-black text-[var(--forest-700)]">نشط دائماً</span>
+            </div>
+          </section>
+
+          <section class="rounded-[1.5rem] border border-[var(--line)] p-5 sm:p-6">
+            <label class="flex cursor-pointer items-start justify-between gap-6">
+              <span>
+                <span class="block text-lg font-black">ملفات التحليل</span>
+                <span class="mt-2 block text-sm text-[var(--muted)]">عند تفعيلها، نحمّل إحصاءات جوجل لفهم أنماط الزيارة العامة وتحسين المحتوى. تبقى معطلة حتى تمنح موافقتك.</span>
+              </span>
+              <input id="analytics" name="analytics" type="checkbox" class="mt-1 h-5 w-5 accent-[var(--forest-700)]" />
+            </label>
+          </section>
+
+          <section class="rounded-[1.5rem] border border-[var(--line)] p-5 sm:p-6">
+            <label class="flex cursor-pointer items-start justify-between gap-6">
+              <span>
+                <span class="block text-lg font-black">تفضيلات المستخدم</span>
+                <span class="mt-2 block text-sm text-[var(--muted)]">تسمح بحفظ تفضيلات واجهة غير ضرورية مستقبلاً، مثل اختيارات العرض. لا يعتمد المحتوى الأساسي عليها.</span>
+              </span>
+              <input id="preferences" name="preferences" type="checkbox" class="mt-1 h-5 w-5 accent-[var(--forest-700)]" />
+            </label>
+          </section>
+
+          <section class="rounded-[1.5rem] border border-[var(--line)] bg-[var(--mist-50)] p-5 opacity-75 sm:p-6">
+            <div class="flex items-start justify-between gap-6">
+              <div>
+                <h2 class="text-lg font-black">ملفات التسويق والإعلانات</h2>
+                <p class="mt-2 text-sm text-[var(--muted)]">لا يستخدم المشروع حالياً إعلانات مخصصة أو ملفات تسويق، لذلك يظل هذا النوع معطلاً.</p>
+              </div>
+              <span class="shrink-0 rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--muted)]">غير مستخدم</span>
+            </div>
+          </section>
+
+          <div class="flex flex-wrap gap-3 pt-4">
+            <button type="submit" class="rounded-full bg-[var(--forest-900)] px-6 py-3 text-sm font-black text-white">حفظ التفضيلات</button>
+            <button id="reject" type="button" class="rounded-full border border-[var(--line)] bg-white px-6 py-3 text-sm font-black text-[var(--forest-900)]">رفض غير الضروري</button>
+          </div>
+          <p id="cookie-status" class="min-h-6 text-sm font-bold text-[var(--forest-700)]" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="prose-ar mt-12 border-t border-[var(--line)] pt-8">
+          <h2>كيف يعمل الاختيار؟</h2>
+          <p>يُحفظ قرارك محلياً في متصفحك تحت مفتاح تفضيلات خاص بالموقع. عند تعطيل التحليلات لا يُحمّل الموقع شيفرة إحصاءات جوجل في الزيارات اللاحقة. يمكنك كذلك مسح بيانات الموقع من إعدادات متصفحك لإزالة التفضيل المحفوظ.</p>
+          <h2>محتوى الطرف الثالث</h2>
+          <p>الخريطة المضمّنة والصور المستضافة خارجياً قد تنشئ اتصالات تقنية مع مزوديها عند تحميلها، وهي ليست ملفات تحليل نتحكم بها عبر مفتاح التحليلات أعلاه. راجع <a href="/privacy/">سياسة الخصوصية</a> لتفاصيل أوضح.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('cookie-form');
+      const analytics = document.getElementById('analytics');
+      const preferences = document.getElementById('preferences');
+      const reject = document.getElementById('reject');
+      const status = document.getElementById('cookie-status');
+      if (!form || !analytics || !preferences || !reject || !status) return;
+
+      try {
+        const saved = JSON.parse(localStorage.getItem('raghadan-cookie-preferences') || '{}');
+        analytics.checked = saved.analytics === true;
+        preferences.checked = saved.preferences === true;
+      } catch (_) {}
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const value = {
+          analytics: analytics.checked,
+          preferences: preferences.checked
+        };
+        localStorage.setItem('raghadan-cookie-preferences', JSON.stringify(value));
+        if (value.analytics && typeof window.__loadGuideAnalytics === 'function') {
+          window.__loadGuideAnalytics();
+        }
+        status.textContent = 'تم حفظ تفضيلاتك على هذا الجهاز.';
+      });
+
+      reject.addEventListener('click', function () {
+        analytics.checked = false;
+        preferences.checked = false;
+        localStorage.setItem('raghadan-cookie-preferences', JSON.stringify({ analytics: false, preferences: false }));
+        status.textContent = 'تم رفض جميع الخيارات غير الضرورية.';
+      });
+    })();
+  </script>
+</BaseLayout>

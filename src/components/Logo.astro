@@ -1,0 +1,21 @@
+---
+interface Props {
+  inverse?: boolean;
+  compact?: boolean;
+}
+const { inverse = false, compact = false } = Astro.props;
+---
+<a href="/" class="inline-flex items-center gap-3 no-underline" aria-label="دليل غابة رغدان - الصفحة الرئيسية">
+  <svg class="h-11 w-11 shrink-0" viewBox="0 0 64 64" role="img" aria-hidden="true">
+    <circle cx="32" cy="32" r="30" fill={inverse ? '#F4F7F4' : '#183126'} />
+    <path d="M11 39.5c8.5-2.3 15.4-8 21-17.8 5.2 8.7 12.3 14.4 21 17.8" fill="none" stroke={inverse ? '#183126' : '#D9C6A2'} stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M32 17.5 26.8 30h3.5l-5 10.4h5.1v7h3.2v-7h5.1l-5-10.4h3.5Z" fill={inverse ? '#2F5C48' : '#F4F7F4'} />
+    <path d="M14 46.4c10-2.7 25.9-2.7 36 0" fill="none" stroke={inverse ? '#6E927F' : '#C8D8D7'} stroke-width="2.2" stroke-linecap="round"/>
+  </svg>
+  {!compact && (
+    <span class:list={["leading-tight", inverse ? "text-white" : "text-[var(--forest-950)]"]}>
+      <strong class="block text-base font-black">دليل غابة رغدان</strong>
+      <span class:list={["block text-[.68rem]", inverse ? "text-white/70" : "text-[var(--muted)]"]}>مشروع معرفي مستقل غير ربحي</span>
+    </span>
+  )}
+</a>

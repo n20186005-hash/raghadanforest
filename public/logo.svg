@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160" role="img" aria-labelledby="title desc">
+  <title id="title">دليل غابة رغدان</title>
+  <desc id="desc">شعار يجمع شجرة عرعر وجبل وخط سحاب</desc>
+  <circle cx="80" cy="80" r="66" fill="#183126"/>
+  <path d="M34 96c19-5 34-18 46-39 12 20 28 33 47 39" fill="none" stroke="#d9c6a2" stroke-width="7" stroke-linecap="round"/>
+  <path d="M80 44 68 73h8l-11 23h12v17h7V96h12L85 73h8Z" fill="#f4f7f4"/>
+  <path d="M39 111c23-6 59-6 82 0" fill="none" stroke="#c8d8d7" stroke-width="5" stroke-linecap="round"/>
+  <g font-family="Tahoma, Arial, sans-serif" text-anchor="end">
+    <text x="600" y="76" font-size="44" font-weight="700" fill="#11251d">دليل غابة رغدان</text>
+    <text x="600" y="112" font-size="22" fill="#5f6b65">مشروع معرفي مستقل غير ربحي</text>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+---
+import Logo from './Logo.astro';
+---
+<footer class="bg-[var(--forest-950)] text-white">
+  <div class="container-site py-14">
+    <div class="grid gap-10 border-b border-white/12 pb-10 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <Logo inverse />
+        <p class="mt-5 max-w-md text-sm leading-7 text-white/65">
+          دليل معرفي مستقل يساعد الزائر على فهم غابة رغدان والتخطيط لزيارتها بمعلومات عملية ومصادر عامة قابلة للتحقق.
+        </p>
+      </div>
+      <div class="grid gap-8 sm:grid-cols-2">
+        <div>
+          <h2 class="text-sm font-black">روابط التحرير والخصوصية</h2>
+          <div class="mt-4 grid gap-2 text-sm text-white/65">
+            <a class="hover:text-white" href="/privacy/">سياسة الخصوصية</a>
+            <a class="hover:text-white" href="/terms/">شروط الاستخدام</a>
+            <a class="hover:text-white" href="/cookies/">إعدادات ملفات تعريف الارتباط</a>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-sm font-black">المصادر العامة المرجعية</h2>
+          <p class="mt-4 text-sm leading-7 text-white/65">
+            أمانة منطقة الباحة، والهيئة السعودية للسياحة عبر «روح السعودية»، ووكالة الأنباء السعودية، ومعلومات الطيران المدني المنشورة للعامة.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 space-y-3 text-xs leading-6 text-white/55">
+      <p>هذا الموقع مشروع دليل مستقل غير ربحي للزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية ولا يمثلها.</p>
+      <p>تُراجع معلومات المعلم بالاستناد إلى المواد العامة المنشورة من أمانة منطقة الباحة والهيئة السعودية للسياحة والجهات الوطنية ذات الصلة، ولا تتضمن توصيات تجارية مدفوعة أو تفضيلاً لمنشأة تجارية بعينها.</p>
+      <p>حقوق الصور: تعود حقوق وملكية الصور المعروضة إلى مصوريها وأصحاب التراخيص الأصليين، وتُذكر بيانات الإسناد حيث يلزم.</p>
+      <p class="pt-2 font-bold text-white/72">© 2026 دليل غابة رغدان. جميع الحقوق محفوظة للمحتوى التحريري الأصلي.</p>
+    </div>
+  </div>
+</footer>
