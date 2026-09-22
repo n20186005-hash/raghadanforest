@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalHeader from '../../components/LegalHeader.astro';
+import Footer from '../../components/Footer.astro';
+import { withSiteNameEn } from '../../data/site';
+import { faq, faqLd } from '../../data/guide';
+
+const title = withSiteNameEn('Tickets, Prices & Parking');
+const description = 'An independent English guide to Raghadan Forest tickets: general entry is free, possible fees for seasonal events and optional services, parking capacity (1,230) and restrooms, and access adapted for people with disabilities.';
+
+const faqItems = [faq.en[0], faq.en[1], faq.en[3], faq.en[2], faq.en[8]];
+---
+<BaseLayout title={title} description={description} lang="en" structuredData={faqLd(faqItems)}>
+  <LegalHeader />
+  <main id="main-content">
+    <section class="bg-[var(--forest-950)] text-white">
+      <div class="container-site py-16 lg:py-20">
+        <p class="text-sm font-bold text-[var(--sand)]">Tickets &amp; visit</p>
+        <h1 class="mt-3 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-black leading-[.95]">Raghadan Forest tickets: free entry and service fees</h1>
+        <p class="mt-5 max-w-2xl text-lg text-white/90">General entry to the forest does not need a ticket per Visit Saudi. Seasonal events or some optional commercial services may carry separate fees. Here is what you need to know before visiting.</p>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site grid gap-10 lg:grid-cols-2">
+        <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
+          <span class="eyebrow">Entry</span>
+          <h2 class="mt-5 text-3xl font-black">General entry is free</h2>
+          <p class="mt-4 text-[var(--muted)]">Visit Saudi states that general entry to Raghadan Forest does not require a ticket. We found no fixed published tariff for the park\'s parking in the official sources we reviewed, so we do not assume it is free or paid. Check the signs on arrival.</p>
+          <div class="mt-6 rounded-[1.3rem] bg-white/65 p-5 text-sm text-[var(--muted)]"><strong class="text-[var(--ink)]">Note:</strong> Seasonal events, games, food or any optional commercial service may have separate prices that are not part of "general entry".</div>
+        </article>
+        <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
+          <span class="eyebrow !text-[var(--sand)]">Parking</span>
+          <h2 class="mt-5 text-3xl font-black">Large capacity, but peak stays crowded</h2>
+          <p class="mt-4 text-white/92">Published data indicates 1,230 spaces, including 42 adapted for people with disabilities. On summer evenings and weekend holidays, movement near gates and overlooks can slow, so make early arrival part of the plan.</p>
+          <p class="mt-6 border-t border-white/15 pt-5 text-sm text-white/90">Do not park on unprepared edges or in an emergency lane, especially during fog.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <span class="eyebrow">Facilities &amp; services</span>
+        <h2 class="section-title">What you find on the ground for the entry</h2>
+        <p class="section-lead">The following figures are the latest public service data we found from local authorities in 2026. A facility\'s existence does not mean every unit is available at every moment, as operations are affected by maintenance and crowding.</p>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            ['Restrooms', '122 restrooms mentioned in 2026 data. During crowding use the closest to the main service areas.'],
+            ['Parking', '1,230 spaces, including 42 adapted for people with disabilities.'],
+            ['Children play', '14 playground areas per published data, plus open spaces and trails.'],
+            ['Prayer', 'The municipality indicates a designated prayer site within the forest facilities.'],
+            ['Seating &amp; picnics', 'Benches, grass spaces and open areas exist. Respect allowed picnic spots.'],
+            ['Mobility access', 'Adapted parking and some developed trails exist, but terrain is mountainous; choose paved areas per ability.']
+          ].map(([name, text]) => (
+            <article class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">{name}</h3>
+              <p class="mt-2 text-sm text-[var(--muted)]" set:html={text}></p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">Frequently asked questions</span>
+            <h2 class="section-title">Practical answers before the visit</h2>
+          </div>
+          <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {faqItems.map((item, index) => (
+              <details class="group py-1" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-black">
+                  <span>{item.q}</span>
+                  <span class="text-xl text-[var(--forest-700)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="max-w-3xl pb-6 text-sm text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <span class="eyebrow">Related pages</span>
+        <h2 class="section-title">Expand the plan</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <a href="/en/location/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Location &amp; map</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">Address, coordinates, Google Maps, and ways to get there.</p>
+          </a>
+          <a href="/en/guide/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Full visitor guide</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">What you will see, seasons, suggested tours, and responsible visiting.</p>
+          </a>
+          <a href="/en/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Main guide</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">The full page: nature, live weather, and sources.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

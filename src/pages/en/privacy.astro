@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalHeader from '../../components/LegalHeader.astro';
+import Footer from '../../components/Footer.astro';
+import { withSiteNameEn } from '../../data/site';
+
+const title = withSiteNameEn('Privacy Policy');
+const description = 'Privacy policy for the independent, non-profit Raghadan Forest guide project.';
+---
+<BaseLayout title={title} description={description} lang="en">
+  <LegalHeader />
+  <main id="main-content" class="section-space">
+    <article class="container-site max-w-4xl">
+      <span class="eyebrow">Privacy &amp; data</span>
+      <h1 class="section-title">Privacy policy</h1>
+      <p class="text-sm font-bold text-[var(--forest-700)]">Last updated: August 2026</p>
+      <div class="prose-ar mt-10 rounded-[2rem] border border-[var(--line)] bg-white/75 p-6 shadow-[0_12px_40px_rgba(17,37,29,.05)] sm:p-9 lg:p-12">
+        <p>
+          The "Raghadan Forest Guide" follows a data minimization principle: we do not create user accounts, do not run a visitor database, and do not ask for personal data just to read the guide. Some technical data necessary to deliver the site, or via external services described below, may pass through.
+        </p>
+
+        <h2>Information that may be collected</h2>
+        <ul>
+          <li><strong>Technical browsing data:</strong> such as IP address, browser type, device, requested page, and approximate request time. The hosting provider may process this data for operation and security.</li>
+          <li><strong>Cookies or local storage:</strong> we use local storage to save consent preferences, and analytics can be enabled only if you activate it from the settings page.</li>
+          <li><strong>Information you provide voluntarily:</strong> there is currently no contact form on the site. If a contact method is added later, we will use what you send only for the purpose you provided it.</li>
+        </ul>
+
+        <h2>How we use information</h2>
+        <p>When legitimate and necessary data is available, its use is limited to the following purposes:</p>
+        <ul>
+          <li>Operating, protecting and improving the reliability of the site.</li>
+          <li>Understanding general usage patterns and improving content structure and reading experience, when analytics consent is given.</li>
+          <li>Responding to a contact request submitted voluntarily by the user if a contact method is available.</li>
+          <li>Complying with applicable legal obligations.</li>
+        </ul>
+
+        <h2>External services</h2>
+        <h3>Google Maps</h3>
+        <p>
+          The main page includes an embedded map. When the map loads, your browser may connect to Google's servers and send technical data to them under Google's policies and terms. If you do not want the map to load, you can avoid scrolling to the map section or use appropriate browser settings to block third-party content.
+        </p>
+
+        <h3>Google Analytics</h3>
+        <p>
+          We configure Google Analytics to measure visits, but it is not loaded from this site until you choose to enable analytics cookies. You can change your decision at any time from the "Cookie settings" page. We also enable IP anonymization within the available measurement settings.
+        </p>
+
+        <h3>Wikimedia Commons</h3>
+        <p>
+          The main page uses a limited number of licensed photographs hosted on Wikimedia Commons. When these images load, your browser may connect to Wikimedia servers, and technical processing is subject to the Wikimedia Foundation's policies. Image rights remain with their owners under each file's license.
+        </p>
+
+        <h3>Hosting and delivery network</h3>
+        <p>
+          The project is built for publishing on the Cloudflare network. The hosting provider may process basic technical logs necessary to deliver content, limit abuse, and diagnose failures, under its terms and policies.
+        </p>
+
+        <h2>Retention period</h2>
+        <p>
+          The site itself does not keep a user file or visit log in a database. Consent preferences are stored locally in your browser until you clear the site data or change the setting. The retention periods of external service providers are subject to their settings and policies.
+        </p>
+
+        <h2>Your rights</h2>
+        <p>Under the laws that apply to you, including the GDPR where applicable, your rights may include:</p>
+        <ul>
+          <li>Request access to your personal data.</li>
+          <li>Request correction of inaccurate data or deletion where the law permits.</li>
+          <li>Request restriction of certain processing or object to it.</li>
+          <li>Withdraw consent for analytics at any time without affecting the lawfulness of processing before withdrawal.</li>
+          <li>File a complaint with the competent supervisory authority if you have this right under applicable law.</li>
+        </ul>
+
+        <h2>Children</h2>
+        <p>The site provides general information about a tourist landmark and does not knowingly request personal data from children. If a service requiring data is added later, age and consent requirements will be reviewed before launch.</p>
+
+        <h2>Changes to this policy</h2>
+        <p>We may update the policy if the site's functions or the services it uses change. The month and year of the last update will appear at the top of the page, without fabricating daily review dates that cannot be verified.</p>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

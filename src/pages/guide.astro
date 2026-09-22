@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalHeader from '../components/LegalHeader.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_NAME, withSiteName, GOVT_TOURISM_URL } from '../data/site';
+import { faq, faqLd } from '../data/guide';
+
+const title = withSiteName('الدليل الشامل: ما تراه وأفضل الأوقات');
+const description = 'دليل زيارة غابة رغدان: ما الذي ستراه فعلياً، جدول الفصول، جولات مقترحة لكل نوع زوار، والزيارة المسؤولة للحفاظ على المكان.';
+
+const faqItems = [faq.ar[4], faq.ar[5], faq.ar[7], faq.ar[2]];
+---
+<BaseLayout title={title} description={description} lang="ar" structuredData={faqLd(faqItems)}>
+  <LegalHeader />
+  <main id="main-content">
+    <section class="bg-[var(--forest-950)] text-white">
+      <div class="container-site py-16 lg:py-20">
+        <p class="text-sm font-bold text-[var(--sand)]">دليل الزيارة</p>
+        <h1 class="mt-3 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-black leading-[.95]">دليل غابة رغدان: ما تراه وأفضل الأوقات</h1>
+        <p class="mt-5 max-w-2xl text-lg text-white/90">لا توجد «نقطة واحدة» تختصر رغدان. الأفضل أن تتعامل معها كسلسلة من الإطلالات والمساحات المفتوحة والممرات، وتختار منها ما يناسب الوقت والقدرة على المشي.</p>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <span class="eyebrow">ما الذي ستراه؟</span>
+        <h2 class="section-title">تجربة تبدأ بالمشهد ثم تتفرع إلى المشي والاستراحة</h2>
+        <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['ممشى الغيم', 'ممر مرتفع ضمن تطوير الموقع، يبرز علاقة الغابة بالسحب والمنحدرات والإطلالة.'],
+            ['حديقة اللافندر', 'جزء من أعمال التجميل والمشروعات الحديثة المحيطة بالمطلّات، وتختلف كثافة الزراعة حسب الموسم.'],
+            ['بهجة رغدان', 'منطقة مطورة تضم ممشى وعناصر مائية ومساحات عشبية ومناطق للأطفال والتصوير.'],
+            ['الإطلالات الطبيعية', 'المكوّن الأكثر ثباتاً: السروات أمامك، وتهامة في الأسفل، والسحب بينهما حين تتشكل.']
+          ].map(([name, text], index) => (
+            <article class="group rounded-[1.6rem] border border-[var(--line)] bg-white/70 p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--mist-100)] text-sm font-black text-[var(--forest-700)]">{String(index + 1).padStart(2, '0')}</div>
+              <h3 class="mt-6 text-xl font-black">{name}</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="seasons" class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <span class="eyebrow">متى تزور؟</span>
+        <h2 class="section-title">جدول الاستراتيجية حسب الفصول</h2>
+        <p class="section-lead">تختلف مرتفعات الباحة باعتدالها النسبي صيفاً وبرودتها ليلاً شتاءً بفضل الارتفاع. الجدول إطار عام للمساعدة على التخطيط، لا أرقاماً دقيقة مضمونة.</p>
+        <div class="mt-10 overflow-x-auto rounded-[2rem] border border-[var(--line)] bg-white/75 shadow-[var(--shadow)]">
+          <table class="w-full min-w-[680px] border-collapse text-right text-sm">
+            <thead class="bg-[var(--forest-800)] text-white">
+              <tr>
+                <th class="p-4 font-black">الفصل</th>
+                <th class="p-4 font-black">الأجواء المتوقعة</th>
+                <th class="p-4 font-black">الأنسب لـ</th>
+                <th class="p-4 font-black">ما تحمله</th>
+                <th class="p-4 font-black">ملاحظات السلامة</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--line)]">
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الشتاء<br><span class="text-xs font-normal text-[var(--muted)]">ديسمبر – فبراير</span></td>
+                <td class="p-4 align-top">برودة ليلية قد تقترب من الصفر في بعض الليالي، نهار معتدل، أمطار متفرقة محتملة وضباب صباحي متكرر.</td>
+                <td class="p-4 align-top">المشي النهاري الهادئ وتصوير الضباب.</td>
+                <td class="p-4 align-top">طبقة دافئة وجاكيت، وأحذية بقبضة جيدة.</td>
+                <td class="p-4 align-top">انخفاض الرؤية صباحاً، وأسطح زلقة عند الهطول.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الربيع<br><span class="text-xs font-normal text-[var(--muted)]">مارس – مايو</span></td>
+                <td class="p-4 align-top">أجواء لطيفة عموماً، مع احتمال زيادة الأمطار الموسمية والغطاء النباتي الأكثر خضرة.</td>
+                <td class="p-4 align-top">النزهات العائلية وتصوير الطبيعة بعد المطر.</td>
+                <td class="p-4 align-top">ملابس بطبقات، ومطر خفيف احتياطي.</td>
+                <td class="p-4 align-top">تجنب مجاري الأودية عند هطول غزير.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الصيف<br><span class="text-xs font-normal text-[var(--muted)]">يونيو – أغسطس</span></td>
+                <td class="p-4 align-top">ألطف بكثير من المناطق الأكثر حرارة؛ نهار معتدل وليل منعش، مع ذروة ازدحام الزوار.</td>
+                <td class="p-4 align-top">الهروب من حرارة السهل، والجلوس المسائي.</td>
+                <td class="p-4 align-top">ملابس صيفية خفيفة، وقبعة للشمس الظهيرة.</td>
+                <td class="p-4 align-top">الازدحام عند المداخل والمطلات؛ تعال مبكراً.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الخريف<br><span class="text-xs font-normal text-[var(--muted)]">سبتمبر – نوفمبر</span></td>
+                <td class="p-4 align-top">اعتدال عام وتهدئة بعد ذروة الصيف، مع فرص لضباب الصباح والإطلالات الصافية.</td>
+                <td class="p-4 align-top">التصوير والزيارات الطويلة دون زحام الذروة.</td>
+                <td class="p-4 align-top">طبقة خفيفة للمساء، وماء كافٍ.</td>
+                <td class="p-4 align-top">تغير الرؤية سريعاً مع تشكل السحب المنخفضة.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tours" class="section-space bg-[var(--forest-950)] text-white">
+      <div class="container-site">
+        <span class="eyebrow !text-[var(--sand)]">خطط حسب تشكيلتك</span>
+        <h2 class="section-title">جولات مقترحة لكل نوع زوار</h2>
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          {[
+            ['العائلات مع الأطفال', ['ابدأوا من المناطق المطورة القريبة من المواقف ومناطق الجلوس.', 'خصصوا وقتاً لمناطق الألعاب ومسارات المشي القصيرة المسطحة.', 'احرصوا على الإشراف المباشر قرب الحواف والمنحدرات.', 'تجنبوا ذروة الزحام بزيارة مبكرة أو بعد العصر.']],
+            ['مصورو الطبيعة', ['راقبوا تشكل السحب المنخفضة صباحاً وتبدّل الإطلالة.', 'استهدفوا المطلات العلوية والحواف الآمنة للزوايا الواسعة.', 'جرّبوا الساعات الذهبية قرب الشروق والغروب.', 'احترموا مسارات الغير والممرات المهيأة عند التحرك.']],
+            ['كبار السن / ذوو الحركة المحدودة', ['استفيدوا من المواقف المهيأة والمسارات المعبدة.', 'وزّعوا الراحة عند المقاعد والمناطق المظللة.', 'تجنبوا المسارات شديدة الانحدار أو غير المهيأة.', 'حافظوا على قربكم من المرافق الرئيسية للخدمات.']]
+          ].map(([name, items]) => (
+            <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+              <p class="text-sm font-black text-[var(--sand)]">{name}</p>
+              <h3 class="mt-2 text-2xl font-black">{name}</h3>
+              <ul class="mt-5 space-y-3 text-sm text-white/90">
+                {items.map((li) => <li>{li}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
+          <div>
+            <span class="eyebrow">علم وتمكين</span>
+            <h2 class="section-title">الزيارة المسؤولة والحفاظ على المكان</h2>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2">
+            {[
+              ['ابقَ على الممرات', 'يساعد المشي ضمن المسارات المهيأة على حماية الغطاء النباتي والحد من انجراف التربة على المنحدرات.'],
+              ['صفر نفايات', 'أعِد ما أحضرته معك، ولا تترك مخلفات الأطعمة أو العبوات؛ الحفاظ على النظافة مسؤولية جماعية.'],
+              ['لا تقتات الحياة البرية', 'تجنب إطعاء الطيور أو الكائنات الأخرى، فذلك يخلّ بالتوازن الطبيعي ويسبب إزعاجاً للزوار الآخرين.'],
+              ['السلامة أولاً', 'احترم اللافتات الميدانية وتعليمات الدفاع المدني، ولا تقترب من حواف غير محمية أثناء الضباب أو المطر.']
+            ].map(([name, text]) => (
+              <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+                <h3 class="font-black text-[var(--forest-800)]">{name}</h3>
+                <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">الأسئلة الشائعة</span>
+            <h2 class="section-title">إجابات عملية قبل الزيارة</h2>
+          </div>
+          <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {faqItems.map((item, index) => (
+              <details class="group py-1" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-black">
+                  <span>{item.q}</span>
+                  <span class="text-xl text-[var(--forest-700)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="max-w-3xl pb-6 text-sm text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--sand-soft)]">
+      <div class="container-site">
+        <span class="eyebrow">صفحات ذات صلة</span>
+        <h2 class="section-title">وسّع التخطيط</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <a href="/tickets/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">تذاكر الدخول والأسعار</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">الدخول بلا تذكرة والمواقف.</p>
+          </a>
+          <a href="/location/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">الموقع والخريطة</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">العنوان والوصول وخرائط جوجل.</p>
+          </a>
+          <a href="/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">الدليل الرئيسي</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">الصفحة الكاملة مع الطقس المباشر.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

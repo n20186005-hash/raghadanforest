@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalHeader from '../components/LegalHeader.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_NAME, withSiteName } from '../data/site';
+import { faq, faqLd } from '../data/guide';
+
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
+
+const title = withSiteName('تذاكر الدخول والأسعار والمواقف');
+const description = 'دليل عربي مستقل إلى تذاكر غابة رغدان: الدخول العام بلا تذكرة، الرسوم المحتملة للفعاليات والخدمات الاختيارية، سعة المواقف ودورات المياه، والوصول المهيأ لذوي الإعاقة.';
+
+const faqItems = [faq.ar[0], faq.ar[1], faq.ar[3], faq.ar[2], faq.ar[8]];
+---
+<BaseLayout title={title} description={description} lang="ar" structuredData={faqLd(faqItems)}>
+  <LegalHeader />
+  <main id="main-content">
+    <section class="bg-[var(--forest-950)] text-white">
+      <div class="container-site py-16 lg:py-20">
+        <p class="text-sm font-bold text-[var(--sand)]">تذاكر وزيارة</p>
+        <h1 class="mt-3 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-black leading-[.95]">تذاكر غابة رغدان: الدخول بلا تذكرة ورسوم الخدمات</h1>
+        <p class="mt-5 max-w-2xl text-lg text-white/90">الدخول العام إلى الغابة لا يحتاج تذكرة بحسب «روح السعودية». الفعاليات الموسمية أو بعض الخدمات الاختيارية قد تكون لها أسعار منفصلة. إليك ما تحتاج معرفته قبل الزيارة.</p>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site grid gap-10 lg:grid-cols-2">
+        <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
+          <span class="eyebrow">الدخول</span>
+          <h2 class="mt-5 text-3xl font-black">الدخول العام بلا تذكرة</h2>
+          <p class="mt-4 text-[var(--muted)]">تذكر «روح السعودية» أن الدخول العام إلى غابة رغدان لا يتطلب تذكرة. لم نعثر في المصادر الرسمية التي راجعناها على تعرفة ثابتة منشورة لمواقف المتنزه، ولذلك لا نفترض أنها مجانية أو مدفوعة. تحقق من اللوحات عند الوصول.</p>
+          <div class="mt-6 rounded-[1.3rem] bg-white/65 p-5 text-sm text-[var(--muted)]"><strong class="text-[var(--ink)]">انتبه:</strong> الفعاليات الموسمية، الألعاب، الطعام أو أي خدمة تجارية اختيارية قد تكون لها أسعار منفصلة لا تدخل ضمن «الدخول العام».</div>
+        </article>
+        <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
+          <span class="eyebrow !text-[var(--sand)]">المواقف</span>
+          <h2 class="mt-5 text-3xl font-black">سعة كبيرة، لكن الذروة تظل مزدحمة</h2>
+          <p class="mt-4 text-white/92">تشير البيانات المنشورة إلى 1,230 موقفاً، بينها 42 موقفاً مهيأً لذوي الإعاقة. في أمسيات الصيف وعطلات نهاية الأسبوع قد تتباطأ الحركة عند المداخل والمطلات، لذلك اجعل الوصول مبكراً جزءاً من الخطة.</p>
+          <p class="mt-6 border-t border-white/15 pt-5 text-sm text-white/90">لا توقف المركبة على حواف غير مهيأة أو في مسار طوارئ، خصوصاً أثناء الضباب.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <span class="eyebrow">المرافق والخدمات</span>
+        <h2 class="section-title">ما تجده على الأرض مقابل الدخول</h2>
+        <p class="section-lead">الأرقام التالية هي أحدث بيانات خدمية عامة وجدناها من الجهات المحلية في 2026. وجود المرفق لا يعني أن كل وحدة متاحة في كل لحظة، فالتشغيل يتأثر بالصيانة والازدحام.</p>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            ['دورات المياه', '122 دورة مياه مذكورة في بيانات 2026. عند الازدحام استخدم الأقرب إلى المناطق الخدمية الرئيسية.'],
+            ['مواقف السيارات', '1,230 موقفاً، منها 42 موقفاً مخصصاً لذوي الإعاقة.'],
+            ['ألعاب الأطفال', '14 منطقة ألعاب بحسب البيانات المنشورة، إلى جانب مساحات مفتوحة وممرات.'],
+            ['الصلاة', 'تشير أمانة المنطقة إلى وجود موقع مخصص للصلاة ضمن مرافق الغابة.'],
+            ['الجلوس والنزهات', 'مقاعد ومساحات عشبية ومناطق مفتوحة. احترم المواقع المسموح بها للنزهة.'],
+            ['إتاحة الحركة', 'مواقف مهيأة وبعض المسارات المطورة، لكن التضاريس جبلية؛ اختر المناطق المعبدة بحسب القدرة.']
+          ].map(([name, text]) => (
+            <article class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">{name}</h3>
+              <p class="mt-2 text-sm text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">الأسئلة الشائعة</span>
+            <h2 class="section-title">إجابات عملية قبل الزيارة</h2>
+            <p class="section-lead">صيغت الإجابات من البيانات العامة المتاحة، مع فصل ما هو ثابت نسبياً عمّا ينبغي التحقق منه قبل السفر.</p>
+          </div>
+          <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {faqItems.map((item, index) => (
+              <details class="group py-1" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-black">
+                  <span>{item.q}</span>
+                  <span class="text-xl text-[var(--forest-700)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="max-w-3xl pb-6 text-sm text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <span class="eyebrow">صفحات ذات صلة</span>
+        <h2 class="section-title">وسّع التخطيط</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <a href="/location/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">موقع الغابة والخريطة</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">العنوان، الإحداثيات، خرائط جوجل، وطرق الوصول.</p>
+          </a>
+          <a href="/guide/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">دليل الزيارة الشامل</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">ما ستراه، الفصول، الجولات المقترحة، والزيارة المسؤولة.</p>
+          </a>
+          <a href="/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">الدليل الرئيسي</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">الصفحة الكاملة: الطبيعة، الطقس المباشر، والمصادر.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

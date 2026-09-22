@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalHeader from '../../components/LegalHeader.astro';
+import Footer from '../../components/Footer.astro';
+import { withSiteNameEn } from '../../data/site';
+
+const title = withSiteNameEn('Terms of Use');
+const description = 'Terms of use for the independent, non-profit Raghadan Forest guide project.';
+---
+<BaseLayout title={title} description={description} lang="en">
+  <LegalHeader />
+  <main id="main-content" class="section-space">
+    <article class="container-site max-w-4xl">
+      <span class="eyebrow">Guide usage rules</span>
+      <h1 class="section-title">Terms of use</h1>
+      <p class="text-sm font-bold text-[var(--forest-700)]">Last updated: August 2026</p>
+      <div class="prose-ar mt-10 rounded-[2rem] border border-[var(--line)] bg-white/75 p-6 shadow-[0_12px_40px_rgba(17,37,29,.05)] sm:p-9 lg:p-12">
+        <p>By using this site, you agree to these terms. If you do not agree, you may stop using the site. These terms concern the site itself and do not represent the entry terms of Raghadan Forest or any official entity.</p>
+
+        <h2>Nature of the project</h2>
+        <p>"Raghadan Forest Guide" is an independent, non-profit information project, not affiliated with the Al Bahah Municipality, the Saudi Tourism Authority, any government body, or a commercial operator. It does not sell tickets, manage bookings, or receive commission for directing visitors to commercial establishments.</p>
+
+        <h2>Use of content</h2>
+        <p>The published information is intended for education and general visit planning. You may read it and benefit from it for ordinary personal use. The site does not grant you the right to republish substantial original texts or attribute them to another party without permission, subject to rights granted by law such as fair quotation.</p>
+
+        <h2>Accuracy and change of information</h2>
+        <p>We strive to compare information with reliable public sources, but we cannot guarantee that opening hours, fees, road conditions, facilities, events, or weather will remain as they were when you arrive. Verify with official channels before making a travel decision that relies on important operational information.</p>
+
+        <h2>Weather and safety</h2>
+        <p>Raghadan Forest is a mountain site that may experience fog, rain, reduced visibility, or slippery surfaces. The content is not an emergency directive or a substitute for instructions from competent authorities and field signs. Always follow local safety instructions.</p>
+
+        <h2>Intellectual property and images</h2>
+        <p>The site design and original editorial texts are protected under applicable rights. Photographs belong to their photographers and rights holders, and each file is used under the license indicated for it on Wikimedia Commons. The project does not claim ownership of third-party images.</p>
+
+        <h2>Maps and external data</h2>
+        <p>The embedded Google Map is displayed under Google's services and terms. Links to official entities or external sources may have their own terms and privacy policies. A link does not imply partnership or official endorsement.</p>
+
+        <h2>Limitations of liability</h2>
+        <p>The site is provided "as is" for general information purposes without express or implied warranty of continued service or completeness of content. To the extent permitted by law, the project is not liable for losses arising from reliance on changing information without verifying its official source, or from travel decisions made by the user themselves.</p>
+
+        <h2>Terms updates</h2>
+        <p>These terms may change as the project evolves or new services are added. The month and year of the last update will appear at the top of the page.</p>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

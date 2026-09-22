@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalHeader from '../../components/LegalHeader.astro';
+import Footer from '../../components/Footer.astro';
+import { withSiteNameEn } from '../../data/site';
+import { faq, faqLd } from '../../data/guide';
+
+const title = withSiteNameEn('Visitor Guide: What to See & Best Times');
+const description = 'Raghadan Forest visitor guide: what you will actually see, the seasonal table, suggested tours for every visitor type, and responsible visiting to preserve the place.';
+
+const faqItems = [faq.en[4], faq.en[5], faq.en[7], faq.en[2]];
+---
+<BaseLayout title={title} description={description} lang="en" structuredData={faqLd(faqItems)}>
+  <LegalHeader />
+  <main id="main-content">
+    <section class="bg-[var(--forest-950)] text-white">
+      <div class="container-site py-16 lg:py-20">
+        <p class="text-sm font-bold text-[var(--sand)]">Visitor guide</p>
+        <h1 class="mt-3 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-black leading-[.95]">Raghadan Forest guide: what to see &amp; best times</h1>
+        <p class="mt-5 max-w-2xl text-lg text-white/90">There is no single "one spot" that sums up Raghadan. Treat it as a sequence of overlooks, open spaces and trails, and choose what fits your time and walking ability.</p>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <span class="eyebrow">What will you see?</span>
+        <h2 class="section-title">An experience that starts with the view, then branches into walking and rest</h2>
+        <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['Cloud Walk', 'An elevated trail within the site development, highlighting the forest\'s relationship with clouds, slopes and the overlook.'],
+            ['Lavender garden', 'Part of the beautification and modern projects around the overlooks; planting density varies by season.'],
+            ['Raghadan joy', 'A developed area with a walkway, water features, grass spaces, children\'s areas and photo spots.'],
+            ['Natural overlooks', 'The most constant element: the Sarawat in front of you, Tihamah below, and clouds between them when they form.']
+          ].map(([name, text], index) => (
+            <article class="group rounded-[1.6rem] border border-[var(--line)] bg-white/70 p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--mist-100)] text-sm font-black text-[var(--forest-700)]">{String(index + 1).padStart(2, '0')}</div>
+              <h3 class="mt-6 text-xl font-black">{name}</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="seasons" class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <span class="eyebrow">When to visit?</span>
+        <h2 class="section-title">Seasonal strategy table</h2>
+        <p class="section-lead">The Al Bahah highlands differ from other regions by being relatively mild in summer and cool at night in winter thanks to elevation. The table is a general framework to help planning, not guaranteed precise numbers.</p>
+        <div class="mt-10 overflow-x-auto rounded-[2rem] border border-[var(--line)] bg-white/75 shadow-[var(--shadow)]">
+          <table class="w-full min-w-[680px] border-collapse text-left text-sm">
+            <thead class="bg-[var(--forest-800)] text-white">
+              <tr>
+                <th class="p-4 font-black">Season</th>
+                <th class="p-4 font-black">Expected weather</th>
+                <th class="p-4 font-black">Best for</th>
+                <th class="p-4 font-black">What to bring</th>
+                <th class="p-4 font-black">Safety notes</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--line)]">
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Winter<br><span class="text-xs font-normal text-[var(--muted)]">Dec – Feb</span></td>
+                <td class="p-4 align-top">Night cold that may approach zero on some nights, mild day, scattered possible rain and frequent morning fog.</td>
+                <td class="p-4 align-top">Calm daytime walking and fog photography.</td>
+                <td class="p-4 align-top">A warm layer and jacket, and shoes with good grip.</td>
+                <td class="p-4 align-top">Low morning visibility, and slippery surfaces when raining.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Spring<br><span class="text-xs font-normal text-[var(--muted)]">Mar – May</span></td>
+                <td class="p-4 align-top">Generally mild, with possible increase in seasonal rain and greener vegetation.</td>
+                <td class="p-4 align-top">Family picnics and nature photography after rain.</td>
+                <td class="p-4 align-top">Layered clothes, and light rain backup.</td>
+                <td class="p-4 align-top">Avoid valley courses during heavy rain.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Summer<br><span class="text-xs font-normal text-[var(--muted)]">Jun – Aug</span></td>
+                <td class="p-4 align-top">Much milder than hotter regions; mild day and refreshing night, with peak visitor crowding.</td>
+                <td class="p-4 align-top">Escape the plain\'s heat, and evening seating.</td>
+                <td class="p-4 align-top">Light summer clothes, and a hat for midday sun.</td>
+                <td class="p-4 align-top">Crowding at gates and overlooks; come early.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Autumn<br><span class="text-xs font-normal text-[var(--muted)]">Sep – Nov</span></td>
+                <td class="p-4 align-top">General mildness and calm after summer peak, with chances of morning fog and clear overlooks.</td>
+                <td class="p-4 align-top">Photography and long visits without peak crowding.</td>
+                <td class="p-4 align-top">A light layer for evening, and enough water.</td>
+                <td class="p-4 align-top">Visibility changes fast as low clouds form.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tours" class="section-space bg-[var(--forest-950)] text-white">
+      <div class="container-site">
+        <span class="eyebrow !text-[var(--sand)]">Plan by your group</span>
+        <h2 class="section-title">Suggested tours for every visitor type</h2>
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          {[
+            ['Families with children', ['Start from the developed areas near parking and seating.', 'Allocate time for playgrounds and short flat walking trails.', 'Keep direct supervision near edges and slopes.', 'Avoid peak crowding with an early or after-noon visit.']],
+            ['Nature photographers', ['Watch low clouds form in the morning and the changing overlook.', 'Target upper overlooks and safe edges for wide angles.', 'Try golden hours near sunrise and sunset.', 'Respect others\' paths and prepared trails when moving.']],
+            ['Seniors / limited mobility', ['Use adapted parking and paved trails.', 'Distribute rest at benches and shaded areas.', 'Avoid steep or unprepared trails.', 'Stay near main facilities for services.']]
+          ].map(([name, items]) => (
+            <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+              <p class="text-sm font-black text-[var(--sand)]">{name}</p>
+              <h3 class="mt-2 text-2xl font-black">{name}</h3>
+              <ul class="mt-5 space-y-3 text-sm text-white/90">
+                {items.map((li) => <li>{li}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
+          <div>
+            <span class="eyebrow">Awareness &amp; empowerment</span>
+            <h2 class="section-title">Responsible visiting and preserving the place</h2>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2">
+            {[
+              ['Stay on trails', 'Walking within prepared trails helps protect vegetation and reduce soil erosion on slopes.'],
+              ['Zero waste', 'Take back what you brought, and leave no food waste or bottles; keeping clean is a shared responsibility.'],
+              ['Do not feed wildlife', 'Avoid feeding birds or other creatures, as it disrupts the natural balance and disturbs other visitors.'],
+              ['Safety first', 'Respect field signs and Civil Defense instructions, and do not approach unprotected edges during fog or rain.']
+            ].map(([name, text]) => (
+              <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+                <h3 class="font-black text-[var(--forest-800)]">{name}</h3>
+                <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">Frequently asked questions</span>
+            <h2 class="section-title">Practical answers before the visit</h2>
+          </div>
+          <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {faqItems.map((item, index) => (
+              <details class="group py-1" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-black">
+                  <span>{item.q}</span>
+                  <span class="text-xl text-[var(--forest-700)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="max-w-3xl pb-6 text-sm text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--sand-soft)]">
+      <div class="container-site">
+        <span class="eyebrow">Related pages</span>
+        <h2 class="section-title">Expand the plan</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <a href="/en/tickets/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Tickets &amp; prices</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">Free entry and parking.</p>
+          </a>
+          <a href="/en/location/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Location &amp; map</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">Address and how to get there.</p>
+          </a>
+          <a href="/en/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Main guide</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">The full page with live weather.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

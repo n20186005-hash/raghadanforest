@@ -2,8 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalHeader from '../components/LegalHeader.astro';
 import Footer from '../components/Footer.astro';
+import { withSiteName } from '../data/site';
 
-const title = 'شروط الاستخدام | دليل غابة رغدان';
+const title = withSiteName('شروط الاستخدام');
 const description = 'شروط استخدام مشروع دليل غابة رغدان المستقل غير الربحي.';
 ---
 <BaseLayout title={title} description={description}>

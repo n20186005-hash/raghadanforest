@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import WeatherSection from '../components/WeatherSection.astro';
+import { SITE_NAME } from '../data/site';
 
 const mapUrl = 'https://maps.app.goo.gl/fWTXPEcNSYzMdcmRA';
 const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6672.45030720732!2d41.4334279!3d20.0220551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15ef4f6655951595%3A0x79af6e771103498b!2sRaghadan%20Forest%20Park!5e1!3m2!1sar!2ssa!4v1787707688232!5m2!1sar!2ssa';
@@ -13,6 +15,8 @@ const photos = {
   forest: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Albaha9021_-_2.jpeg',
   clouds: 'https://upload.wikimedia.org/wikipedia/commons/4/46/%D8%A7%D9%84%D8%A8%D8%A7%D8%AD%D8%A9_-_1.jpeg'
 };
+
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
 
 const faqItems = [
   {
@@ -56,6 +60,8 @@ const faqItems = [
 const attractionLd = {
   '@context': 'https://schema.org',
   '@type': ['TouristAttraction', 'LocalBusiness'],
+  '@id': `${siteUrl}/#attraction`,
+  url: siteUrl,
   name: 'غابة رغدان',
   alternateName: 'منتزه غابة رغدان',
   description: 'غابة جبلية ومتنزه عام على مرتفعات السروات غرب مدينة الباحة، تشتهر بأشجار العرعر والإطلالات على سهول تهامة والممرات والمساحات الخضراء.',
@@ -80,7 +86,7 @@ const attractionLd = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: 4.4,
-    reviewCount: 40428,
+    reviewCount: 40771,
     bestRating: 5
   },
   isAccessibleForFree: true,
@@ -103,8 +109,8 @@ const faqLd = {
   }))
 };
 
-const title = 'غابة رغدان في الباحة | دليل مستقل للزيارة والطبيعة والخدمات';
-const description = 'دليل عربي مستقل غير ربحي إلى غابة رغدان في الباحة: الطبيعة والتاريخ، أوقات الزيارة، المواقف، دورات المياه، الوصول من المطار، الطعام والخدمات، الخريطة والأسئلة الشائعة.';
+const title = `${SITE_NAME} — الدخول، أوقات الزيارة، الموقع والخريطة`;
+const description = 'دليل عربي مستقل إلى غابة رغدان في الباحة: الدخول العام بلا تذكرة، ساعات يومية 8 ص–11:59 م، العنوان والخريطة، المواقف ودورات المياه، الطقس المباشر، الوصول من المطار، والأسئلة الشائعة قبل الزيارة.';
 ---
 <BaseLayout title={title} description={description} structuredData={[attractionLd, faqLd]}>
   <Header />
@@ -233,6 +239,18 @@ const description = 'دليل عربي مستقل غير ربحي إلى غاب�
               </p>
             </div>
             <div>
+              <p class="text-xl font-black text-white">جبال السروات والجيولوجيا</p>
+              <p class="mt-3 text-sm leading-7">
+                تمتد السروات كحافة غربية لشبه الجزيرة العربية تفصل المرتفعات عن سهل تهامة. هذا الانحدار الحاد هو ما يجعل رغدان نقطة انتقال بصرية ومناخية بين قمم عليا ومنحدرات تنتهي نحو البحر، وهو سرّ إطلالاتها وتقلبات رؤيتها بين صحو وضباب.
+              </p>
+            </div>
+            <div>
+              <p class="text-xl font-black text-white">الزراعة المدرجية والتراث</p>
+              <p class="mt-3 text-sm leading-7">
+                ارتبطت منطقة الباحة تاريخياً بالمدرجات الزراعية والقرى الحجرية المبنية على المنحدرات، ما يعكس علاقة إنسانية قديمة بالارتفاع والماء. رغدان جزء من هذا السياق الثقافي الأوسع، لا معزولة عن تاريخ المنطقة.
+              </p>
+            </div>
+            <div>
               <p class="text-xl font-black text-white">التطوير الحديث</p>
               <p class="mt-3 text-sm leading-7">
                 أضيفت للموقع ممرات ومناطق جلوس وألعاب ومساحات مزروعة وعناصر مائية ومواقع مشاهدة، مع توسعات متتابعة تشمل «ممشى الغيم» وحديقة اللافندر ومشروعات تهيئة مرتبطة بالمطلّات.
@@ -277,6 +295,8 @@ const description = 'دليل عربي مستقل غير ربحي إلى غاب�
         </div>
       </div>
     </section>
+
+    <WeatherSection lat="20.0220551" lon="41.4334279" />
 
     <section id="facilities" class="section-space border-y border-[var(--line)] bg-white/45">
       <div class="container-site">
@@ -341,10 +361,10 @@ const description = 'دليل عربي مستقل غير ربحي إلى غاب�
         </div>
         <div class="mt-10 grid gap-5 lg:grid-cols-4">
           {[
-            ['المطار', 'مطار الملك سعود بن عبدالعزيز في العقيق هو مطار الباحة. تضعه معلومات الطيران المدني على مسافة تقارب 46 كم شمال شرق مدينة الباحة. بعد الوصول، أكمل براً نحو المدينة ثم غرباً إلى رغدان.'],
-            ['السيارة', 'أدخل الإحداثيات 20.0220551، 41.4334279 أو افتح رابط الخريطة. راقب الضباب والمنعطفات، وخفف السرعة عند انخفاض الرؤية أو هطول المطر.'],
-            ['الحافلات', 'لا نعتمد في هذا الدليل على وجود محطة حافلات ثابتة عند بوابة الغابة. إن وصلت إلى الباحة بحافلة بين المدن، خطط مسبقاً لوسيلة الجزء الأخير وتحقق من الشبكة المحلية وقت الرحلة.'],
-            ['سيارة الأجرة', 'سيارة الأجرة أو خدمات الحجز بالنقل خيار عملي من المطار أو مدينة الباحة. اتفق على نقطة العودة أو تحقق من إمكانية طلب رحلة عودة، خصوصاً في الساعات المتأخرة أو ذروة الموسم.']
+            ['المطار', 'مطار الملك سعود بن عبدالعزيز في العقيق هو مطار الباحة. تضعه معلومات الطيران المدني على مسافة تقارب 46 كم شمال شرق مدينة الباحة. الخطوات العملية: استلم أمتعتك، ثم إمّا تستأجر سيارة من الأنواع المتاحة في المطار أو المدينة، وإما تستقل سيارة أجرة أو خدمة حجز نقل نحو الباحة، ثم تكمل غرباً وصولاً إلى رغدان.'],
+            ['السيارة', 'أدخل الإحداثيات 20.0220551، 41.4334279 أو افتح رابط الخريطة. راقب الضباب والمنعطفات، وخفف السرعة عند انخفاض الرؤية أو هطول المطر. املأ خزان الوقود قبل المرتفعات.'],
+            ['النقل العام', 'لا نعتمد في هذا الدليل على وجود خط حافلات ثابت يصل مباشرة إلى بوابة الغابة. إن وصلت إلى الباحة بوسيلة نقل بين المدن، خطط مسبقاً لوسيلة الجزء الأخير وتحقق من شبكة النقل المحلية وقت الرحلة.'],
+            ['سيارة الأجرة', 'سيارة الأجرة أو خدمات الحجز بالنقل خيار عملي من المطار أو مدينة الباحة. اتفق على نقطة العودة أو تحقق من إمكانية طلب رحلة عودة، خصوصاً في الساعات المتأخرة أو ذروة الموسم، إذ قد تقل الرحلات المتجهة إلى المرتفعات ليلاً.']
           ].map(([name, text]) => (
             <article class="rounded-[1.6rem] bg-white p-6 shadow-[0_12px_36px_rgba(17,37,29,.05)]">
               <div class="mb-8 h-1.5 w-12 rounded-full bg-[var(--forest-700)]"></div>
@@ -365,15 +385,16 @@ const description = 'دليل عربي مستقل غير ربحي إلى غاب�
         <div class="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
           <div>
             <span class="eyebrow">قبل أن تدخل الغابة</span>
-            <h2 class="section-title">الطعام، السكن، التسوق والوقود بلا توصيات تجارية</h2>
-            <p class="section-lead">نحن لا نرتب القوائم حسب عمولة أو إعلان، ولا نوصي بمنشآت بعينها. هذه فقط أنواع الخدمات التي يفيد البحث عنها حول مدينة الباحة بحسب احتياجك.</p>
+            <h2 class="section-title">الطعام والسكن والتسوق والوقود بلا توصيات تجارية</h2>
+            <p class="section-lead">نحن لا نرتب القوائم حسب عمولة أو إعلان، ولا نوصي بمنشآت بعينها. هذه فقط أنواع الخدمات التي يفيد البحث عنها حول مدينة الباحة بحسب احتياجك، مع ملاحظات عملية للتخطيط.</p>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
             {[
-              ['الطعام', 'ابحث عن مطاعم عائلية أو مطابخ محلية أو مقاهٍ في مدينة الباحة، أو استخدم الأكشاك وعربات الطعام الموسمية إن كانت تعمل داخل المناطق المطورة.'],
-              ['السكن', 'تتوفر في نطاق الباحة فنادق وشقق مخدومة ومنتجعات وبيوت إقامة. اختر الموقع وفق قربه من المدينة أو رغبتك في الهدوء الجبلي، لا وفق ترتيب تجاري من هذا الدليل.'],
-              ['المتاجر', 'من الأفضل شراء الماء والمستلزمات الأساسية من سوبرماركت أو متجر تموين داخل النطاق العمراني قبل فترات الذروة، خصوصاً إذا كانت زيارتك طويلة.'],
-              ['الوقود والشحن', 'توجد محطات وقود على الطرق الرئيسية حول الباحة. لا نؤكد وجود شاحن مركبات كهربائية داخل الغابة؛ تحقق من تطبيق الخرائط أو مزود الشحن قبل صعود الطريق إذا كانت المركبة كهربائية.']
+              ['الطعام والمشروبات', 'ابحث في مدينة الباحة عن مطاعم عائلية ومطابخ محلية ومقاهٍ بمختلف الأنواع، أو استخدم الأكشاك وعربات الطعام الموسمية إن كانت تعمل داخل المناطق المطورة. لا تعتمد على توفر خيار محدد في كل وقت، واحرص على شرب كمية كافية من الماء.'],
+              ['السكن', 'تتوفر في نطاق الباحة فنادق وشقق مخدومة ومنتجعات وبيوت إقامة. اختر الموقع وفق قربه من المدينة أو رغبتك في الهدوء الجبلي، لا وفق ترتيب تجاري من هذا الدليل. احجز مبكراً في مواسم الذروة الصيفية.'],
+              ['السوبرماركت والتموين', 'من الأفضل شراء الماء والمستلزمات الأساسية والخفيفة من سوبرماركت أو متجر تموين داخل النطاق العمراني قبل صعود الطريق، خصوصاً إذا كانت زيارتك طويلة أو مع أطفال.'],
+              ['الوقود والشحن', 'توجد محطات وقود على الطرق الرئيسية حول الباحة. لا نؤكد وجود شاحن مركبات كهربائية داخل الغابة؛ تحقق من تطبيق الخرائط أو مزود الشحن قبل صعود الطريق إذا كانت مركبتك كهربائية، وامتلئ الخزان قبل المرتفعات.'],
+              ['خدمات داخل الغابة', 'تظهر في المواسم أكشاك وعربات طعام وخدمات بيع، إضافة إلى دورات المياه ومناطق الجلوس ومواقع الصلاة. لا تعتمد على توفر كل خيار في كل وقت، فبعض المرافق قد يتغير بتوقيت الموسم والصيانة.']
             ].map(([name, text]) => (
               <article class="rounded-[1.4rem] border border-[var(--line)] p-6">
                 <h3 class="font-black text-[var(--forest-800)]">{name}</h3>
@@ -417,6 +438,193 @@ const description = 'دليل عربي مستقل غير ربحي إلى غاب�
     <section class="section-space">
       <div class="container-site">
         <div class="max-w-3xl">
+    <!-- ============ الاستراتيجية الموسمية ============ -->
+    <section id="seasons" class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <div class="max-w-3xl">
+          <span class="eyebrow">متى تزور؟</span>
+          <h2 class="section-title">جدول الاستراتيجية حسب الفصول</h2>
+          <p class="section-lead">تختلف مرتفعات الباحة عن بقية المناطق باعتدالها النسبي صيفاً وبرودتها ليلاً شتاءً بفضل الارتفاع. الجدول إطار عام للمساعدة على التخطيط، لا أرقاماً دقيقة مضمونة؛ راجع الجهة الرسمية للأرصاد قبل السفر.</p>
+        </div>
+        <div class="mt-10 overflow-x-auto rounded-[2rem] border border-[var(--line)] bg-white/75 shadow-[var(--shadow)]">
+          <table class="w-full min-w-[680px] border-collapse text-right text-sm">
+            <thead class="bg-[var(--forest-800)] text-white">
+              <tr>
+                <th class="p-4 font-black">الفصل</th>
+                <th class="p-4 font-black">الأجواء المتوقعة</th>
+                <th class="p-4 font-black">الأنسب لـ</th>
+                <th class="p-4 font-black">ما تحمله</th>
+                <th class="p-4 font-black">ملاحظات السلامة</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--line)]">
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الشتاء<br><span class="text-xs font-normal text-[var(--muted)]">ديسمبر – فبراير</span></td>
+                <td class="p-4 align-top">برودة ليلية قد تقترب من الصفر في بعض الليالي، نهار معتدل، أمطار متفرقة محتملة وضباب صباحي متكرر.</td>
+                <td class="p-4 align-top">المشي النهاري الهادئ وتصوير الضباب.</td>
+                <td class="p-4 align-top">طبقة دافئة وجاكيت، وأحذية بقبضة جيدة.</td>
+                <td class="p-4 align-top">انخفاض الرؤية صباحاً، وأسطح زلقة عند الهطول.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الربيع<br><span class="text-xs font-normal text-[var(--muted)]">مارس – مايو</span></td>
+                <td class="p-4 align-top">أجواء لطيفة عموماً، مع احتمال زيادة الأمطارة الموسمية والغطاء النباتي الأكثر خضرة.</td>
+                <td class="p-4 align-top">النزهات العائلية وتصوير الطبيعة بعد المطر.</td>
+                <td class="p-4 align-top">ملابس بطبقات، ومطر خفيف احتياطي.</td>
+                <td class="p-4 align-top">تجنب مجاري الأودية عند هطول غزير.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الصيف<br><span class="text-xs font-normal text-[var(--muted)]">يونيو – أغسطس</span></td>
+                <td class="p-4 align-top">ألطف بكثير من المناطق الأكثر حرارة؛ نهار معتدل وليل منعش، مع ذروة ازدحام الزوار.</td>
+                <td class="p-4 align-top">الهروب من حرارة السهل، والجلوس المسائي.</td>
+                <td class="p-4 align-top">ملابس صيفية خفيفة، وقبعة للشمس الظهيرة.</td>
+                <td class="p-4 align-top">الازدحام عند المداخل والمطلات؛ تعال مبكراً.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">الخريف<br><span class="text-xs font-normal text-[var(--muted)]">سبتمبر – نوفمبر</span></td>
+                <td class="p-4 align-top">اعتدال عام وتهدئة بعد ذروة الصيف، مع فرص لضباب الصباح والإطلالات الصافية.</td>
+                <td class="p-4 align-top">التصوير والزيارات الطويلة دون زحام الذروة.</td>
+                <td class="p-4 align-top">طبقة خفيفة للمساء، وماء كافٍ.</td>
+                <td class="p-4 align-top">تغير الرؤية سريعاً مع تشكل السحب المنخفضة.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ تحليل المناخ والمياه والحياة الفطرية ============ -->
+    <section id="climate" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <span class="eyebrow">خلفية علمية</span>
+            <h2 class="section-title">المناخ والمياه والحياة الفطرية في مرتفعات الباحة</h2>
+            <p class="section-lead">لمحة بيئية عامة تساعد على فهم سبب تميز المكان، لا بيانات دقيقة مضمونة. راجع المرجع الرسمي للأرصاد قبل الاعتماد على أي رقم.</p>
+          </div>
+          <div class="grid gap-7 text-[var(--muted)] md:grid-cols-2">
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">المناخ الجبلي</h3>
+              <p class="mt-3 text-sm leading-7">تقع رغدان على جبال السروات عند ارتفاع يتجاوز 1,700 متر، ما يجعل صيفها أكثر اعتدالاً من السهل المجاور وليلها أكثر برودة. تُعدّ هذه الارتفاعات ضمن النطاق الذي يشهد ضباباً وغيوماً منخفضة تتشكل فوق المنحدرات، وهي سمة متكررة لا موسمية مضمونة. للأرقام الدقيقة راجع المركز الوطني للأرصاد.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">المياه والأودية</h3>
+              <p class="mt-3 text-sm leading-7">تتحول المنحدرات إلى مجارٍ مائية مؤقتة عند هطول الأمطار، وقد يحدث جريان مفاجئ في الأودية المجاورة. لا تقترب من مسارات المياه أو البرك أثناء العواصف، ولا تقطع مجرى وادٍ جريانه غير معلوم. هذه إرشادات سلامة عامة لا بديل عن تعليمات الدفاع المدني.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">الغطاء النباتي</h3>
+              <p class="mt-3 text-sm leading-7">يُعدّ العرعر من أبرز مكونات الغطاء النباتي الطبيعي في مرتفعات الباحة، ويمنح الغابة هويتها البصرية والبيئية. تحيط بالموقع أنواع شجيرات وعشبيات متوسطية النزعة تتأثر بالارتفاع والرطوبة المحلية.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">الحياة الفطرية</h3>
+              <p class="mt-3 text-sm leading-7">توفر الغابة موئلاً للطيور واللافقاريات والكائنات الصغيرة المرتبطة بالغطاء الشجري. يبقى الرصد العلمي المتخصص محدوداً؛ لذلك نكتفي بوصف أنماط عامة ولا نفترض تواجد أنواع بعينها دون مصدر موثق.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ جولات حسب نوع الزوار ============ -->
+    <section id="tours" class="section-space bg-[var(--forest-950)] text-white">
+      <div class="container-site">
+        <div class="max-w-3xl">
+          <span class="eyebrow !text-[var(--sand)]">خطط حسب تشكيلتك</span>
+          <h2 class="section-title">جولات مقترحة لكل نوع زوار</h2>
+          <p class="section-lead">ثلاثة مسارات موجهة بحسب طبيعة المجموعة وإيقاعها: عائلات مع أطفال، ومصورو الطبيعة، وكبار السن أو ذوو الحركة المحدودة.</p>
+        </div>
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">العائلات مع الأطفال</p>
+            <h3 class="mt-2 text-2xl font-black">يوم هادئ ومريح</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/90">
+              <li>ابدأوا من المناطق المطورة القريبة من المواقف ومناطق الجلوس.</li>
+              <li>خصصوا وقتاً لمناطق الألعاب ومسارات المشي القصيرة المسطحة.</li>
+              <li>احرصوا على الإشراف المباشر قرب الحواف والمنحدرات.</li>
+              <li>تجنبوا ذروة الزحام بزيارة مبكرة أو بعد العصر.</li>
+            </ul>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">مصورو الطبيعة</p>
+            <h3 class="mt-2 text-2xl font-black">صيد الضباب والإطلالات</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/90">
+              <li>راقبوا تشكل السحب المنخفضة صباحاً وتبدّل الإطلالة.</li>
+              <li>استهدفوا المطلات العلوية والحواف الآمنة للزوايا الواسعة.</li>
+              <li>جرّبوا الساعات الذهبية قرب الشروق والغروب.</li>
+              <li>احترموا مسارات الغير والممرات المهيأة عند التحرك.</li>
+            </ul>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">كبار السن / ذوو الحركة المحدودة</p>
+            <h3 class="mt-2 text-2xl font-black">مسارات مهيأة وراحة</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/90">
+              <li>استفيدوا من المواقف المهيأة والمسارات المعبدة.</li>
+              <li>وزّعوا الراحة عند المقاعد والمناطق المظللة.</li>
+              <li>تجنبوا المسارات شديدة الانحدار أو غير المهيأة.</li>
+              <li>حافظوا على قربكم من المرافق الرئيسية للخدمات.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ مسارات عامة ============ -->
+    <section id="routes" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <article class="rounded-[2rem] bg-[var(--mist-100)] p-7 lg:p-10">
+            <span class="eyebrow">مسار مقترح</span>
+            <h2 class="mt-5 text-3xl font-black">زيارة نصف يوم (3 – 4 ساعات)</h2>
+            <ol class="mt-6 space-y-4 text-sm text-[var(--muted)]">
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">1</span><span>الوصول المبكر وركن السيارة في الموقف الرئيسي قرب المناطق المطورة.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">2</span><span>المشي الهادئ عبر الممرات والمطلات الرئيسية ومشاهدة العرعر.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">3</span><span>استراحة عند مقاعد الجلوس ومنطقة الألعاب للعائلات.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">4</span><span>جولة تصوير خفيفة عند الحافة الآمنة، ثم العودة قبل الزحام.</span></li>
+            </ol>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
+            <span class="eyebrow">مسار مقترح</span>
+            <h2 class="mt-5 text-3xl font-black">يوم كامل (6 – 8 ساعات)</h2>
+            <ol class="mt-6 space-y-4 text-sm text-[var(--muted)]">
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">1</span><span>صباح في غابة رغدان: ممرات، مطلات، ومنطقة اللافندر والمطورة.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">2</span><span>فترة غداء في مدينة الباحة ضمن الأنواع المتاحة من المطاعم والمقاهي.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">3</span><span>بعد الظهر: معلم قريب مثل سوق رغدان التاريخي أو منتزه الأمير حسام.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">4</span><span>ختم اليوم بإطلالة الغروب في رغدان أو متحف الباحة الإقليمي حسب المواعيد.</span></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ العلم والزيارة المسؤولة ============ -->
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
+          <div>
+            <span class="eyebrow">علم وتمكين</span>
+            <h2 class="section-title">الزيارة المسؤولة والحفاظ على المكان</h2>
+            <p class="section-lead">المعلومة العلمية تكون أكثر فائدة عندما تقترن بسلوك يحمي الموقع الطبيعي للأجيال القادمة.</p>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2">
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">ابقَ على الممرات</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">يساعد المشي ضمن المسارات المهيأة على حماية الغطاء النباتي والحد من انجراف التربة على المنحدرات.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">صفر نفايات</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">أعِد ما أحضرته معك، ولا تترك مخلفات الأطعمة أو العبوات؛ الحفاظ على النظافة مسؤولية جماعية.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">لا تقتات الحياة البرية</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">تجنب إطعاء الطيور أو الكائنات الأخرى، فذلك يخلّ بالتوازن الطبيعي ويسبب إزعاجاً للزوار الآخرين.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">السلامة أولاً</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">احترم اللافتات الميدانية وتعليمات الدفاع المدني، ولا تقترب من حواف غير محمية أثناء الضباب أو المطر.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
           <span class="eyebrow">أماكن قريبة</span>
           <h2 class="section-title">ضع رغدان داخل يوم كامل لفهم الباحة</h2>
           <p class="section-lead">هذه معالم عامة غير تجارية تساعد على بناء سياق للمنطقة. لا نعطي ترتيب «الأفضل»، بل نقترح أنواعاً مختلفة من التجربة.</p>

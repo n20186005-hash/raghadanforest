@@ -2,8 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalHeader from '../components/LegalHeader.astro';
 import Footer from '../components/Footer.astro';
+import { withSiteName } from '../data/site';
 
-const title = 'إعدادات ملفات تعريف الارتباط | دليل غابة رغدان';
+const title = withSiteName('إعدادات ملفات تعريف الارتباط');
 const description = 'إدارة ملفات تعريف الارتباط وتفضيلات التحليلات في دليل غابة رغدان.';
 ---
 <BaseLayout title={title} description={description}>

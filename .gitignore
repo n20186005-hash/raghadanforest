@@ -1,7 +1,25 @@
+# ===== تبعيات ومخرجات البناء (لا تُرفع إلى المستودع) =====
 node_modules/
 dist/
 .astro/
 .wrangler/
+
+# ===== متغيرات البيئة والأسرار =====
 .env
 .env.*
+.dev.vars
+
+# ===== سجلات وأدوات مؤقتة =====
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ===== ملفات نظام التشغيل والمحرر =====
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ===== ما يُرفع فعلاً عند النشر =====
+# يُبقى: src/ ، public/ ، astro.config.* ، wrangler.jsonc ، worker.js ،
+# package.json ، pnpm-lock.yaml ، tsconfig.json ، README.md والملفات المصدرية.

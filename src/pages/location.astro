@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalHeader from '../components/LegalHeader.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_NAME, withSiteName, NAP, GOVT_TOURISM_URL } from '../data/site';
+import { faq, faqLd, attractionLd, mapEmbed } from '../data/guide';
+
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
+
+const title = withSiteName('الموقع والخريطة والوصول');
+const description = 'موقع غابة رغدان في الباحة: العنوان، الإحداثيات 20.0220551، 41.4334279، رابط خرائط جوجل، وطرق الوصول من المطار بالسيارة أو سيارة الأجرة.';
+
+const faqItems = [faq.ar[6], faq.ar[4], faq.ar[8]];
+const structured = [attractionLd('ar', siteUrl), faqLd(faqItems)];
+---
+<BaseLayout title={title} description={description} lang="ar" structuredData={structured}>
+  <LegalHeader />
+  <main id="main-content">
+    <section class="bg-[var(--forest-950)] text-white">
+      <div class="container-site py-16 lg:py-20">
+        <p class="text-sm font-bold text-[var(--sand)]">الموقع والخريطة</p>
+        <h1 class="mt-3 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-black leading-[.95]">أين تقع غابة رغدان؟ العنوان والخريطة والوصول</h1>
+        <p class="mt-5 max-w-2xl text-lg text-white/90">تقع الغابة غرب مدينة الباحة على مرتفعات السروات. احفظ نقطة الوصول قبل صعود الطريق الجبلي، وراجع الضباب والمنعطفات أثناء القيادة.</p>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/55">
+      <div class="container-site">
+        <div class="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <div>
+            <span class="eyebrow">الخريطة</span>
+            <h2 class="section-title">احفظ نقطة الوصول قبل صعود الطريق</h2>
+            <p class="section-lead">إحداثيات الغابة المستخدمة هنا مأخوذة من رابط الخريطة: 20.0220551، 41.4334279.</p>
+            <a href={NAP.mapsUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex rounded-full border border-[var(--line)] bg-white px-5 py-3 text-sm font-black text-[var(--forest-900)] transition hover:bg-[var(--mist-100)]">فتح خرائط جوجل</a>
+          </div>
+          <div class="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--mist-100)] shadow-[var(--shadow)]">
+            <iframe src={mapEmbed} width="600" height="450" class="h-[470px] w-full border-0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="خريطة غابة رغدان في الباحة"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
+            <span class="eyebrow">عنوان الملاحة</span>
+            <h2 class="mt-5 text-3xl font-black">العنوان والإحداثيات</h2>
+            <p class="mt-4 text-[var(--muted)]">4657 الحكم الزروقي، 6905، الباحة 65731، المملكة العربية السعودية.</p>
+            <p class="mt-3 text-sm text-[var(--muted)]">الإحداثيات: 20.0220551، 41.4334279 — أدخلها في تطبيق الخرائط أو افتح الرابط أعلاه.</p>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
+            <span class="eyebrow !text-[var(--sand)]">أقرب مطار</span>
+            <h2 class="mt-5 text-3xl font-black">مطار العقيق ثم الطريق الجبلي</h2>
+            <p class="mt-4 text-white/92">مطار الملك سعود بن عبدالعزيز في العقيق هو مطار الباحة، على مسافة تقارب 46 كم شمال شرق المدينة. استلم أمتعتك ثم أكمل بسيارة مستأجرة أو سيارة أجرة نحو الباحة، وصولاً إلى رغدان غرباً.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <span class="eyebrow">طرق الوصول</span>
+        <h2 class="section-title">السيارة، النقل العام، وسيارة الأجرة</h2>
+        <div class="mt-10 grid gap-5 lg:grid-cols-3">
+          {[
+            ['السيارة', 'أدخل الإحداثيات أو افتح رابط الخريطة. راقب الضباب والمنعطفات، وخفف السرعة عند انخفاض الرؤية أو هطول المطر. املأ خزان الوقود قبل المرتفعات.'],
+            ['النقل العام', 'لا نعتمد على وجود خط حافلات ثابت يصل مباشرة إلى بوابة الغابة. إن وصلت إلى الباحة بوسيلة نقل بين المدن، خطط مسبقاً لوسيلة الجزء الأخير وتحقق من شبكة النقل المحلية وقت الرحلة.'],
+            ['سيارة الأجرة', 'سيارة الأجرة أو خدمات الحجز خيار عملي من المطار أو المدينة. اتفق على نقطة العودة أو تحقق من إمكانية طلب رحلة عودة، خصوصاً في الساعات المتأخرة أو ذروة الموسم.']
+          ].map(([name, text]) => (
+            <article class="rounded-[1.6rem] bg-white p-6 shadow-[0_12px_36px_rgba(17,37,29,.05)]">
+              <div class="mb-8 h-1.5 w-12 rounded-full bg-[var(--forest-700)]"></div>
+              <h3 class="text-xl font-black">{name}</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">الأسئلة الشائعة</span>
+            <h2 class="section-title">وصول وموقع</h2>
+          </div>
+          <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {faqItems.map((item, index) => (
+              <details class="group py-1" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-black">
+                  <span>{item.q}</span>
+                  <span class="text-xl text-[var(--forest-700)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="max-w-3xl pb-6 text-sm text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <span class="eyebrow">صفحات ذات صلة</span>
+        <h2 class="section-title">وسّع التخطيط</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <a href="/tickets/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">تذاكر الدخول والأسعار</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">الدخول بلا تذكرة، المواقف، والمرافق.</p>
+          </a>
+          <a href="/guide/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">دليل الزيارة الشامل</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">ما ستراه، الفصول، والجولات.</p>
+          </a>
+          <a href="/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">الدليل الرئيسي</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">الصفحة الكاملة مع الطقس المباشر.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,33 @@
+{
+  "name": "دليل غابة رغدان",
+  "short_name": "غابة رغدان",
+  "description": "دليل عربي مستقل غير ربحي إلى غابة رغدان في الباحة: الطبيعة، أوقات الزيارة، الخدمات، الخريطة والأسئلة الشائعة.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#11251d",
+  "theme_color": "#11251d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalHeader from '../../components/LegalHeader.astro';
+import Footer from '../../components/Footer.astro';
+import { withSiteNameEn, NAP } from '../../data/site';
+import { faq, faqLd, attractionLd, mapEmbed } from '../../data/guide';
+
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
+
+const title = withSiteNameEn('Location, Map & How to Get There');
+const description = 'Where is Raghadan Forest in Al Bahah: address, coordinates 20.0220551, 41.4334279, Google Maps link, and how to get there from the airport by car or taxi.';
+
+const faqItems = [faq.en[6], faq.en[4], faq.en[8]];
+const structured = [attractionLd('en', siteUrl), faqLd(faqItems)];
+---
+<BaseLayout title={title} description={description} lang="en" structuredData={structured}>
+  <LegalHeader />
+  <main id="main-content">
+    <section class="bg-[var(--forest-950)] text-white">
+      <div class="container-site py-16 lg:py-20">
+        <p class="text-sm font-bold text-[var(--sand)]">Location &amp; map</p>
+        <h1 class="mt-3 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-black leading-[.95]">Where is Raghadan Forest? Address, map &amp; access</h1>
+        <p class="mt-5 max-w-2xl text-lg text-white/90">The forest lies west of Al Bahah city on the Sarawat highlands. Save the arrival point before climbing the mountain road, and watch for fog and curves while driving.</p>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/55">
+      <div class="container-site">
+        <div class="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <div>
+            <span class="eyebrow">Map</span>
+            <h2 class="section-title">Save the arrival point before the climb</h2>
+            <p class="section-lead">The forest coordinates used here are taken from the map link: 20.0220551, 41.4334279.</p>
+            <a href={NAP.mapsUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex rounded-full border border-[var(--line)] bg-white px-5 py-3 text-sm font-black text-[var(--forest-900)] transition hover:bg-[var(--mist-100)]">Open Google Maps</a>
+          </div>
+          <div class="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--mist-100)] shadow-[var(--shadow)]">
+            <iframe src={mapEmbed} width="600" height="450" class="h-[470px] w-full border-0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Map of Raghadan Forest in Al Bahah"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
+            <span class="eyebrow">Navigation address</span>
+            <h2 class="mt-5 text-3xl font-black">Address &amp; coordinates</h2>
+            <p class="mt-4 text-[var(--muted)]">4657 Al Hakam Al ZaroOqi, 6905, Al Bahah 65731, Saudi Arabia.</p>
+            <p class="mt-3 text-sm text-[var(--muted)]">Coordinates: 20.0220551, 41.4334279 — enter them in a maps app or open the link above.</p>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
+            <span class="eyebrow !text-[var(--sand)]">Nearest airport</span>
+            <h2 class="mt-5 text-3xl font-black">Al Aqeeq airport then the mountain road</h2>
+            <p class="mt-4 text-white/92">King Saud bin Abdulaziz Airport in Al Aqeeq is Al Bahah\'s airport, about 46 km northeast of the city. Collect luggage, then continue by a rented car or taxi toward Al Bahah, reaching Raghadan to the west.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <span class="eyebrow">Ways to get there</span>
+        <h2 class="section-title">Car, public transport, and taxi</h2>
+        <div class="mt-10 grid gap-5 lg:grid-cols-3">
+          {[
+            ['Car', 'Enter the coordinates or open the map link. Watch for fog and curves, and slow down when visibility drops or it rains. Fill the fuel tank before the highlands.'],
+            ['Public transport', 'We do not rely on a fixed bus line reaching the forest gate directly without checking first. If you reach Al Bahah by intercity transport, plan the final leg in advance and check the local transport network at travel time.'],
+            ['Taxi', 'A taxi or booked transfer is a practical option from the airport or city. Agree on a return point or check the possibility of booking a return ride, especially late at night or at peak season.']
+          ].map(([name, text]) => (
+            <article class="rounded-[1.6rem] bg-white p-6 shadow-[0_12px_36px_rgba(17,37,29,.05)]">
+              <div class="mb-8 h-1.5 w-12 rounded-full bg-[var(--forest-700)]"></div>
+              <h3 class="text-xl font-black">{name}</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">Frequently asked questions</span>
+            <h2 class="section-title">Location &amp; access</h2>
+          </div>
+          <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {faqItems.map((item, index) => (
+              <details class="group py-1" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-black">
+                  <span>{item.q}</span>
+                  <span class="text-xl text-[var(--forest-700)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="max-w-3xl pb-6 text-sm text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <span class="eyebrow">Related pages</span>
+        <h2 class="section-title">Expand the plan</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <a href="/en/tickets/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Tickets &amp; prices</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">Free entry, parking, and facilities.</p>
+          </a>
+          <a href="/en/guide/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Full visitor guide</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">What you will see, seasons, and tours.</p>
+          </a>
+          <a href="/en/" class="rounded-[1.6rem] border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+            <h3 class="text-lg font-black text-[var(--forest-800)]">Main guide</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">The full page with live weather.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

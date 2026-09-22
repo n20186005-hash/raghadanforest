@@ -1,37 +1,63 @@
 ---
 import Logo from './Logo.astro';
+
+const isEn = Astro.url.pathname.startsWith('/en');
+const p = (path: string) => (isEn ? '/en' + path : path);
+const T = isEn
+  ? {
+      tagline: 'An independent knowledge guide that helps the visitor understand Raghadan Forest and plan a visit with practical information and verifiable public sources.',
+      linksTitle: 'Editorial & privacy links',
+      privacy: 'Privacy policy',
+      terms: 'Terms of use',
+      cookies: 'Cookie settings',
+      sourcesTitle: 'Reference public sources',
+      sourcesText: 'Al Bahah Municipality, the Saudi Tourism Authority via Visit Saudi, the Saudi Press Agency, and published civil aviation information.',
+      note1: 'This site is an independent, non-profit visitor guide project and is not affiliated with any government body or official organization or representing it.',
+      note2: 'Landmark information is reviewed against public materials from the Al Bahah Municipality, the Saudi Tourism Authority and relevant national entities, with no paid commercial recommendations or preference for any specific establishment.',
+      note3: 'Image rights: photographs belong to their photographers and original rights holders; attribution is noted where required.',
+      copyright: '© 2026 Raghadan Forest Guide. All rights reserved for original editorial content.'
+    }
+  : {
+      tagline: 'دليل معرفي مستقل يساعد الزائر على فهم غابة رغدان والتخطيط لزيارتها بمعلومات عملية ومصادر عامة قابلة للتحقق.',
+      linksTitle: 'روابط التحرير والخصوصية',
+      privacy: 'سياسة الخصوصية',
+      terms: 'شروط الاستخدام',
+      cookies: 'إعدادات ملفات تعريف الارتباط',
+      sourcesTitle: 'المصادر العامة المرجعية',
+      sourcesText: 'أمانة منطقة الباحة، والهيئة السعودية للسياحة عبر «روح السعودية»، ووكالة الأنباء السعودية، ومعلومات الطيران المدني المنشورة للعامة.',
+      note1: 'هذا الموقع مشروع دليل مستقل غير ربحي للزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية ولا يمثلها.',
+      note2: 'تُراجع معلومات المعلم بالاستناد إلى المواد العامة المنشورة من أمانة منطقة الباحة والهيئة السعودية للسياحة والجهات الوطنية ذات الصلة، ولا تتضمن توصيات تجارية مدفوعة أو تفضيلاً لمنشأة تجارية بعينها.',
+      note3: 'حقوق الصور: تعود حقوق وملكية الصور المعروضة إلى مصوريها وأصحاب التراخيص الأصليين، وتُذكر بيانات الإسناد حيث يلزم.',
+      copyright: '© 2026 دليل غابة رغدان. جميع الحقوق محفوظة للمحتوى التحريري الأصلي.'
+    };
 ---
 <footer class="bg-[var(--forest-950)] text-white">
   <div class="container-site py-14">
     <div class="grid gap-10 border-b border-white/12 pb-10 lg:grid-cols-[1fr_1.4fr]">
       <div>
         <Logo inverse />
-        <p class="mt-5 max-w-md text-sm leading-7 text-white/90">
-          دليل معرفي مستقل يساعد الزائر على فهم غابة رغدان والتخطيط لزيارتها بمعلومات عملية ومصادر عامة قابلة للتحقق.
-        </p>
+        <p class="mt-5 max-w-md text-sm leading-7 text-white/90">{T.tagline}</p>
       </div>
       <div class="grid gap-8 sm:grid-cols-2">
         <div>
-          <h2 class="text-sm font-black">روابط التحرير والخصوصية</h2>
+          <h2 class="text-sm font-black">{T.linksTitle}</h2>
           <div class="mt-4 grid gap-2 text-sm text-white/90">
-            <a class="hover:text-white" href="/privacy/">سياسة الخصوصية</a>
-            <a class="hover:text-white" href="/terms/">شروط الاستخدام</a>
-            <a class="hover:text-white" href="/cookies/">إعدادات ملفات تعريف الارتباط</a>
+            <a class="hover:text-white" href={p('/privacy/')}>{T.privacy}</a>
+            <a class="hover:text-white" href={p('/terms/')}>{T.terms}</a>
+            <a class="hover:text-white" href={p('/cookies/')}>{T.cookies}</a>
           </div>
         </div>
         <div>
-          <h2 class="text-sm font-black">المصادر العامة المرجعية</h2>
-          <p class="mt-4 text-sm leading-7 text-white/90">
-            أمانة منطقة الباحة، والهيئة السعودية للسياحة عبر «روح السعودية»، ووكالة الأنباء السعودية، ومعلومات الطيران المدني المنشورة للعامة.
-          </p>
+          <h2 class="text-sm font-black">{T.sourcesTitle}</h2>
+          <p class="mt-4 text-sm leading-7 text-white/90">{T.sourcesText}</p>
         </div>
       </div>
     </div>
     <div class="mt-8 space-y-3 text-xs leading-6 text-white/80">
-      <p>هذا الموقع مشروع دليل مستقل غير ربحي للزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية ولا يمثلها.</p>
-      <p>تُراجع معلومات المعلم بالاستناد إلى المواد العامة المنشورة من أمانة منطقة الباحة والهيئة السعودية للسياحة والجهات الوطنية ذات الصلة، ولا تتضمن توصيات تجارية مدفوعة أو تفضيلاً لمنشأة تجارية بعينها.</p>
-      <p>حقوق الصور: تعود حقوق وملكية الصور المعروضة إلى مصوريها وأصحاب التراخيص الأصليين، وتُذكر بيانات الإسناد حيث يلزم.</p>
-      <p class="pt-2 font-bold text-white/88">© 2026 دليل غابة رغدان. جميع الحقوق محفوظة للمحتوى التحريري الأصلي.</p>
+      <p>{T.note1}</p>
+      <p>{T.note2}</p>
+      <p>{T.note3}</p>
+      <p class="pt-2 font-bold text-white/88">{T.copyright}</p>
     </div>
   </div>
 </footer>

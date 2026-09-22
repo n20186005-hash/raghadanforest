@@ -1,0 +1,368 @@
+---
+interface Props {
+  lat: string;
+  lon: string;
+  lang?: 'ar' | 'en';
+}
+const { lat, lon, lang = 'ar' } = Astro.props;
+const isEn = lang === 'en';
+const H = isEn
+  ? {
+      eyebrow: 'Current weather',
+      title: 'Conditions and the coming days',
+      lead: 'An updated weather glance to help you choose clothes and the right time to visit. The mountain setting can change visibility and the view within a few hours, so treat the forecast as a planning tool, not a guarantee.'
+    }
+  : {
+      eyebrow: 'الطقس الآن',
+      title: 'الحالة الجوية وتوقعات الأيام القادمة',
+      lead: 'لمحة جوية محدّثة تساعدك على اختيار الملابس والوقت المناسب للزيارة. الطابع الجبلي للموقع قد يغيّر الرؤية والإطلالة خلال ساعات قليلة، لذلك تعامل مع التوقعات كأداة تخطيط لا كضمان.'
+    };
+---
+{/* @ts-nocheck */}
+<section id="weather" class="section-space bg-[var(--mist-100)]">
+  <div class="container-site">
+    <div class="max-w-3xl">
+      <span class="eyebrow">{H.eyebrow}</span>
+      <h2 class="section-title">{H.title}</h2>
+      <p class="section-lead">{H.lead}</p>
+    </div>
+
+    <div id="weather-widget" class="mt-10" data-lat={lat} data-lon={lon} data-lang={lang}>
+      <div class="rounded-[2rem] border border-[var(--line)] bg-white/70 p-8 text-center text-[var(--muted)]" id="weather-loading">
+        {isEn ? 'Loading current weather…' : 'جارٍ تحميل الحالة الجوية…'}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var T = {
+      ar: {
+        wmo: {
+          0: ['صافٍ', '☀️', false, ''],
+          1: ['صافٍ إلى غائم جزئياً', '🌤️', false, ''],
+          2: ['غائم جزئياً', '⛅', false, ''],
+          3: ['غائم', '☁️', false, ''],
+          45: ['ضباب', '🌫️', false, 'انخفاض الرؤية بسبب الضباب'],
+          48: ['ضباب متجمد', '🌫️', false, 'انخفاض الرؤية بسبب الضباب'],
+          51: ['رذاذ خفيف', '🌦️', true, ''],
+          53: ['رذاذ', '🌦️', true, ''],
+          55: ['رذاذ كثيف', '🌦️', true, ''],
+          56: ['رذاذ متجمد', '🌧️', true, ''],
+          57: ['رذاذ متجمد كثيف', '🌧️', true, ''],
+          61: ['مطر خفيف', '🌧️', true, ''],
+          63: ['مطر متوسط', '🌧️', true, ''],
+          65: ['مطر غزير', '🌧️', true, ''],
+          66: ['مطر متجمد', '🌧️', true, ''],
+          67: ['مطر متجمد غزير', '🌧️', true, ''],
+          71: ['ثلج خفيف', '🌨️', true, ''],
+          73: ['ثلج', '🌨️', true, ''],
+          75: ['ثلج كثيف', '🌨️', true, ''],
+          77: ['حبات ثلج', '🌨️', true, ''],
+          80: ['رذاذ متقطع', '🌦️', true, ''],
+          81: ['مطر متقطع', '🌦️', true, ''],
+          82: ['مطر غزير متقطع', '⛈️', true, ''],
+          85: ['ثلج متقطع', '🌨️', true, ''],
+          86: ['ثلج غزير متقطع', '🌨️', true, ''],
+          95: ['عاصفة رعدية', '⛈️', true, 'احذر العواصف والبرق'],
+          96: ['رعد مع برد', '⛈️', true, 'احذر العواصف والبرد'],
+          99: ['رعد مع برد غزير', '⛈️', true, 'احذر العواصف والبرد']
+        },
+        uv: { low: 'منخفض', mod: 'متوسط', high: 'مرتفع', vhigh: 'مرتفع جداً', ext: 'متطرف' },
+        days: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+        now: 'الآن',
+        high: 'أعلى', low: 'أدنى', rainP: 'احتمال المطر', feels: 'الإحساس',
+        humidity: 'الرطوبة', wind: 'الرياح', uvS: 'الأشعة فوق البنفسجية',
+        windPrefix: ' كم/س (مستوى ', parenClose: ')',
+        seven: 'توقعات الأيام السبعة',
+        gWear: 'ملابس اليوم', gPlan: 'ترتيب الزيارة', gBring: 'ما تحمله معك',
+        alert: '⚠️ تنبيه السلامة', precip: 'مطر', pct: '٪',
+        fail: 'تعذّر تحميل الحالة الجوية الآن. راجع توقعات الطقس الرسمية قبل السفر.',
+        footer: 'توقعات جوية محدّثة لأغراض التخطيط؛ الظروف الجبلية قد تتغير سريعاً، فتحقق قبل السفر. النصائح مستنبطة من حالة الطقس الحالية ولا تمثل تنبيهاً رسمياً.',
+        outfit: {
+          hot: 'الحرارة مرتفعة نسبياً؛ ارتدِ ملابس خفيفة شديدة التهوية.',
+          cold: 'الحرارة منخفضة؛ احمل معطفاً سميكاً ووشاحاً للتدفئة.',
+          swing: 'فرق كبير بين الليل والنهار؛ احمل طبقة إضافية لتعديل الملابس.',
+          rain: 'أثناء المطر أو الرياح؛ يفضل معطف مقاوم للماء.',
+          wind: 'الرياح قوية؛ اختر ملابس تقي من الهواء.',
+          uv: 'الأشعة قوية؛ احمِ بشرتك عند الخروج.',
+          mild: 'الطقس معتدل؛ ملابس يومية مريحة تكفي عادةً.'
+        },
+        activity: {
+          thunder: 'عاصفة رعدية: تجنب الصعود للمرتفعات والوقوف تحت الأشجار أو قرب المياه.',
+          fog: 'ضباب يقلل الرؤية؛ غير مناسب لمشاهدة الإطلالات، سر ببطء وحذر.',
+          rainHeavy: 'مطر غزير: لا ننصح بالبقاء طويلاً في العراء؛ استفد من المسارات المظللة ومناطق الجلوس.',
+          rain: 'مطر خفيف: المسارات الزلقة تتطلب حذراً، والأنشطة المكشوفة أقل متعة.',
+          clear: 'سماء صافية: يوم ممتاز للمشي بين الأشجار والتقاط الصور.',
+          overcast: 'لا حرارة شمس لافحة؛ مناسب للتجول المديد في الغابة.',
+          change: 'أحوال متغيرة؛ راقب السماء وخطط لراحة بين الحين والآخر.',
+          windHi: 'رياح شديدة قد تؤثر على الأنشطة المكشوفة؛ وابتعد عن الحواف.',
+          noon: 'تجنب ذروة الظهيرة وقلّل وقت البقاء في العراء.'
+        },
+        items: {
+          umb: 'مظلة أو مطراً.',
+          coat: 'مطراً (لا ننصح بالمظلة الطويلة عند الرياح).',
+          fold: 'مظلة قابلة للطي.',
+          sun: 'واقٍ شمسي ونظارة شمسية وقبعة.',
+          water: 'ماءً كافياً وأدوات تبريد.',
+          coatCold: 'معطفاً سميكاً ووشاحاً.',
+          layer: 'طبقة ملابس إضافية.',
+          hat: 'ثبّت القبعة وتجنب الملابس الواسعة الطويلة.',
+          mask: 'كمامة للضباب.',
+          bug: 'طارد حشرات للغابة.'
+        },
+        risk: {
+          lightning: 'احذر البرق: لا تصعد المرتفعات، ولا تقف تحت الأشجار، وابتعد عن مجاري المياه.',
+          flood: 'الأمطار في المرتفعات قد تسبب جرياناً مفاجئاً في الأودية؛ تجنب الشعاب والمناطق المنخفضة.',
+          windHi: 'رياح قوية: ابتعد عن الحواف المكشوفة والمناطق المرتفعة المفتوحة.',
+          fog: 'ضباب كثيف يقلل الرؤية؛ سر ببطء وانتبه للأسطح الزلقة.',
+          ice: 'احتمال تجمد على الأسطح؛ انتبه للانزلاق.',
+          fire: 'جفاف وحرارة: لا تشعل ناراً داخل الغابة أو قرب الأشجار.'
+        }
+      },
+      en: {
+        wmo: {
+          0: ['Clear', '☀️', false, ''],
+          1: ['Clear to partly cloudy', '🌤️', false, ''],
+          2: ['Partly cloudy', '⛅', false, ''],
+          3: ['Overcast', '☁️', false, ''],
+          45: ['Fog', '🌫️', false, 'Reduced visibility from fog'],
+          48: ['Rime fog', '🌫️', false, 'Reduced visibility from fog'],
+          51: ['Light drizzle', '🌦️', true, ''],
+          53: ['Drizzle', '🌦️', true, ''],
+          55: ['Dense drizzle', '🌦️', true, ''],
+          56: ['Freezing drizzle', '🌧️', true, ''],
+          57: ['Dense freezing drizzle', '🌧️', true, ''],
+          61: ['Light rain', '🌧️', true, ''],
+          63: ['Rain', '🌧️', true, ''],
+          65: ['Heavy rain', '🌧️', true, ''],
+          66: ['Freezing rain', '🌧️', true, ''],
+          67: ['Heavy freezing rain', '🌧️', true, ''],
+          71: ['Light snow', '🌨️', true, ''],
+          73: ['Snow', '🌨️', true, ''],
+          75: ['Heavy snow', '🌨️', true, ''],
+          77: ['Snow grains', '🌨️', true, ''],
+          80: ['Rain showers', '🌦️', true, ''],
+          81: ['Rain showers', '🌦️', true, ''],
+          82: ['Violent rain showers', '⛈️', true, ''],
+          85: ['Snow showers', '🌨️', true, ''],
+          86: ['Heavy snow showers', '🌨️', true, ''],
+          95: ['Thunderstorm', '⛈️', true, 'Beware storms and lightning'],
+          96: ['Thunderstorm with hail', '⛈️', true, 'Beware storms and hail'],
+          99: ['Violent thunderstorm with hail', '⛈️', true, 'Beware storms and hail']
+        },
+        uv: { low: 'Low', mod: 'Moderate', high: 'High', vhigh: 'Very high', ext: 'Extreme' },
+        days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        now: 'Now',
+        high: 'High', low: 'Low', rainP: 'Rain chance', feels: 'Feels like',
+        humidity: 'Humidity', wind: 'Wind', uvS: 'UV index',
+        windPrefix: ' km/h (level ', parenClose: ')',
+        seven: '7-day forecast',
+        gWear: 'What to wear', gPlan: 'Plan your visit', gBring: 'What to bring',
+        alert: '⚠️ Safety alert', precip: 'Rain', pct: '%',
+        fail: 'Could not load the current weather. Check the official forecast before traveling.',
+        footer: 'Updated weather for planning only; mountain conditions can change quickly, so verify before travel. Tips are derived from current conditions and are not an official warning.',
+        outfit: {
+          hot: 'It is relatively hot; wear light, breathable clothing.',
+          cold: 'It is cold; bring a thick coat and a scarf to keep warm.',
+          swing: 'Large day–night temperature swing; carry an extra layer to adjust.',
+          rain: 'During rain or wind; a waterproof coat is preferable.',
+          wind: 'Strong wind; choose windproof clothing.',
+          uv: 'Strong sun; protect your skin when outside.',
+          mild: 'Mild weather; comfortable everyday clothes are usually enough.'
+        },
+        activity: {
+          thunder: 'Thunderstorm: avoid climbing heights, standing under trees, or being near water.',
+          fog: 'Fog reduces visibility; not ideal for overlooks, drive and walk slowly and carefully.',
+          rainHeavy: 'Heavy rain: we do not recommend long stays outdoors; use shaded trails and seating areas.',
+          rain: 'Light rain: slippery trails need caution, and open-air activities are less enjoyable.',
+          clear: 'Clear sky: an excellent day for walking among the trees and taking photos.',
+          overcast: 'No harsh sun; good for a long stroll through the forest.',
+          change: 'Changeable conditions; watch the sky and plan pauses now and then.',
+          windHi: 'Strong wind may affect open-air activities; stay away from edges.',
+          noon: 'Avoid the midday peak and reduce time spent outdoors.'
+        },
+        items: {
+          umb: 'An umbrella or raincoat.',
+          coat: 'A raincoat (avoid a long umbrella in wind).',
+          fold: 'A foldable umbrella.',
+          sun: 'Sunscreen, sunglasses and a hat.',
+          water: 'Enough water and cooling items.',
+          coatCold: 'A thick coat and a scarf.',
+          layer: 'An extra clothing layer.',
+          hat: 'Secure your hat and avoid loose, long clothing.',
+          mask: 'A mask for fog.',
+          bug: 'Insect repellent for the forest.'
+        },
+        risk: {
+          lightning: 'Beware lightning: do not climb heights, stand under trees, or go near water courses.',
+          flood: 'Rain in the highlands can cause sudden flash floods in valleys; avoid wadis and low areas.',
+          windHi: 'Strong wind: stay away from exposed edges and open high areas.',
+          fog: 'Dense fog reduces visibility; drive slowly and watch for slippery surfaces.',
+          ice: 'Possible ice on surfaces; watch for slipping.',
+          fire: 'Dry and hot: do not light fires in or near the forest.'
+        }
+      }
+    };
+
+    function wmo(lang, code) { return (T[lang].wmo[code]) || ['غير محدد', '🌡️', false, '']; }
+    function uvLabel(lang, uv) {
+      if (uv == null) return '—';
+      if (uv <= 2) return T[lang].uv.low;
+      if (uv <= 5) return T[lang].uv.mod;
+      if (uv <= 7) return T[lang].uv.high;
+      if (uv <= 10) return T[lang].uv.vhigh;
+      return T[lang].uv.ext;
+    }
+    function dayName(lang, iso) {
+      var d = new Date(iso + 'T00:00:00');
+      return T[lang].days[d.getDay()];
+    }
+    function round(n) { return Math.round(Number(n == null ? 0 : n)); }
+    function beaufort(kmh) {
+      var v = Number(kmh || 0);
+      if (v < 1) return 0;
+      if (v < 6) return 1;
+      if (v < 12) return 2;
+      if (v < 20) return 3;
+      if (v < 29) return 4;
+      if (v < 39) return 5;
+      if (v < 50) return 6;
+      if (v < 62) return 7;
+      if (v < 75) return 8;
+      if (v < 89) return 9;
+      if (v < 103) return 10;
+      return 11;
+    }
+    function groupCard(lang, title, icon, arr) {
+      if (!arr.length) return '';
+      return '<div class="rounded-[1.4rem] border border-[var(--line)] bg-white p-5">' +
+        '<p class="font-black text-[var(--forest-800)] mb-3">' + icon + ' ' + title + '</p>' +
+        '<ul class="space-y-2 text-sm text-[var(--muted)] list-disc pr-4">' +
+        arr.map(function (t) { return '<li>' + t + '</li>'; }).join('') +
+        '</ul></div>';
+    }
+    function render(root, lang, data) {
+      var L = T[lang];
+      var c = data.current || {};
+      var daily = data.daily || {};
+      var tmax = daily.temperature_2m_max && daily.temperature_2m_max[0];
+      var tmin = daily.temperature_2m_min && daily.temperature_2m_min[0];
+      var precipProb = (daily.precipitation_probability_max && daily.precipitation_probability_max[0]) || 0;
+      var uv = (daily.uv_index_max && daily.uv_index_max[0]) || null;
+      var cur = wmo(lang, c.weather_code);
+      var windKmh = c.wind_speed_10m != null ? c.wind_speed_10m : null;
+      var windLvl = windKmh != null ? beaufort(windKmh) : null;
+      var humid = c.relative_humidity_2m != null ? c.relative_humidity_2m : null;
+      var code = c.weather_code;
+      var isThunder = code >= 95;
+      var isSnow = [71, 73, 75, 77, 85, 86].indexOf(code) >= 0;
+      var isFog = code === 45 || code === 48;
+      var isRain = isThunder || isSnow || (code >= 51 && code <= 67) || (code >= 80 && code <= 82);
+      var rainHeavy = (code >= 63 && code <= 67) || code === 82 || isThunder;
+      var clearSky = code <= 2;
+      var overcast = code === 3;
+      var diff = (tmax != null && tmin != null) ? (tmax - tmin) : 0;
+
+      var outfit = [], activity = [], items = [], risk = [];
+
+      if (tmax != null && tmax >= 32) outfit.push(L.outfit.hot);
+      if (tmax != null && tmax <= 10) outfit.push(L.outfit.cold);
+      if (diff > 8) outfit.push(L.outfit.swing);
+      if (isRain) outfit.push(L.outfit.rain);
+      if (windLvl != null && windLvl >= 7) outfit.push(L.outfit.wind);
+      if (uv != null && uv >= 5) outfit.push(L.outfit.uv);
+      if (!outfit.length) outfit.push(L.outfit.mild);
+
+      if (isThunder) activity.push(L.activity.thunder);
+      else if (isFog) activity.push(L.activity.fog);
+      else if (rainHeavy) activity.push(L.activity.rainHeavy);
+      else if (isRain) activity.push(L.activity.rain);
+      else if (clearSky) activity.push(L.activity.clear);
+      else if (overcast) activity.push(L.activity.overcast);
+      else activity.push(L.activity.change);
+      if (windLvl != null && windLvl >= 7) activity.push(L.activity.windHi);
+      if (tmax != null && tmax >= 32) activity.push(L.activity.noon);
+
+      if (precipProb >= 60 || isRain) items.push(L.items.umb);
+      if (rainHeavy || isThunder || (windLvl != null && windLvl >= 6)) items.push(L.items.coat);
+      if (!rainHeavy && !isThunder && isRain) items.push(L.items.fold);
+      if ((tmax != null && tmax >= 32) || (uv != null && uv >= 5)) items.push(L.items.sun);
+      if (tmax != null && tmax >= 32) items.push(L.items.water);
+      if (tmax != null && tmax <= 10) items.push(L.items.coatCold);
+      if (diff > 8) items.push(L.items.layer);
+      if (windLvl != null && windLvl >= 5) items.push(L.items.hat);
+      if (isFog) items.push(L.items.mask);
+      if (humid != null && humid >= 60 && tmax != null && tmax >= 20) items.push(L.items.bug);
+
+      if (isThunder) risk.push(L.risk.lightning);
+      if ((rainHeavy || (precipProb >= 50 && isRain)) && !isThunder) risk.push(L.risk.flood);
+      if (windLvl != null && windLvl >= 7) risk.push(L.risk.windHi);
+      if (isFog) risk.push(L.risk.fog);
+      if (isSnow) risk.push(L.risk.ice);
+      if (humid != null && humid < 35 && tmax != null && tmax >= 32) risk.push(L.risk.fire);
+
+      var days = (daily.time || []).map(function (t, i) {
+        var w = wmo(lang, daily.weather_code[i]);
+        return '<div class="flex-1 min-w-[84px] rounded-[1.2rem] border border-[var(--line)] bg-white/70 p-4 text-center">' +
+          '<p class="text-xs font-black text-[var(--forest-700)]">' + dayName(lang, t) + '</p>' +
+          '<div class="my-2 text-2xl">' + w[1] + '</div>' +
+          '<p class="text-sm font-black">' + round(daily.temperature_2m_max[i]) + '° / ' + round(daily.temperature_2m_min[i]) + '°</p>' +
+          '<p class="mt-1 text-[.7rem] text-[var(--muted)]">' + L.precip + ' ' + (daily.precipitation_probability_max[i] || 0) + L.pct + '</p>' +
+          '</div>';
+      }).join('');
+
+      var riskHtml = risk.length
+        ? '<div class="rounded-[1.4rem] border border-red-300 bg-red-50 p-5 text-red-800">' +
+            '<p class="font-black mb-2">' + L.alert + '</p>' +
+            '<ul class="space-y-2 text-sm list-disc pr-4">' + risk.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>' +
+          '</div>'
+        : '';
+
+      var groups = groupCard(lang, L.gWear, '🧥', outfit) +
+                   groupCard(lang, L.gPlan, '🗺️', activity) +
+                   groupCard(lang, L.gBring, '🎒', items);
+
+      root.innerHTML =
+        '<div class="grid gap-5 lg:grid-cols-[1.1fr_1.4fr]">' +
+          '<div class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-9">' +
+            '<p class="text-sm font-black text-[var(--sand)]">' + L.now + '</p>' +
+            '<div class="mt-3 flex items-center gap-5">' +
+              '<div class="text-6xl">' + cur[1] + '</div>' +
+              '<div><p class="text-4xl font-black">' + round(c.temperature_2m) + '°</p>' +
+              '<p class="mt-1 text-white/90">' + cur[0] + '</p></div>' +
+            '</div>' +
+            '<div class="mt-2 text-sm text-white/80">' + L.high + ' ' + round(tmax) + '° / ' + L.low + ' ' + round(tmin) + '° · ' + L.rainP + ' ' + precipProb + L.pct + '</div>' +
+            '<div class="mt-6 grid grid-cols-2 gap-4 text-sm">' +
+              '<div><p class="text-white/70">' + L.feels + '</p><p class="font-black">' + round(c.apparent_temperature != null ? c.apparent_temperature : c.temperature_2m) + '°</p></div>' +
+              '<div><p class="text-white/70">' + L.humidity + '</p><p class="font-black">' + (humid != null ? humid + L.pct : '—') + '</p></div>' +
+              '<div><p class="text-white/70">' + L.wind + '</p><p class="font-black">' + (windKmh != null ? round(windKmh) + L.windPrefix + windLvl + L.parenClose : '—') + '</p></div>' +
+              '<div><p class="text-white/70">' + L.uvS + '</p><p class="font-black">' + uvLabel(lang, uv) + '</p></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="rounded-[2rem] border border-[var(--line)] bg-white/55 p-6">' +
+            '<p class="text-sm font-black text-[var(--forest-800)] mb-3">' + L.seven + '</p>' +
+            '<div class="flex flex-wrap gap-3">' + days + '</div>' +
+          '</div>' +
+        '</div>' +
+        (riskHtml ? '<div class="mt-5">' + riskHtml + '</div>' : '') +
+        (groups ? '<div class="mt-5 grid gap-5 md:grid-cols-3">' + groups + '</div>' : '') +
+        '<p class="mt-4 text-xs text-[var(--muted)]">' + L.footer + '</p>';
+    }
+    function load() {
+      var root = document.getElementById('weather-widget');
+      if (!root) return;
+      var lang = root.dataset.lang || 'ar';
+      var lat = root.dataset.lat, lon = root.dataset.lon;
+      fetch('/api/weather?lat=' + encodeURIComponent(lat) + '&lon=' + encodeURIComponent(lon))
+        .then(function (r) { if (!r.ok) throw new Error('bad'); return r.json(); })
+        .then(function (data) { render(root, lang, data); })
+        .catch(function () {
+          root.innerHTML = '<div class="rounded-[2rem] border border-[var(--line)] bg-white/70 p-8 text-center text-[var(--muted)]">' + T[lang].fail + '</div>';
+        });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load);
+    else load();
+  })();
+</script>

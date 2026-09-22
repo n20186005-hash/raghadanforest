@@ -15,7 +15,8 @@
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy",
     "source:audit": "node scripts/source-audit.mjs",
-    "images:vendor": "node scripts/vendor-images.mjs"
+    "images:vendor": "node scripts/vendor-images.mjs",
+    "icons:pwa": "node scripts/gen-pwa-icons.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

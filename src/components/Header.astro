@@ -1,16 +1,32 @@
 ---
 import Logo from './Logo.astro';
+import { altPair } from '../data/guide';
+
+const isEn = Astro.url.pathname.startsWith('/en');
+const alt = altPair(Astro.url.pathname);
+
+const nav = [
+  { id: 'about', ar: 'عن الغابة', en: 'About' },
+  { id: 'plan', ar: 'خطط للزيارة', en: 'Plan' },
+  { id: 'weather', ar: 'الطقس', en: 'Weather' },
+  { id: 'transport', ar: 'الوصول', en: 'Getting there' },
+  { id: 'facilities', ar: 'الخدمات', en: 'Facilities' },
+  { id: 'seasons', ar: 'الفصول', en: 'Seasons' },
+  { id: 'tours', ar: 'الجولات', en: 'Tours' },
+  { id: 'faq', ar: 'الأسئلة الشائعة', en: 'FAQ' }
+];
 ---
 <header class="absolute inset-x-0 top-0 z-40 border-b border-white/15 bg-[rgba(15,31,24,.22)] text-white backdrop-blur-md">
   <div class="container-site flex h-20 items-center justify-between gap-4">
     <Logo inverse />
-    <nav class="hidden items-center gap-6 text-sm font-bold lg:flex" aria-label="التنقل الرئيسي">
-      <a class="text-white/95 transition hover:text-white" href="#about">عن الغابة</a>
-      <a class="text-white/95 transition hover:text-white" href="#plan">خطط للزيارة</a>
-      <a class="text-white/95 transition hover:text-white" href="#transport">الوصول</a>
-      <a class="text-white/95 transition hover:text-white" href="#facilities">الخدمات</a>
-      <a class="text-white/95 transition hover:text-white" href="#faq">الأسئلة الشائعة</a>
+    <nav class="hidden items-center gap-5 text-sm font-bold lg:flex" aria-label={isEn ? 'Main navigation' : 'التنقل الرئيسي'}>
+      {nav.map((n) => (
+        <a class="text-white/95 transition hover:text-white" href={`#${n.id}`}>{isEn ? n.en : n.ar}</a>
+      ))}
     </nav>
-    <a href="#map" class="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-black text-white transition hover:bg-white hover:text-[var(--forest-950)]">الخريطة</a>
+    <div class="flex items-center gap-3">
+      <a href={isEn ? alt.ar : alt.en} class="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-black text-white transition hover:bg-white hover:text-[var(--forest-950)]">{isEn ? 'العربية' : 'English'}</a>
+      <a href="#map" class="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-black text-white transition hover:bg-white hover:text-[var(--forest-950)]">{isEn ? 'Map' : 'الخريطة'}</a>
+    </div>
   </div>
 </header>

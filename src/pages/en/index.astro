@@ -1,0 +1,636 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WeatherSection from '../../components/WeatherSection.astro';
+import { SITE_NAME_EN } from '../../data/site';
+import { photos, mapEmbed, faq, faqLd, attractionLd } from '../../data/guide';
+
+const mapUrl = 'https://maps.app.goo.gl/fWTXPEcNSYzMdcmRA';
+
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
+
+const faqItems = faq.en;
+
+const attractionLdEn = attractionLd('en', siteUrl);
+
+const faqLdEn = faqLd(faqItems);
+
+const title = 'Raghadan Forest Park Al Bahah — Tickets, Hours, Location & Visitor Guide';
+const description = 'An independent, non-profit English guide to Raghadan Forest in Al Bahah: free general entry, daily hours 8 AM–11:59 PM, address and map, parking and restrooms, live weather, how to get there from the airport, and practical FAQs.';
+---
+<BaseLayout title={title} description={description} lang="en" structuredData={[attractionLdEn, faqLdEn]}>
+  <Header />
+  <main id="main-content">
+    <section class="relative min-h-[92svh] overflow-hidden bg-[var(--forest-950)] text-white">
+      <img src={photos.ridge} alt="Green mountains of Al Bahah and clouds over the Sarawat highlands" class="absolute inset-0 h-full w-full object-cover opacity-60" fetchpriority="high" />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,27,20,.22),rgba(10,27,20,.82)_68%,rgba(10,27,20,.96))]"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(0deg,rgba(17,37,29,.9),transparent_48%)]"></div>
+      <div class="container-site relative flex min-h-[92svh] items-end pb-16 pt-32 lg:pb-20">
+        <div class="grid w-full items-end gap-10 lg:grid-cols-[1.2fr_.8fr]">
+          <div>
+            <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-white/92 backdrop-blur">
+              <span class="h-2 w-2 rounded-full bg-[var(--sand)]"></span>
+              Independent guide · Al Bahah region
+            </div>
+            <h1 class="max-w-4xl text-[clamp(3.4rem,10vw,8rem)] font-black leading-[.92] tracking-[-.065em]">Raghadan Forest</h1>
+            <p class="mt-7 max-w-2xl text-lg leading-9 text-white/95 lg:text-xl">
+              Sarawat juniper, Tihamah mist, and trails on the edge of the clouds. A practical guide to understand the place before you arrive — no ads, no paid recommendations.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#plan" class="rounded-full bg-white px-6 py-3 text-sm font-black text-black transition hover:-translate-y-0.5">Plan your visit</a>
+              <a href={mapUrl} target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white/20">Open location on the map</a>
+            </div>
+          </div>
+          <div class="glass-card rounded-[2rem] p-6 lg:p-7">
+            <div class="grid grid-cols-2 gap-x-6 gap-y-7">
+              <div>
+                <p class="text-3xl font-black">+1,700 m</p>
+                <p class="mt-1 text-xs text-white/90">Approx. elevation above sea level</p>
+              </div>
+              <div>
+                <p class="text-3xl font-black">4.4 / 5</p>
+                <p class="mt-1 text-xs text-white/90">Google Maps rating provided for the project</p>
+              </div>
+              <div>
+                <p class="text-3xl font-black">1,230</p>
+                <p class="mt-1 text-xs text-white/90">Parking spaces per 2026 data</p>
+              </div>
+              <div>
+                <p class="text-3xl font-black">No ticket</p>
+                <p class="mt-1 text-xs text-white/90">General entry per Visit Saudi</p>
+              </div>
+            </div>
+            <p class="mt-6 border-t border-white/15 pt-5 text-xs leading-6 text-white/85">
+              Operational information can change. Verify with official sources before traveling, especially during seasons, rain, and maintenance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan" class="relative z-10 -mt-7 pb-20">
+      <div class="container-site">
+        <div class="paper-card grid overflow-hidden rounded-[2rem] md:grid-cols-2 xl:grid-cols-4">
+          <div class="border-b border-[var(--line)] p-6 md:border-l xl:border-b-0">
+            <p class="text-xs font-black text-[var(--forest-700)]">Location</p>
+            <p class="mt-2 font-black">West of Al Bahah city</p>
+            <p class="mt-2 text-sm text-[var(--muted)]">On the Sarawat highlands overlooking the Tihamah slopes.</p>
+          </div>
+          <div class="border-b border-[var(--line)] p-6 xl:border-b-0 xl:border-l">
+            <p class="text-xs font-black text-[var(--forest-700)]">Published hours</p>
+            <p class="mt-2 font-black">8:00 AM — 11:59 PM</p>
+            <p class="mt-2 text-sm text-[var(--muted)]">Daily per Visit Saudi; verify before going.</p>
+          </div>
+          <div class="border-b border-[var(--line)] p-6 md:border-l md:border-b-0">
+            <p class="text-xs font-black text-[var(--forest-700)]">Suggested duration</p>
+            <p class="mt-2 font-black">2 — 4 hours</p>
+            <p class="mt-2 text-sm text-[var(--muted)]">Extend to half a day for a family picnic and a calm walk.</p>
+          </div>
+          <div class="p-6">
+            <p class="text-xs font-black text-[var(--forest-700)]">Best rhythm</p>
+            <p class="mt-2 font-black">Morning or after noon</p>
+            <p class="mt-2 text-sm text-[var(--muted)]">Soft light and calm; fog is possible, not guaranteed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section-space pt-8">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.92fr_1.08fr] lg:items-center">
+          <div>
+            <span class="eyebrow">Natural scenery</span>
+            <h2 class="section-title">A high forest between juniper and the edge of Tihamah</h2>
+            <p class="section-lead">
+              Raghadan sits on the Sarawat mountains west of Al Bahah city, at an elevation above roughly 1,700 meters. It is not just a green space; it is a visual transition between the Sarawat peaks and the slopes descending toward Tihamah, which is why low clouds and fog feel like part of the place's character when the weather allows.
+            </p>
+            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[1.4rem] border border-[var(--line)] bg-white/65 p-5">
+                <p class="font-black">Juniper trees</p>
+                <p class="mt-2 text-sm text-[var(--muted)]">Among the most prominent elements of the traditional vegetation cover of the Al Bahah highlands, giving the forest its visual and ecological identity.</p>
+              </div>
+              <div class="rounded-[1.4rem] border border-[var(--line)] bg-white/65 p-5">
+                <p class="font-black">Wide area</p>
+                <p class="mt-2 text-sm text-[var(--muted)]">Municipality data cites an area of about 482,000 m², while older tourism material suggests a wider scope; we rely on the newer municipal figure for services.</p>
+              </div>
+            </div>
+          </div>
+          <figure class="relative">
+            <div class="absolute -inset-4 -z-10 translate-x-4 translate-y-4 rounded-[2.5rem] border border-[var(--line)]"></div>
+            <img src={photos.entrance} alt="Entrance of Raghadan Forest Park in Al Bahah region" loading="lazy" class="aspect-[4/3] w-full rounded-[2.3rem] object-cover shadow-[var(--shadow)]" />
+            <figcaption class="mt-3 text-xs text-[var(--muted)]">Park entrance photo licensed from Wikimedia Commons; attribution details in the images &amp; sources section.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--forest-950)] text-white">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <span class="eyebrow !text-[var(--sand)]">Background</span>
+            <h2 class="section-title">A name tied to prosperity, a scene older than the modern park</h2>
+          </div>
+          <div class="grid gap-7 text-white/92 md:grid-cols-2">
+            <div>
+              <p class="text-xl font-black text-white">A local story of the name</p>
+              <p class="mt-3 text-sm leading-7">
+                Local coverage relays an oral story linking "Raghadan" to the meaning of comfortable living and abundant water and agriculture in the valley and surrounding terraces. We treat it as a circulating story, not a single documented linguistic verdict.
+              </p>
+            </div>
+            <div>
+              <p class="text-xl font-black text-white">The historical market</p>
+              <p class="mt-3 text-sm leading-7">
+                The name Raghadan was also tied to a historical market known in the region for centuries and a periodic gathering point for residents and trade. This background helps understand that the site is part of a wider social geography, not an isolated photo spot apart from Al Bahah's history.
+              </p>
+            </div>
+            <div>
+              <p class="text-xl font-black text-white">Sarawat mountains &amp; geology</p>
+              <p class="mt-3 text-sm leading-7">
+                The Sarawat run as the western edge of the Arabian Peninsula, separating the highlands from the Tihamah plain. This sharp drop is what makes Raghadan a visual and climatic transition between upper peaks and slopes ending toward the sea — the secret behind its overlooks and shifting visibility between clear and foggy.
+              </p>
+            </div>
+            <div>
+              <p class="text-xl font-black text-white">Terraced agriculture &amp; heritage</p>
+              <p class="mt-3 text-sm leading-7">
+                The Al Bahah region has historically been tied to agricultural terraces and stone villages built on the slopes, reflecting an old human relationship with elevation and water. Raghadan is part of this wider cultural context, not isolated from the region's history.
+              </p>
+            </div>
+            <div>
+              <p class="text-xl font-black text-white">Modern development</p>
+              <p class="mt-3 text-sm leading-7">
+                The site gained trails, seating areas, playgrounds, planted spaces, water features and viewing points, with successive expansions including "Cloud Walk", the lavender garden and outlook-prep projects.
+              </p>
+            </div>
+            <div>
+              <p class="text-xl font-black text-white">What stays natural?</p>
+              <p class="mt-3 text-sm leading-7">
+                The core value remains the terrain, juniper, mountain air and the overlook. Treat the facilities as a means to reach the scene, not a replacement for it, and preserve the vegetation by staying off sensitive areas and leaving no litter.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <div class="max-w-3xl">
+          <span class="eyebrow">What will you see?</span>
+          <h2 class="section-title">An experience that starts with the view, then branches into walking and rest</h2>
+          <p class="section-lead">There is no single "one spot" that sums up Raghadan. It is best to treat it as a sequence of overlooks, open spaces and trails, and choose what fits your time and walking ability.</p>
+        </div>
+        <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['Cloud Walk', 'An elevated trail within the site development, highlighting the forest\'s relationship with clouds, slopes and the overlook.'],
+            ['Lavender garden', 'Part of the beautification and modern projects around the overlooks; planting density varies by season and maintenance.'],
+            ['Raghadan joy', 'A developed area with a walkway, water features, grass spaces, children\'s areas and photo spots.'],
+            ['Natural overlooks', 'The most constant element: the Sarawat in front of you, Tihamah below, and clouds between them when they form.']
+          ].map(([name, text], index) => (
+            <article class="group rounded-[1.6rem] border border-[var(--line)] bg-white/70 p-6 transition hover:-translate-y-1 hover:shadow-[var(--shadow)]">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--mist-100)] text-sm font-black text-[var(--forest-700)]">{String(index + 1).padStart(2, '0')}</div>
+              <h3 class="mt-6 text-xl font-black">{name}</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <img src={photos.sign} alt="Welcome sign at Raghadan Forest" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+          <img src={photos.forest} alt="Green mountain nature in Al Bahah region" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+          <img src={photos.clouds} alt="Clouds and fog over the Al Bahah highlands" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+        </div>
+      </div>
+    </section>
+
+    <WeatherSection lat="20.0220551" lon="41.4334279" lang="en" />
+
+    <section id="facilities" class="section-space border-y border-[var(--line)] bg-white/45">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
+          <div class="lg:sticky lg:top-8 lg:self-start">
+            <span class="eyebrow">Services &amp; facilities</span>
+            <h2 class="section-title">What the visitor needs on the ground</h2>
+            <p class="section-lead">The following figures are the latest public service data we found from local authorities in 2026. A facility's existence does not mean every unit is available at every moment, so account for maintenance and crowding.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {[
+              ['Restrooms', '122 restrooms mentioned in 2026 data. During crowding, use the ones closest to the main service areas.'],
+              ['Parking', '1,230 spaces, including 42 adapted for people with disabilities. Early arrival is better at peak seasons.'],
+              ['Children play', '14 playground areas per published data, plus open spaces and trails.'],
+              ['Prayer', 'The municipality indicates a designated prayer site within the forest facilities.'],
+              ['Seating &amp; picnics', 'Benches, grass spaces and open areas exist. Respect allowed picnic spots and do not harm plants.'],
+              ['Mobility access', 'Adapted parking and some developed trails exist, but the terrain is mountainous; choose paved areas per ability.'],
+              ['Food &amp; water', 'Seasonal kiosks, food carts and sales appear inside or near developed areas. Do not rely on every option at all times.'],
+              ['Weather &amp; safety', 'Fog and rain can lower visibility and make surfaces slippery. Sturdy shoes and a warm layer help even on some summer evenings.']
+            ].map(([name, text]) => (
+              <article class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+                <h3 class="font-black text-[var(--forest-800)]">{name}</h3>
+                <p class="mt-2 text-sm text-[var(--muted)]">{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
+            <span class="eyebrow">Tickets &amp; costs</span>
+            <h2 class="mt-5 text-3xl font-black">General entry is free</h2>
+            <p class="mt-4 text-[var(--muted)]">
+              Visit Saudi states that general entry to the forest does not need a ticket. We found no fixed published tariff for the park\'s parking in the official sources we reviewed, so we do not assume it is free or paid. Check the signs on arrival.
+            </p>
+            <div class="mt-6 rounded-[1.3rem] bg-white/65 p-5 text-sm text-[var(--muted)]">
+              <strong class="text-[var(--ink)]">Note:</strong> Seasonal events, games, food or any optional commercial service may have separate prices that are not part of "general entry".
+            </div>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
+            <span class="eyebrow !text-[var(--sand)]">Parking</span>
+            <h2 class="mt-5 text-3xl font-black">Large capacity, but peak stays crowded</h2>
+            <p class="mt-4 text-white/92">
+              Published data indicates 1,230 spaces, including 42 adapted for people with disabilities. On summer evenings and weekend holidays, movement near gates and overlooks can slow, so make early arrival part of the plan.
+            </p>
+            <p class="mt-6 border-t border-white/15 pt-5 text-sm text-white/90">Do not park on unprepared edges or in an emergency lane, especially during fog.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="transport" class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <div class="max-w-3xl">
+          <span class="eyebrow">Getting there in detail</span>
+          <h2 class="section-title">From the airport to the forest, and what to expect in the final leg?</h2>
+          <p class="section-lead">The critical part of reaching Raghadan is the final mountain road. Choose a means that gives you flexibility to return, and do not assume the transport you found in the city automatically reaches the forest gate.</p>
+        </div>
+        <div class="mt-10 grid gap-5 lg:grid-cols-4">
+          {[
+            ['Airport', 'King Saud bin Abdulaziz Airport in Al Aqeeq is Al Bahah\'s airport. Civil aviation places it about 46 km northeast of Al Bahah city. Practical steps: collect luggage, then either rent a car from the types available at the airport or city, or take a taxi or booked transfer toward Al Bahah, then continue west to Raghadan.'],
+            ['Car', 'Enter coordinates 20.0220551, 41.4334279 or open the map link. Watch for fog and curves, and slow down when visibility drops or it rains. Fill the fuel tank before the highlands.'],
+            ['Public transport', 'We do not rely in this guide on a fixed bus line reaching the forest gate directly without prior check. If you reach Al Bahah by intercity transport, plan the final leg in advance and check the local transport network at travel time.'],
+            ['Taxi', 'A taxi or booked transfer is a practical option from the airport or Al Bahah city. Agree on a return point or check the possibility of booking a return ride, especially late at night or at peak season, as rides toward the highlands may thin out.']
+          ].map(([name, text]) => (
+            <article class="rounded-[1.6rem] bg-white p-6 shadow-[0_12px_36px_rgba(17,37,29,.05)]">
+              <div class="mb-8 h-1.5 w-12 rounded-full bg-[var(--forest-700)]"></div>
+              <h3 class="text-xl font-black">{name}</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+        <div class="mt-7 rounded-[1.6rem] border border-[var(--line)] bg-white/60 p-6">
+          <p class="font-black">Navigation address</p>
+          <p class="mt-2 text-sm text-[var(--muted)]">4657 Al Hakam Al ZaroOqi, 6905, Al Bahah 65731, Saudi Arabia</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
+          <div>
+            <span class="eyebrow">Before you enter the forest</span>
+            <h2 class="section-title">Food, stay, shopping and fuel — no commercial recommendations</h2>
+            <p class="section-lead">We do not rank lists by commission or ads, and we do not recommend specific establishments. These are only types of services worth searching around Al Bahah city per your need, with practical planning notes.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {[
+              ['Food &amp; drinks', 'Search Al Bahah city for family restaurants, local kitchens and cafés of various types, or use seasonal kiosks and food carts if they operate inside developed areas. Do not rely on a specific option at all times, and drink enough water.'],
+              ['Accommodation', 'Within Al Bahah\'s scope there are hotels, serviced apartments, resorts and guest houses. Choose location by proximity to the city or your desire for mountain calm, not by a commercial ranking from this guide. Book early in summer peak.'],
+              ['Supermarket &amp; supplies', 'It is better to buy water and basic light supplies from a supermarket or supply store within the urban area before climbing the road, especially for a long visit or with children.'],
+              ['Fuel &amp; charging', 'Fuel stations exist on the main roads around Al Bahah. We do not confirm an EV charger inside the forest; check a maps app or charging provider before climbing if your vehicle is electric, and fill the tank before the highlands.'],
+              ['Services inside the forest', 'Seasonal kiosks, food carts and sales appear, plus restrooms, seating areas and prayer sites. Do not rely on every option at all times, as some facilities change with season and maintenance.']
+            ].map(([name, text]) => (
+              <article class="rounded-[1.4rem] border border-[var(--line)] p-6">
+                <h3 class="font-black text-[var(--forest-800)]">{name}</h3>
+                <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--forest-950)] text-white">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-end">
+          <div>
+            <span class="eyebrow !text-[var(--sand)]">When to go?</span>
+            <h2 class="section-title">Let the weather set your rhythm, not the photo you saw online</h2>
+          </div>
+          <p class="text-white/90">Clouds and fog are a major reason for Raghadan\'s fame, but they cannot be booked. Check the weather and visibility before moving, and be ready for a fully sunny scene or dense fog on the same day.</p>
+        </div>
+        <div class="mt-10 grid gap-px overflow-hidden rounded-[2rem] bg-white/12 md:grid-cols-3">
+          <div class="bg-[var(--forest-950)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">Early morning</p>
+            <p class="mt-3 text-2xl font-black">Calm &amp; cloud chance</p>
+            <p class="mt-3 text-sm text-white/90">A good choice for walking and photography before family areas crowd. Visibility can change fast.</p>
+          </div>
+          <div class="bg-[var(--forest-950)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">After noon</p>
+            <p class="mt-3 text-2xl font-black">Soft light &amp; overlooks</p>
+            <p class="mt-3 text-sm text-white/90">Good for seating and walking before sunset, but it is a beloved time for visitors in season.</p>
+          </div>
+          <div class="bg-[var(--forest-950)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">Summer</p>
+            <p class="mt-3 text-2xl font-black">Milder &amp; more crowded</p>
+            <p class="mt-3 text-sm text-white/90">Visitor movement increases because Al Bahah weather is milder than hotter regions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seasons" class="section-space bg-[var(--mist-100)]">
+      <div class="container-site">
+        <div class="max-w-3xl">
+          <span class="eyebrow">When to visit?</span>
+          <h2 class="section-title">Seasonal strategy table</h2>
+          <p class="section-lead">The Al Bahah highlands differ from other regions by being relatively mild in summer and cool at night in winter thanks to elevation. The table is a general framework to help planning, not guaranteed precise numbers; check the official meteorology authority before travel.</p>
+        </div>
+        <div class="mt-10 overflow-x-auto rounded-[2rem] border border-[var(--line)] bg-white/75 shadow-[var(--shadow)]">
+          <table class="w-full min-w-[680px] border-collapse text-left text-sm">
+            <thead class="bg-[var(--forest-800)] text-white">
+              <tr>
+                <th class="p-4 font-black">Season</th>
+                <th class="p-4 font-black">Expected weather</th>
+                <th class="p-4 font-black">Best for</th>
+                <th class="p-4 font-black">What to bring</th>
+                <th class="p-4 font-black">Safety notes</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--line)]">
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Winter<br><span class="text-xs font-normal text-[var(--muted)]">Dec – Feb</span></td>
+                <td class="p-4 align-top">Night cold that may approach zero on some nights, mild day, scattered possible rain and frequent morning fog.</td>
+                <td class="p-4 align-top">Calm daytime walking and fog photography.</td>
+                <td class="p-4 align-top">A warm layer and jacket, and shoes with good grip.</td>
+                <td class="p-4 align-top">Low morning visibility, and slippery surfaces when raining.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Spring<br><span class="text-xs font-normal text-[var(--muted)]">Mar – May</span></td>
+                <td class="p-4 align-top">Generally mild, with possible increase in seasonal rain and greener vegetation.</td>
+                <td class="p-4 align-top">Family picnics and nature photography after rain.</td>
+                <td class="p-4 align-top">Layered clothes, and light rain backup.</td>
+                <td class="p-4 align-top">Avoid valley courses during heavy rain.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Summer<br><span class="text-xs font-normal text-[var(--muted)]">Jun – Aug</span></td>
+                <td class="p-4 align-top">Much milder than hotter regions; mild day and refreshing night, with peak visitor crowding.</td>
+                <td class="p-4 align-top">Escape the plain\'s heat, and evening seating.</td>
+                <td class="p-4 align-top">Light summer clothes, and a hat for midday sun.</td>
+                <td class="p-4 align-top">Crowding at gates and overlooks; come early.</td>
+              </tr>
+              <tr>
+                <td class="p-4 align-top font-black text-[var(--forest-800)]">Autumn<br><span class="text-xs font-normal text-[var(--muted)]">Sep – Nov</span></td>
+                <td class="p-4 align-top">General mildness and calm after summer peak, with chances of morning fog and clear overlooks.</td>
+                <td class="p-4 align-top">Photography and long visits without peak crowding.</td>
+                <td class="p-4 align-top">A light layer for evening, and enough water.</td>
+                <td class="p-4 align-top">Visibility changes fast as low clouds form.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="climate" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <span class="eyebrow">Scientific background</span>
+            <h2 class="section-title">Climate, water and wildlife of the Al Bahah highlands</h2>
+            <p class="section-lead">A general environmental glimpse to help understand why the place stands out, not guaranteed precise data. Check the official meteorology authority before relying on any number.</p>
+          </div>
+          <div class="grid gap-7 text-[var(--muted)] md:grid-cols-2">
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Mountain climate</h3>
+              <p class="mt-3 text-sm leading-7">Raghadan lies on the Sarawat mountains at an elevation above 1,700 meters, making its summer milder than the neighboring plain and its night cooler. These heights are within the range that sees low clouds and fog forming over the slopes, a recurring rather than a guaranteed seasonal feature. For precise numbers check the National Center for Meteorology.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Water &amp; valleys</h3>
+              <p class="mt-3 text-sm leading-7">Slopes turn into temporary water courses when it rains, and sudden flow can occur in nearby valleys. Do not approach water paths or pools during storms, and do not cross a valley whose flow is unknown. These are general safety guidelines, not a substitute for Civil Defense instructions.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Plant cover</h3>
+              <p class="mt-3 text-sm leading-7">Juniper is among the most prominent elements of the natural vegetation of the Al Bahah highlands, giving the forest its visual and ecological identity. The site is surrounded by shrub and grass species of Mediterranean tendency affected by elevation and local humidity.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Wildlife</h3>
+              <p class="mt-3 text-sm leading-7">The forest provides habitat for birds, invertebrates and small creatures linked to the tree cover. Specialized scientific monitoring remains limited; we therefore describe general patterns and do not assume specific species without a documented source.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tours" class="section-space bg-[var(--forest-950)] text-white">
+      <div class="container-site">
+        <div class="max-w-3xl">
+          <span class="eyebrow !text-[var(--sand)]">Plan by your group</span>
+          <h2 class="section-title">Suggested tours for every visitor type</h2>
+          <p class="section-lead">Three routes oriented by the nature of the group and its rhythm: families with children, nature photographers, and seniors or visitors with limited mobility.</p>
+        </div>
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">Families with children</p>
+            <h3 class="mt-2 text-2xl font-black">Calm &amp; comfortable day</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/90">
+              <li>Start from the developed areas near parking and seating.</li>
+              <li>Allocate time for playgrounds and short flat walking trails.</li>
+              <li>Keep direct supervision near edges and slopes.</li>
+              <li>Avoid peak crowding with an early or after-noon visit.</li>
+            </ul>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">Nature photographers</p>
+            <h3 class="mt-2 text-2xl font-black">Hunt the fog &amp; overlooks</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/90">
+              <li>Watch low clouds form in the morning and the changing overlook.</li>
+              <li>Target upper overlooks and safe edges for wide angles.</li>
+              <li>Try golden hours near sunrise and sunset.</li>
+              <li>Respect others\' paths and prepared trails when moving.</li>
+            </ul>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
+            <p class="text-sm font-black text-[var(--sand)]">Seniors / limited mobility</p>
+            <h3 class="mt-2 text-2xl font-black">Prepared trails &amp; rest</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/90">
+              <li>Use adapted parking and paved trails.</li>
+              <li>Distribute rest at benches and shaded areas.</li>
+              <li>Avoid steep or unprepared trails.</li>
+              <li>Stay near main facilities for services.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="routes" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <article class="rounded-[2rem] bg-[var(--mist-100)] p-7 lg:p-10">
+            <span class="eyebrow">Suggested route</span>
+            <h2 class="mt-5 text-3xl font-black">Half-day visit (3 – 4 hours)</h2>
+            <ol class="mt-6 space-y-4 text-sm text-[var(--muted)]">
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">1</span><span>Early arrival and park in the main lot near developed areas.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">2</span><span>Calm walk through the main trails and overlooks and see the juniper.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">3</span><span>Rest at seating and the playground area for families.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">4</span><span>Light photo tour at a safe edge, then return before the crowd.</span></li>
+            </ol>
+          </article>
+          <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
+            <span class="eyebrow">Suggested route</span>
+            <h2 class="mt-5 text-3xl font-black">Full day (6 – 8 hours)</h2>
+            <ol class="mt-6 space-y-4 text-sm text-[var(--muted)]">
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">1</span><span>Morning in Raghadan Forest: trails, overlooks, lavender garden and developed areas.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">2</span><span>Lunch in Al Bahah city among the available restaurants and cafés.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">3</span><span>Afternoon: a nearby landmark like the historical Raghadan market or Prince Hussam Park.</span></li>
+              <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--forest-700)] text-white font-black">4</span><span>End the day with a Raghadan or Al Bahah Regional Museum sunset per schedules.</span></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-white/45 border-y border-[var(--line)]">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
+          <div>
+            <span class="eyebrow">Awareness &amp; empowerment</span>
+            <h2 class="section-title">Responsible visiting and preserving the place</h2>
+            <p class="section-lead">Scientific information is more useful when paired with behavior that protects the natural site for coming generations.</p>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2">
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Stay on trails</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">Walking within prepared trails helps protect vegetation and reduce soil erosion on slopes.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Zero waste</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">Take back what you brought, and leave no food waste or bottles; keeping clean is a shared responsibility.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Do not feed wildlife</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">Avoid feeding birds or other creatures, as it disrupts the natural balance and disturbs other visitors.</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-[var(--line)] bg-white p-6">
+              <h3 class="font-black text-[var(--forest-800)]">Safety first</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">Respect field signs and Civil Defense instructions, and do not approach unprotected edges during fog or rain.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">Nearby places</span>
+            <h2 class="section-title">Place Raghadan inside a full day to understand Al Bahah</h2>
+            <p class="section-lead">These are general, non-commercial landmarks that help build context for the region. We do not give a "best" ranking, but suggest different types of experience.</p>
+          </div>
+          <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['Historical Raghadan Market', 'A social and heritage background tied to the name Raghadan and the region\'s weekly trade history.'],
+              ['Prince Hussam Park', 'Open spaces, trails and gardens within Al Bahah city for a complementary urban green experience.'],
+              ['Al Bahah Regional Museum', 'A cultural option to understand the region\'s history, archaeology and environments; check visit hours before going.'],
+              ['Dhee Ain Heritage Village', 'A known heritage destination in Al Bahah region combining stone architecture and agricultural scenery; needs time separate from Raghadan.']
+            ].map(([name, text]) => (
+              <article class="rounded-[1.55rem] border border-[var(--line)] bg-white/60 p-6">
+                <h3 class="text-lg font-black">{name}</h3>
+                <p class="mt-3 text-sm text-[var(--muted)]">{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="map" class="section-space bg-white/55">
+      <div class="container-site">
+        <div class="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <div>
+            <span class="eyebrow">Map</span>
+            <h2 class="section-title">Save the arrival point before climbing the road</h2>
+            <p class="section-lead">The forest coordinates used here are taken from the provided map link: 20.0220551, 41.4334279.</p>
+            <a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex rounded-full border border-[var(--line)] bg-white px-5 py-3 text-sm font-black text-[var(--forest-900)] transition hover:bg-[var(--mist-100)]">Open Google Maps</a>
+          </div>
+          <div class="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--mist-100)] shadow-[var(--shadow)]">
+            <iframe src={mapEmbed} width="600" height="450" class="h-[470px] w-full border-0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Map of Raghadan Forest in Al Bahah"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space">
+      <div class="container-site">
+        <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <span class="eyebrow">Frequently asked questions</span>
+            <h2 class="section-title">Practical answers before the visit</h2>
+            <p class="section-lead">Answers are formulated from available public data, separating what is relatively fixed from operational information to verify before travel.</p>
+          </div>
+          <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {faqItems.map((item, index) => (
+              <details class="group py-1" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-black">
+                  <span>{item.q}</span>
+                  <span class="text-xl text-[var(--forest-700)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="max-w-3xl pb-6 text-sm text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space bg-[var(--sand-soft)]">
+      <div class="container-site">
+        <div class="grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
+          <div>
+            <span class="eyebrow">Editorial methodology</span>
+            <h2 class="section-title">How we keep the guide professional and neutral?</h2>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2">
+            <div class="rounded-[1.5rem] bg-white/60 p-6">
+              <h3 class="font-black">We present the source before certainty</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">If two figures differ between materials, we use the newer or most direct one and explain the choice rather than hide the difference.</p>
+            </div>
+            <div class="rounded-[1.5rem] bg-white/60 p-6">
+              <h3 class="font-black">We do not turn phenomena into promises</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">Fog, weather and seasonal events are not guaranteed services. We present them as probabilities, not a fixed appointment.</p>
+            </div>
+            <div class="rounded-[1.5rem] bg-white/60 p-6">
+              <h3 class="font-black">No commercial recommendations</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">We mention only categories of services: restaurant, café, hotel, store, fuel or charging; we do not rank companies or take commissions.</p>
+            </div>
+            <div class="rounded-[1.5rem] bg-white/60 p-6">
+              <h3 class="font-black">Operational info is reviewed</h3>
+              <p class="mt-3 text-sm text-[var(--muted)]">Hours, fees and availability can change. Use this guide for planning, then verify with the official authority before deciding to travel.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 border-t border-[var(--line)] pt-10">
+          <h3 class="text-xl font-black">Key public sources</h3>
+          <div class="mt-5 grid gap-3 text-sm md:grid-cols-2">
+            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://www.visitsaudi.com/ar/al-baha/attractions/raghadan-forest-in-al-baha">Saudi Tourism Authority — Visit Saudi: Raghadan Forest</a>
+            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://baha.gov.sa/ar/Albums/VideoDetails/174">Al Bahah Municipality — forest data and photos</a>
+            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://spa.gov.sa/N2611834">Saudi Press Agency — Raghadan facilities and 2026 development</a>
+            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://spa.gov.sa/N2137285">Saudi Press Agency — "Raghadan Joy" and lavender garden projects</a>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-[var(--line)] pt-10">
+          <h3 class="text-xl font-black">Image rights &amp; attribution</h3>
+          <p class="mt-3 max-w-4xl text-sm text-[var(--muted)]">Photographs are hosted from Wikimedia Commons and their rights remain with their photographers and license holders. The Raghadan entrance photo is by Yasser Bakhsh under Creative Commons Attribution-ShareAlike 4.0, the welcome sign photo is by Colville under public domain dedication, and the Al Bahah area photos are by Majid Al Adwani under Creative Commons Attribution-ShareAlike 3.0.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
