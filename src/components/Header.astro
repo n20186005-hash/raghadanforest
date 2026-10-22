@@ -17,15 +17,21 @@ const nav = [
 ];
 ---
 <header class="absolute inset-x-0 top-0 z-40 border-b border-white/15 bg-[rgba(15,31,24,.22)] text-white backdrop-blur-md">
-  <div class="container-site flex h-20 items-center justify-between gap-4">
+  <div class="container-site flex min-h-20 flex-wrap py-3 items-center justify-between gap-4">
     <Logo inverse />
     <nav class="hidden items-center gap-5 text-sm font-bold lg:flex" aria-label={isEn ? 'Main navigation' : 'التنقل الرئيسي'}>
       {nav.map((n) => (
         <a class="text-white/95 transition hover:text-white" href={`#${n.id}`}>{isEn ? n.en : n.ar}</a>
       ))}
     </nav>
-    <div class="flex items-center gap-3">
+    <div class="flex flex-wrap items-center gap-3">
       <a href={isEn ? alt.ar : alt.en} class="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-black text-white transition hover:bg-white hover:text-[var(--forest-950)]">{isEn ? 'العربية' : 'English'}</a>
+      <details class="relative lg:hidden">
+        <summary class="cursor-pointer rounded-full border border-white/25 px-3 py-2 text-sm font-black">{isEn ? 'Menu' : 'القائمة'}</summary>
+        <nav class="absolute z-50 mt-3 grid min-w-48 gap-2 rounded-2xl bg-[var(--forest-950)] p-4 shadow-xl" style="inset-inline-end:0" aria-label={isEn ? 'Mobile navigation' : 'تنقل الجوال'}>
+          {nav.map(n => <a class="px-2 py-2 text-white" href={`#${n.id}`}>{isEn ? n.en : n.ar}</a>)}
+        </nav>
+      </details>
       <a href="#map" class="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-black text-white transition hover:bg-white hover:text-[var(--forest-950)]">{isEn ? 'Map' : 'الخريطة'}</a>
     </div>
   </div>

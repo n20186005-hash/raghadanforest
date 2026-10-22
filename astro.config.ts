@@ -2,14 +2,13 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// عنوان الموقع يُضبط من مكان واحد فقط عبر SITE_URL.
-// اتركه فارغاً أثناء التطوير؛ البناء سيبقى صالحاً بدون نطاق.
-const site = process.env.SITE_URL?.trim() || undefined;
+// Override only when building a deliberately separate preview.
+const site = process.env.SITE_URL?.trim() || 'https://raghadanforest.com';
 
 export default defineConfig({
   site,
   output: 'static',
-  integrations: site ? [sitemap()] : [],
+  integrations: [sitemap({ filter: (url) => !url.includes('/404') })],
   vite: {
     plugins: [tailwindcss()]
   }

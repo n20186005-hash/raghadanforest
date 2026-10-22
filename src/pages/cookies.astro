@@ -13,7 +13,7 @@ const description = 'إدارة ملفات تعريف الارتباط وتفض�
     <article class="container-site max-w-4xl">
       <span class="eyebrow">التحكم في التفضيلات</span>
       <h1 class="section-title">إعدادات ملفات تعريف الارتباط</h1>
-      <p class="text-sm font-bold text-[var(--forest-700)]">آخر تحديث: أغسطس 2026</p>
+      <p class="text-sm font-bold text-[var(--forest-700)]">آخر تحديث: 21 أكتوبر 2026</p>
 
       <div class="mt-10 rounded-[2rem] border border-[var(--line)] bg-white/75 p-6 shadow-[0_12px_40px_rgba(17,37,29,.05)] sm:p-9 lg:p-12">
         <p class="text-[var(--muted)]">نستخدم الحد الأدنى من تقنيات التخزين لتشغيل خياراتك. يمكنك تعديل التفضيلات أدناه في أي وقت. لا يستخدم هذا الموقع حالياً تقنية إعلانات مخصصة.</p>
@@ -39,15 +39,6 @@ const description = 'إدارة ملفات تعريف الارتباط وتفض�
             </label>
           </section>
 
-          <section class="rounded-[1.5rem] border border-[var(--line)] p-5 sm:p-6">
-            <label class="flex cursor-pointer items-start justify-between gap-6">
-              <span>
-                <span class="block text-lg font-black">تفضيلات المستخدم</span>
-                <span class="mt-2 block text-sm text-[var(--muted)]">تسمح بحفظ تفضيلات واجهة غير ضرورية مستقبلاً، مثل اختيارات العرض. لا يعتمد المحتوى الأساسي عليها.</span>
-              </span>
-              <input id="preferences" name="preferences" type="checkbox" class="mt-1 h-5 w-5 accent-[var(--forest-700)]" />
-            </label>
-          </section>
 
           <section class="rounded-[1.5rem] border border-[var(--line)] bg-[var(--mist-50)] p-5 opacity-75 sm:p-6">
             <div class="flex items-start justify-between gap-6">
@@ -63,54 +54,18 @@ const description = 'إدارة ملفات تعريف الارتباط وتفض�
             <button type="submit" class="rounded-full bg-[var(--forest-900)] px-6 py-3 text-sm font-black text-white">حفظ التفضيلات</button>
             <button id="reject" type="button" class="rounded-full border border-[var(--line)] bg-white px-6 py-3 text-sm font-black text-[var(--forest-900)]">رفض غير الضروري</button>
           </div>
-          <p id="cookie-status" class="min-h-6 text-sm font-bold text-[var(--forest-700)]" role="status" aria-live="polite"></p>
+          <p id="status" class="min-h-6 text-sm font-bold text-[var(--forest-700)]" role="status" aria-live="polite"></p>
         </form>
 
         <div class="prose-ar mt-12 border-t border-[var(--line)] pt-8">
           <h2>كيف يعمل الاختيار؟</h2>
-          <p>يُحفظ قرارك محلياً في متصفحك تحت مفتاح تفضيلات خاص بالموقع. عند تعطيل التحليلات لا يُحمّل الموقع شيفرة إحصاءات جوجل في الزيارات اللاحقة. يمكنك كذلك مسح بيانات الموقع من إعدادات متصفحك لإزالة التفضيل المحفوظ.</p>
+          <p>يُحفظ قرارك محلياً في متصفحك تحت مفتاح تفضيلات خاص بالموقع. يؤدي التعطيل إلى إيقاف معرّف القياس في علامة التبويب الحالية وفي الزيارات اللاحقة إذا أمكن حفظ القرار. لا يمكن استرجاع بيانات أُرسلت سابقاً، وقد تبقى مكتبة جوجل المحمّلة في الذاكرة. تظهر أخطاء التخزين أسفل الأزرار. يمكنك كذلك مسح بيانات الموقع من إعدادات متصفحك لإزالة التفضيل المحفوظ.</p>
           <h2>محتوى الطرف الثالث</h2>
-          <p>الخريطة المضمّنة والصور المستضافة خارجياً قد تنشئ اتصالات تقنية مع مزوديها عند تحميلها، وهي ليست ملفات تحليل نتحكم بها عبر مفتاح التحليلات أعلاه. راجع <a href="/privacy/">سياسة الخصوصية</a> لتفاصيل أوضح.</p>
+          <p>قد تتصل الخريطة المضمّنة بخوادم جوجل عند تحميلها. تُطلب بيانات الطقس من Open-Meteo عبر هذا الموقع دون طلب موقع الزائر. سجلات Cloudflare وأي قياس أداء تضيفه الاستضافة تعمل بصورة منفصلة عن مفتاح إحصاءات جوجل؛ ولا يتحكم المفتاح فيها. راجع <a href="/privacy/">سياسة الخصوصية</a> لتفاصيل أوضح.</p>
         </div>
       </div>
     </article>
   </main>
   <Footer />
 
-  <script is:inline>
-    (function () {
-      const form = document.getElementById('cookie-form');
-      const analytics = document.getElementById('analytics');
-      const preferences = document.getElementById('preferences');
-      const reject = document.getElementById('reject');
-      const status = document.getElementById('cookie-status');
-      if (!form || !analytics || !preferences || !reject || !status) return;
-
-      try {
-        const saved = JSON.parse(localStorage.getItem('raghadan-cookie-preferences') || '{}');
-        analytics.checked = saved.analytics === true;
-        preferences.checked = saved.preferences === true;
-      } catch (_) {}
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const value = {
-          analytics: analytics.checked,
-          preferences: preferences.checked
-        };
-        localStorage.setItem('raghadan-cookie-preferences', JSON.stringify(value));
-        if (value.analytics && typeof window.__loadGuideAnalytics === 'function') {
-          window.__loadGuideAnalytics();
-        }
-        status.textContent = 'تم حفظ تفضيلاتك على هذا الجهاز.';
-      });
-
-      reject.addEventListener('click', function () {
-        analytics.checked = false;
-        preferences.checked = false;
-        localStorage.setItem('raghadan-cookie-preferences', JSON.stringify({ analytics: false, preferences: false }));
-        status.textContent = 'تم رفض جميع الخيارات غير الضرورية.';
-      });
-    })();
-  </script>
 </BaseLayout>

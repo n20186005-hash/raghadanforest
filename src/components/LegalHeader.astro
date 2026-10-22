@@ -9,9 +9,9 @@ const backLabel = isEn ? 'Back to the guide' : 'العودة إلى دليل ا�
 const toggleLabel = isEn ? 'العربية' : 'English';
 ---
 <header class="border-b border-[var(--line)] bg-white/75 backdrop-blur">
-  <div class="container-site flex min-h-20 items-center justify-between gap-4 py-3">
+  <div class="container-site flex min-h-20 flex-wrap items-center justify-between gap-4 py-3">
     <Logo />
-    <div class="flex items-center gap-3">
+    <div class="flex flex-wrap items-center gap-3">
       <a href={back} class="rounded-full border border-[var(--line)] px-4 py-2 text-sm font-black text-[var(--forest-800)] hover:bg-[var(--mist-100)]">{backLabel}</a>
       <a href={isEn ? alt.ar : alt.en} class="rounded-full bg-[var(--forest-800)] px-4 py-2 text-sm font-black text-white hover:bg-[var(--forest-700)]">{toggleLabel}</a>
     </div>

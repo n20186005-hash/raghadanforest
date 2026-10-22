@@ -4,15 +4,15 @@
 import { NAP } from './site';
 
 export const photos = {
-  entrance: 'https://upload.wikimedia.org/wikipedia/commons/c/c5/%D9%85%D9%86%D8%AA%D8%B2%D9%87_%D8%BA%D8%A7%D8%A8%D8%A9_%D8%B1%D8%BA%D8%AF%D8%A7%D9%861W9828.jpg',
-  sign: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Welcome_Sign_-_Raghdan_Forest_1.jpg',
-  ridge: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Albaha9021_-_1.jpeg',
-  forest: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Albaha9021_-_2.jpeg',
-  clouds: 'https://upload.wikimedia.org/wikipedia/commons/4/46/%D8%A7%D9%84%D8%A8%D8%A7%D8%AD%D8%A9_-_1.jpeg'
+  entrance: '/images/entrance.webp',
+  sign: '/images/sign.webp',
+  ridge: '/images/ridge.webp',
+  forest: '/images/forest.webp',
+  clouds: '/images/clouds.webp'
 };
 
 export const mapEmbed =
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6672.45030720732!2d41.4334279!3d20.0220551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15ef4f6655951595%3A0x79af6e771103498b!2sRaghadan%20Forest%20Park!5e1!3m2!1sar!2ssa!4v1787707688232!5m2!1sar!2ssa';
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6672.45030720732!2d41.4332427!3d20.0221476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15ef4f6655951595%3A0x79af6e771103498b!2sRaghadan%20Forest%20Park!5e1!3m2!1sar!2ssa!4v1787707688232!5m2!1sar!2ssa';
 
 // يحوّل مسار الصفحة الحالية إلى رابط اللغة الأخرى (عربي ↔ إنجليزي).
 export function altPair(pathname: string): { ar: string; en: string } {
@@ -24,12 +24,12 @@ export function altPair(pathname: string): { ar: string; en: string } {
 
 type Lang = 'ar' | 'en';
 
-// بناء TouristAttraction + LocalBusiness (كيان واحد) بلغة معينة.
+// بناء TouristAttraction (كيان واحد) بلغة معينة.
 export function attractionLd(lang: Lang, siteUrl: string) {
   const isAr = lang === 'ar';
   return {
     '@context': 'https://schema.org',
-    '@type': ['TouristAttraction', 'LocalBusiness'],
+    '@type': 'TouristAttraction',
     '@id': `${siteUrl}/#attraction`,
     url: siteUrl,
     name: isAr ? 'غابة رغدان' : 'Raghadan Forest Park',
@@ -49,22 +49,10 @@ export function attractionLd(lang: Lang, siteUrl: string) {
       latitude: NAP.latitude,
       longitude: NAP.longitude
     },
-    openingHoursSpecification: {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '08:00',
-      closes: '23:59'
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: 4.4,
-      reviewCount: 40771,
-      bestRating: 5
-    },
     isAccessibleForFree: true,
     priceRange: isAr ? 'الدخول العام بلا تذكرة' : 'General entry is free',
     hasMap: NAP.mapsUrl,
-    image: [photos.entrance, photos.ridge, photos.clouds],
+    image: [new URL(photos.entrance, siteUrl).href, new URL(photos.sign, siteUrl).href],
     sameAs: [NAP.mapsUrl]
   };
 }
@@ -90,7 +78,7 @@ export const faq: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: 'ما ساعات فتح غابة رغدان؟',
-      a: 'تورد «روح السعودية» ساعات يومية من 8:00 صباحاً حتى 11:59 مساءً. لأن التشغيل قد يتغير في المواسم أو بسبب الطقس والصيانة، يُفضّل التحقق من القنوات الرسمية قبل الرحلة.'
+      a: 'عند المراجعة في 21 أكتوبر 2026، أوردت «روح السعودية» 08:00–00:00، بينما أظهر إدراج خرائط جوجل 14:00–02:00 من اليوم التالي. المصدران مختلفان؛ تحقق من التشغيل والبوابة المقصودة قبل السفر، ولا تفترض إتاحة الزيارة صباحاً أو ليلاً.'
     },
     {
       q: 'هل الغابة مناسبة للعائلات والأطفال؟',
@@ -98,11 +86,11 @@ export const faq: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: 'هل تتوفر دورات مياه ومواقف سيارات؟',
-      a: 'بحسب بيانات منشورة في 2026، تضم الغابة 122 دورة مياه و1,230 موقفاً للمركبات، منها 42 موقفاً مهيأً لذوي الإعاقة. قد تتغير إتاحة بعض المرافق مؤقتاً بسبب الصيانة أو الازدحام.'
+      a: 'بحسب تقرير واس بتاريخ 13 يونيو 2026، تضم الغابة 122 دورة مياه و1,230 موقفاً للمركبات، منها 42 موقفاً مهيأً لذوي الإعاقة. قد تتغير إتاحة بعض المرافق مؤقتاً بسبب الصيانة أو الازدحام.'
     },
     {
       q: 'ما أفضل وقت لزيارة غابة رغدان؟',
-      a: 'الصباح الباكر مناسب للأجواء الهادئة وفرصة مشاهدة السحب إن تكوّنت، والعصر إلى ما قبل الغروب مناسب للإطلالات. الصيف أكثر ازدحاماً بسبب اعتدال أجواء الباحة، بينما يتطلب المطر والضباب قيادة ومشياً أكثر حذراً.'
+      a: 'اختر زيارة نهارية ضمن ساعات الدخول المؤكدة للإطلالات؛ ولا تضمن تشكل السحب. الصيف أكثر ازدحاماً بسبب اعتدال أجواء الباحة، بينما يتطلب المطر والضباب قيادة ومشياً أكثر حذراً.'
     },
     {
       q: 'كم تستغرق الزيارة؟',
@@ -128,7 +116,7 @@ export const faq: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: 'What are Raghadan Forest opening hours?',
-      a: 'Visit Saudi lists daily hours from 8:00 AM to 11:59 PM. Operations can change by season, weather, or maintenance, so it is best to verify via official channels before traveling.'
+      a: 'Checked on 21 October 2026: Visit Saudi lists 08:00–00:00, while the Google Maps listing shows 14:00–02:00 the following day. These sources conflict. Confirm access and the intended gate before traveling; do not assume morning or late-night entry.'
     },
     {
       q: 'Is the forest suitable for families and children?',
@@ -136,11 +124,11 @@ export const faq: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: 'Are restrooms and parking available?',
-      a: 'According to 2026 published data, the forest has 122 restrooms and 1,230 vehicle parking spaces, including 42 spaces adapted for people with disabilities. Availability of some facilities may change temporarily due to maintenance or crowding.'
+      a: 'According to the Saudi Press Agency report of 13 June 2026, the forest has 122 restrooms and 1,230 vehicle parking spaces, including 42 spaces adapted for people with disabilities. Availability of some facilities may change temporarily due to maintenance or crowding.'
     },
     {
       q: 'What is the best time to visit Raghadan Forest?',
-      a: 'Early morning suits the calm atmosphere and a chance of cloud formation, while afternoon until before sunset is good for the overlooks. Summer is busier because Al Bahah weather is mild, whereas rain and fog call for more careful driving and walking.'
+      a: 'Choose a daylight visit within confirmed opening hours for the overlooks; clouds remain unpredictable. Summer is busier because Al Bahah weather is mild, whereas rain and fog call for more careful driving and walking.'
     },
     {
       q: 'How long does a visit take?',

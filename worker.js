@@ -1,65 +1,46 @@
-// Cloudflare Worker: serves the static site (via the ASSETS binding) and proxies
-// the weather data server-side with edge caching.
-// Weather data is fetched from a public weather API and cached at the edge for
-// ~10 minutes to protect the upstream and keep responses fast.
-
-const CACHE_TTL = 600; // seconds
-
-function safeCoord(value, fallback) {
+import { validWeather } from './public/weather-data.js';
+const CACHE_TTL = 600;
+function coordinate(value, fallback, limit) {
+  if (value === null || value.trim() === '') return fallback;
   const n = Number(value);
-  if (!Number.isFinite(n)) return fallback;
-  return String(Math.max(-90, Math.min(90, n))).slice(0, 12);
+  return Number.isFinite(n) && Math.abs(n) <= limit ? String(n) : fallback;
 }
-
-async function handleWeather(request, url, ctx) {
-  const lat = safeCoord(url.searchParams.get('lat'), '20.0220551');
-  const lon = safeCoord(url.searchParams.get('lon'), '41.4334279');
-
-  const apiUrl =
-    'https://api.open-meteo.com/v1/forecast' +
-    '?latitude=' + lat +
-    '&longitude=' + lon +
-    '&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,wind_direction_10m' +
-    '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max' +
-    '&timezone=auto&forecast_days=7&wind_speed_unit=kmh';
-
-  const cache = caches.default;
-  const cacheKey = new Request(apiUrl, { method: 'GET' });
-
-  let response = await cache.match(cacheKey);
-  if (!response) {
-    const upstream = await fetch(apiUrl, {
-      headers: { 'user-agent': 'raghadan-guide-weather/1.0' }
-    });
-    if (!upstream.ok) {
-      return new Response(JSON.stringify({ error: 'weather_unavailable' }), {
-        status: 502,
-        headers: { 'content-type': 'application/json; charset=utf-8' }
-      });
-    }
-    const body = await upstream.text();
-    response = new Response(body, {
-      status: 200,
-      headers: {
-        'content-type': 'application/json; charset=utf-8',
-        'cache-control': 'public, max-age=' + CACHE_TTL + ', stale-while-revalidate=' + CACHE_TTL * 2
-      }
-    });
-    ctx.waitUntil(cache.put(cacheKey, response.clone()));
+async function handleWeather(url, ctx) {
+  const lat = coordinate(url.searchParams.get('lat'), '20.0221476', 90);
+  const lon = coordinate(url.searchParams.get('lon'), '41.4332427', 180);
+  const api = new URL('https://api.open-meteo.com/v1/forecast');
+  api.search = new URLSearchParams({latitude:lat, longitude:lon,
+    current:'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,wind_direction_10m',
+    daily:'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max',
+    timezone:'auto',forecast_days:'7',wind_speed_unit:'kmh'}).toString();
+  const key = new Request(api.href), cache = caches.default;
+  try {
+    const cached = await cache.match(key);
+    if (cached && validWeather(await cached.clone().json())) return cached;
+    const upstream = await fetch(api, {signal:AbortSignal.timeout(10000), headers:{'user-agent':'raghadan-guide-weather/1.0'}});
+    if (!upstream.ok) throw Error('upstream');
+    const data = await upstream.json();
+    if (!validWeather(data)) throw Error('invalid or expired model data');
+    const response = Response.json(data, {headers:{'Cache-Control':'public, max-age='+CACHE_TTL,'access-control-allow-origin':'*'}});
+    ctx.waitUntil(cache.put(key, response.clone()));
+    return response;
+  } catch {
+    return Response.json({error:'weather_unavailable'}, {status:502, headers:{'Cache-Control':'no-store','access-control-allow-origin':'*'}});
   }
-
-  const headers = new Headers(response.headers);
-  headers.set('access-control-allow-origin', '*');
-  return new Response(response.body, { status: response.status, headers });
 }
-
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    if (url.pathname === '/api/weather') {
-      return handleWeather(request, url, ctx);
-    }
-    // Everything else is served from the static build.
-    return env.ASSETS.fetch(request);
-  }
-};
+async function missing(request, env) {
+  const url = new URL(request.url); url.pathname = '/404.html'; url.search = '';
+  const asset = await env.ASSETS.fetch(new Request(url));
+  const headers = new Headers(asset.headers); headers.set('X-Robots-Tag','noindex, follow'); headers.set('Cache-Control','no-store');
+  return new Response(request.method === 'HEAD' ? null : asset.body, {status:404,headers});
+}
+export default {async fetch(request, env, ctx) {
+  const url = new URL(request.url);
+  // Preserve the requested path/query when correcting known HTTP apex entrances.
+  if (url.hostname === 'raghadanforest.com' && url.protocol !== 'https:') {url.protocol='https:';return Response.redirect(url.href,301);}
+  if (!['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD'}});
+  if (['/404','/404/','/404.html','/404.html/'].includes(url.pathname)) return missing(request,env);
+  if (url.pathname === '/api/weather') {const response=await handleWeather(url,ctx);return request.method==='HEAD'?new Response(null,response):response;}
+  const response=await env.ASSETS.fetch(request);
+  return response.status===404?missing(request,env):response;
+}};

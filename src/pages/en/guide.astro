@@ -1,4 +1,5 @@
 ---
+import SourceNote from '../../components/SourceNote.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalHeader from '../../components/LegalHeader.astro';
 import Footer from '../../components/Footer.astro';
@@ -61,14 +62,14 @@ const faqItems = [faq.en[4], faq.en[5], faq.en[7], faq.en[2]];
             <tbody class="divide-y divide-[var(--line)]">
               <tr>
                 <td class="p-4 align-top font-black text-[var(--forest-800)]">Winter<br><span class="text-xs font-normal text-[var(--muted)]">Dec – Feb</span></td>
-                <td class="p-4 align-top">Night cold that may approach zero on some nights, mild day, scattered possible rain and frequent morning fog.</td>
+                <td class="p-4 align-top">Check the daily forecast for temperature, rain and visibility; no fixed minimum or fog pattern is assumed.</td>
                 <td class="p-4 align-top">Calm daytime walking and fog photography.</td>
                 <td class="p-4 align-top">A warm layer and jacket, and shoes with good grip.</td>
                 <td class="p-4 align-top">Low morning visibility, and slippery surfaces when raining.</td>
               </tr>
               <tr>
                 <td class="p-4 align-top font-black text-[var(--forest-800)]">Spring<br><span class="text-xs font-normal text-[var(--muted)]">Mar – May</span></td>
-                <td class="p-4 align-top">Generally mild, with possible increase in seasonal rain and greener vegetation.</td>
+                <td class="p-4 align-top">Check rain and visibility in the daily forecast; seasonal averages do not predict your visit.</td>
                 <td class="p-4 align-top">Family picnics and nature photography after rain.</td>
                 <td class="p-4 align-top">Layered clothes, and light rain backup.</td>
                 <td class="p-4 align-top">Avoid valley courses during heavy rain.</td>
@@ -76,14 +77,14 @@ const faqItems = [faq.en[4], faq.en[5], faq.en[7], faq.en[2]];
               <tr>
                 <td class="p-4 align-top font-black text-[var(--forest-800)]">Summer<br><span class="text-xs font-normal text-[var(--muted)]">Jun – Aug</span></td>
                 <td class="p-4 align-top">Much milder than hotter regions; mild day and refreshing night, with peak visitor crowding.</td>
-                <td class="p-4 align-top">Escape the plain\'s heat, and evening seating.</td>
+                <td class="p-4 align-top">Escape the plain's heat, and evening seating.</td>
                 <td class="p-4 align-top">Light summer clothes, and a hat for midday sun.</td>
-                <td class="p-4 align-top">Crowding at gates and overlooks; come early.</td>
+                <td class="p-4 align-top">Crowding at gates and overlooks; confirm entry hours and allow extra travel time.</td>
               </tr>
               <tr>
                 <td class="p-4 align-top font-black text-[var(--forest-800)]">Autumn<br><span class="text-xs font-normal text-[var(--muted)]">Sep – Nov</span></td>
-                <td class="p-4 align-top">General mildness and calm after summer peak, with chances of morning fog and clear overlooks.</td>
-                <td class="p-4 align-top">Photography and long visits without peak crowding.</td>
+                <td class="p-4 align-top">Check temperature and visibility; clear views and low crowding are not guaranteed.</td>
+                <td class="p-4 align-top">Photography when visibility and access permit.</td>
                 <td class="p-4 align-top">A light layer for evening, and enough water.</td>
                 <td class="p-4 align-top">Visibility changes fast as low clouds form.</td>
               </tr>
@@ -99,15 +100,15 @@ const faqItems = [faq.en[4], faq.en[5], faq.en[7], faq.en[2]];
         <h2 class="section-title">Suggested tours for every visitor type</h2>
         <div class="mt-10 grid gap-6 lg:grid-cols-3">
           {[
-            ['Families with children', ['Start from the developed areas near parking and seating.', 'Allocate time for playgrounds and short flat walking trails.', 'Keep direct supervision near edges and slopes.', 'Avoid peak crowding with an early or after-noon visit.']],
-            ['Nature photographers', ['Watch low clouds form in the morning and the changing overlook.', 'Target upper overlooks and safe edges for wide angles.', 'Try golden hours near sunrise and sunset.', 'Respect others\' paths and prepared trails when moving.']],
-            ['Seniors / limited mobility', ['Use adapted parking and paved trails.', 'Distribute rest at benches and shaded areas.', 'Avoid steep or unprepared trails.', 'Stay near main facilities for services.']]
+            ['Families with children', ['Start from the developed areas near parking and seating.', 'Allocate time for playgrounds and short routes whose slope and surface you have checked.', 'Keep direct supervision near edges and slopes.', 'Avoid peak crowding with a visit within confirmed opening hours.']],
+            ['Nature photographers', ['Watch changing clouds and visibility during confirmed access hours.', 'Use designated viewing points behind barriers; do not approach edges for a photograph.', 'Try golden hours before sunset within confirmed opening hours.', 'Respect others\' paths and prepared trails when moving.']],
+            ['Seniors / limited mobility', ['Ask which parking and paved route are currently accessible; a continuous step-free route has not been verified.', 'Distribute rest at benches and shaded areas.', 'Avoid steep or unprepared trails.', 'Stay near main facilities for services.']]
           ].map(([name, items]) => (
             <article class="rounded-[2rem] bg-[var(--forest-900)] p-7">
               <p class="text-sm font-black text-[var(--sand)]">{name}</p>
               <h3 class="mt-2 text-2xl font-black">{name}</h3>
               <ul class="mt-5 space-y-3 text-sm text-white/90">
-                {items.map((li) => <li>{li}</li>)}
+                {(items as string[]).map((li: string) => <li>{li}</li>)}
               </ul>
             </article>
           ))}
@@ -181,6 +182,7 @@ const faqItems = [faq.en[4], faq.en[5], faq.en[7], faq.en[2]];
         </div>
       </div>
     </section>
+    <SourceNote />
   </main>
   <Footer />
 </BaseLayout>

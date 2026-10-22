@@ -24,7 +24,7 @@ export const NAP = {
   postalCode: '65731',
   country: 'المملكة العربية السعودية',
   countryCode: 'SA',
-  latitude: 20.0220551,
-  longitude: 41.4334279,
+  latitude: 20.0221476,
+  longitude: 41.4332427,
   mapsUrl: 'https://maps.app.goo.gl/fWTXPEcNSYzMdcmRA'
 };

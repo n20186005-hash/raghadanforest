@@ -1,4 +1,5 @@
 ---
+import SourceNote from '../../components/SourceNote.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalHeader from '../../components/LegalHeader.astro';
 import Footer from '../../components/Footer.astro';
@@ -8,7 +9,7 @@ import { faq, faqLd, attractionLd, mapEmbed } from '../../data/guide';
 const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
 
 const title = withSiteNameEn('Location, Map & How to Get There');
-const description = 'Where is Raghadan Forest in Al Bahah: address, coordinates 20.0220551, 41.4334279, Google Maps link, and how to get there from the airport by car or taxi.';
+const description = 'Where is Raghadan Forest in Al Bahah: address, coordinates 20.0221476, 41.4332427, Google Maps link, and how to get there from the airport by car or taxi.';
 
 const faqItems = [faq.en[6], faq.en[4], faq.en[8]];
 const structured = [attractionLd('en', siteUrl), faqLd(faqItems)];
@@ -30,7 +31,7 @@ const structured = [attractionLd('en', siteUrl), faqLd(faqItems)];
           <div>
             <span class="eyebrow">Map</span>
             <h2 class="section-title">Save the arrival point before the climb</h2>
-            <p class="section-lead">The forest coordinates used here are taken from the map link: 20.0220551, 41.4334279.</p>
+            <p class="section-lead">The forest map pin used here is a navigation reference, not a verified gate or accessible route: 20.0221476, 41.4332427.</p>
             <a href={NAP.mapsUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex rounded-full border border-[var(--line)] bg-white px-5 py-3 text-sm font-black text-[var(--forest-900)] transition hover:bg-[var(--mist-100)]">Open Google Maps</a>
           </div>
           <div class="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--mist-100)] shadow-[var(--shadow)]">
@@ -47,12 +48,12 @@ const structured = [attractionLd('en', siteUrl), faqLd(faqItems)];
             <span class="eyebrow">Navigation address</span>
             <h2 class="mt-5 text-3xl font-black">Address &amp; coordinates</h2>
             <p class="mt-4 text-[var(--muted)]">4657 Al Hakam Al ZaroOqi, 6905, Al Bahah 65731, Saudi Arabia.</p>
-            <p class="mt-3 text-sm text-[var(--muted)]">Coordinates: 20.0220551, 41.4334279 — enter them in a maps app or open the link above.</p>
+            <p class="mt-3 text-sm text-[var(--muted)]">Coordinates: 20.0221476, 41.4332427 — enter them in a maps app or open the link above.</p>
           </article>
           <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
             <span class="eyebrow !text-[var(--sand)]">Nearest airport</span>
             <h2 class="mt-5 text-3xl font-black">Al Aqeeq airport then the mountain road</h2>
-            <p class="mt-4 text-white/92">King Saud bin Abdulaziz Airport in Al Aqeeq is Al Bahah\'s airport, about 46 km northeast of the city. Collect luggage, then continue by a rented car or taxi toward Al Bahah, reaching Raghadan to the west.</p>
+            <p class="mt-4 text-white/92">King Saud bin Abdulaziz Airport in Al Aqeeq is Al Bahah's airport, in Al Aqeeq; check the road route and travel time for your arrival. Collect luggage, then continue by a rented car or taxi toward Al Bahah, reaching Raghadan to the west.</p>
           </article>
         </div>
       </div>
@@ -120,6 +121,7 @@ const structured = [attractionLd('en', siteUrl), faqLd(faqItems)];
         </div>
       </div>
     </section>
+    <SourceNote />
   </main>
   <Footer />
 </BaseLayout>

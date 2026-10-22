@@ -1,14 +1,3 @@
-# حالة التحقق في بيئة التسليم
+# Validation scope
 
-تم تنفيذ الفحوص المحلية الممكنة داخل بيئة الإنشاء الحالية:
-
-- فحص بنية المصدر المخصص: ناجح.
-- فحص صياغة المقاطع الأمامية في ملفات Astro باستخدام محلل TypeScript: ناجح.
-- فحص صياغة JavaScript المضمّن: ناجح.
-- فحص ملفات SVG كـ XML: ناجح.
-- فحص عدم وجود `pnpm-workspace.yaml`: ناجح.
-- فحص عدم وجود قيم النطاقات التجريبية أو بروتوكول إضافات المتصفح في المصدر: ناجح.
-
-تعذر تنفيذ خطوة تثبيت الحزم عبر Corepack لأن بيئة التنفيذ الحالية لا تستطيع الاتصال بـ npm registry وتعيد خطأ DNS من نوع `EAI_AGAIN`. لذلك لم يكن من الممكن تشغيل `pnpm check` و`pnpm build` ضد الحزم الفعلية داخل هذه الحاوية، ولا ينبغي اعتبارهما منفذين هنا.
-
-مهم: ملف `pnpm-lock.yaml` المرفق يطابق إصدارات التبعيات المباشرة في `package.json`، لكنه لم يُحلّ إلى رسم التبعيات الانتقالية الكامل بسبب حظر الوصول إلى registry. في بيئة متصلة بالإنترنت يجب تشغيل `pnpm install --no-frozen-lockfile` مرة واحدة لإكمال القفل، ثم اعتماد الملف الناتج وتشغيل دورة التحقق المطلوبة بـ `--frozen-lockfile` قبل النشر. لا يدّعي هذا التسليم أن خطوة frozen install قد نجحت داخل بيئة لا تملك وصولاً إلى registry.
+Local checks cover all existing Arabic and English pages, generated canonical/language links, true 404 documents, per-file photo hashes, built consent callbacks and model weather success/failure states. The runtime fixtures exercise delivered JavaScript with explicit storage/network failures; they are not a browser visual review or proof that a third-party measurement request was accepted. Actual local Worker/ASSETS integration checks are recorded separately. Production build, deployment and desktop/mobile review remain separate gates.

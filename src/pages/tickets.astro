@@ -1,11 +1,11 @@
 ---
+import SourceNote from '../components/SourceNote.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalHeader from '../components/LegalHeader.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_NAME, withSiteName } from '../data/site';
+import { withSiteName } from '../data/site';
 import { faq, faqLd } from '../data/guide';
 
-const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
 
 const title = withSiteName('تذاكر الدخول والأسعار والمواقف');
 const description = 'دليل عربي مستقل إلى تذاكر غابة رغدان: الدخول العام بلا تذكرة، الرسوم المحتملة للفعاليات والخدمات الاختيارية، سعة المواقف ودورات المياه، والوصول المهيأ لذوي الإعاقة.';
@@ -34,7 +34,7 @@ const faqItems = [faq.ar[0], faq.ar[1], faq.ar[3], faq.ar[2], faq.ar[8]];
         <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
           <span class="eyebrow !text-[var(--sand)]">المواقف</span>
           <h2 class="mt-5 text-3xl font-black">سعة كبيرة، لكن الذروة تظل مزدحمة</h2>
-          <p class="mt-4 text-white/92">تشير البيانات المنشورة إلى 1,230 موقفاً، بينها 42 موقفاً مهيأً لذوي الإعاقة. في أمسيات الصيف وعطلات نهاية الأسبوع قد تتباطأ الحركة عند المداخل والمطلات، لذلك اجعل الوصول مبكراً جزءاً من الخطة.</p>
+          <p class="mt-4 text-white/92">تشير البيانات المنشورة إلى 1,230 موقفاً، بينها 42 موقفاً مهيأً لذوي الإعاقة. في أمسيات الصيف وعطلات نهاية الأسبوع قد تتباطأ الحركة عند المداخل والمطلات، لذلك اجعل الوصول بعد تأكيد ساعات الدخول جزءاً من الخطة.</p>
           <p class="mt-6 border-t border-white/15 pt-5 text-sm text-white/90">لا توقف المركبة على حواف غير مهيأة أو في مسار طوارئ، خصوصاً أثناء الضباب.</p>
         </article>
       </div>
@@ -44,10 +44,10 @@ const faqItems = [faq.ar[0], faq.ar[1], faq.ar[3], faq.ar[2], faq.ar[8]];
       <div class="container-site">
         <span class="eyebrow">المرافق والخدمات</span>
         <h2 class="section-title">ما تجده على الأرض مقابل الدخول</h2>
-        <p class="section-lead">الأرقام التالية هي أحدث بيانات خدمية عامة وجدناها من الجهات المحلية في 2026. وجود المرفق لا يعني أن كل وحدة متاحة في كل لحظة، فالتشغيل يتأثر بالصيانة والازدحام.</p>
+        <p class="section-lead">الأرقام التالية هي أحدث بيانات خدمية عامة وجدناها في تقرير واس بتاريخ 13 يونيو 2026. وجود المرفق لا يعني أن كل وحدة متاحة في كل لحظة، فالتشغيل يتأثر بالصيانة والازدحام.</p>
         <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            ['دورات المياه', '122 دورة مياه مذكورة في بيانات 2026. عند الازدحام استخدم الأقرب إلى المناطق الخدمية الرئيسية.'],
+            ['دورات المياه', '122 دورة مياه مذكورة في تقرير 13 يونيو 2026. عند الازدحام استخدم الأقرب إلى المناطق الخدمية الرئيسية.'],
             ['مواقف السيارات', '1,230 موقفاً، منها 42 موقفاً مخصصاً لذوي الإعاقة.'],
             ['ألعاب الأطفال', '14 منطقة ألعاب بحسب البيانات المنشورة، إلى جانب مساحات مفتوحة وممرات.'],
             ['الصلاة', 'تشير أمانة المنطقة إلى وجود موقع مخصص للصلاة ضمن مرافق الغابة.'],
@@ -106,6 +106,7 @@ const faqItems = [faq.ar[0], faq.ar[1], faq.ar[3], faq.ar[2], faq.ar[8]];
         </div>
       </div>
     </section>
+    <SourceNote />
   </main>
   <Footer />
 </BaseLayout>

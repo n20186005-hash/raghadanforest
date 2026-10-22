@@ -1,122 +1,27 @@
 ---
+import PhotoCredits from '../components/PhotoCredits.astro';
+import SourceNote from '../components/SourceNote.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WeatherSection from '../components/WeatherSection.astro';
 import { SITE_NAME } from '../data/site';
+import { photos, mapEmbed, faq, faqLd, attractionLd } from '../data/guide';
 
 const mapUrl = 'https://maps.app.goo.gl/fWTXPEcNSYzMdcmRA';
-const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6672.45030720732!2d41.4334279!3d20.0220551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15ef4f6655951595%3A0x79af6e771103498b!2sRaghadan%20Forest%20Park!5e1!3m2!1sar!2ssa!4v1787707688232!5m2!1sar!2ssa';
-
-const photos = {
-  entrance: 'https://upload.wikimedia.org/wikipedia/commons/c/c5/%D9%85%D9%86%D8%AA%D8%B2%D9%87_%D8%BA%D8%A7%D8%A8%D8%A9_%D8%B1%D8%BA%D8%AF%D8%A7%D9%861W9828.jpg',
-  sign: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Welcome_Sign_-_Raghdan_Forest_1.jpg',
-  ridge: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Albaha9021_-_1.jpeg',
-  forest: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Albaha9021_-_2.jpeg',
-  clouds: 'https://upload.wikimedia.org/wikipedia/commons/4/46/%D8%A7%D9%84%D8%A8%D8%A7%D8%AD%D8%A9_-_1.jpeg'
-};
-
-const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://raghadanforest.com';
-
-const faqItems = [
-  {
-    q: 'هل دخول غابة رغدان يحتاج إلى تذكرة؟',
-    a: 'تفيد صفحة «روح السعودية» بأن الدخول العام إلى الغابة لا يحتاج إلى تذكرة. قد تكون لبعض الفعاليات أو الأنشطة والخدمات الموسمية رسوم مستقلة، لذلك تحقّق من الإعلان الرسمي عند وجود فعالية.'
-  },
-  {
-    q: 'ما ساعات فتح غابة رغدان؟',
-    a: 'تورد «روح السعودية» ساعات يومية من 8:00 صباحاً حتى 11:59 مساءً. لأن التشغيل قد يتغير في المواسم أو بسبب الطقس والصيانة، يُفضّل التحقق من القنوات الرسمية قبل الرحلة.'
-  },
-  {
-    q: 'هل الغابة مناسبة للعائلات والأطفال؟',
-    a: 'نعم؛ تشير بيانات أمانة المنطقة ووكالة الأنباء السعودية إلى مساحات خضراء ومناطق ألعاب وممرات ومقاعد وخدمات عامة. يبقى الإشراف المباشر على الأطفال ضرورياً بسبب طبيعة الموقع الجبلية والحواف والمنحدرات.'
-  },
-  {
-    q: 'هل تتوفر دورات مياه ومواقف سيارات؟',
-    a: 'بحسب بيانات منشورة في 2026، تضم الغابة 122 دورة مياه و1,230 موقفاً للمركبات، منها 42 موقفاً مهيأً لذوي الإعاقة. قد تتغير إتاحة بعض المرافق مؤقتاً بسبب الصيانة أو الازدحام.'
-  },
-  {
-    q: 'ما أفضل وقت لزيارة غابة رغدان؟',
-    a: 'الصباح الباكر مناسب للأجواء الهادئة وفرصة مشاهدة السحب إن تكوّنت، والعصر إلى ما قبل الغروب مناسب للإطلالات. الصيف أكثر ازدحاماً بسبب اعتدال أجواء الباحة، بينما يتطلب المطر والضباب قيادة ومشياً أكثر حذراً.'
-  },
-  {
-    q: 'كم تستغرق الزيارة؟',
-    a: 'للمشاهدة والمشي الهادئ، خصص عادةً من ساعتين إلى أربع ساعات. يمكن أن تمتد الزيارة إلى نصف يوم للعائلات أو للنزهة، بينما تكفي زيارة أقصر لمن يريد الإطلالة والتصوير فقط.'
-  },
-  {
-    q: 'هل يمكن الوصول إلى الغابة بالحافلة؟',
-    a: 'لا ينبغي الاعتماد على وجود خط حافلات ثابت يصل مباشرة إلى بوابة الغابة دون تحقق مسبق. يمكن الوصول إلى مدينة الباحة بوسائل نقل مختلفة، ثم إكمال الجزء الأخير بسيارة أو سيارة أجرة وفق الخدمة المتاحة وقت الرحلة.'
-  },
-  {
-    q: 'هل ظهور الضباب مضمون؟',
-    a: 'لا. الضباب والسحب المنخفضة من ملامح المشهد الشهيرة في رغدان، لكنها ظواهر جوية تتغير من ساعة إلى أخرى. لا تبنِ خطة الزيارة على ضمان ظهورها.'
-  },
-  {
-    q: 'هل الموقع مناسب للكراسي المتحركة؟',
-    a: 'توجد مواقف مخصصة لذوي الإعاقة وبعض المسارات والخدمات المطورة، لكن طبيعة الغابة جبلية وفيها فروق ارتفاع. راجع المسار المقصود عند الوصول، وفضّل المناطق المعبدة إذا كانت الحركة محدودة.'
-  }
-];
-
-const attractionLd = {
-  '@context': 'https://schema.org',
-  '@type': ['TouristAttraction', 'LocalBusiness'],
-  '@id': `${siteUrl}/#attraction`,
-  url: siteUrl,
-  name: 'غابة رغدان',
-  alternateName: 'منتزه غابة رغدان',
-  description: 'غابة جبلية ومتنزه عام على مرتفعات السروات غرب مدينة الباحة، تشتهر بأشجار العرعر والإطلالات على سهول تهامة والممرات والمساحات الخضراء.',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: '4657 الحكم الزروقي، 6905',
-    addressLocality: 'الباحة',
-    postalCode: '65731',
-    addressCountry: 'SA'
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 20.0220551,
-    longitude: 41.4334279
-  },
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    opens: '08:00',
-    closes: '23:59'
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: 4.4,
-    reviewCount: 40771,
-    bestRating: 5
-  },
-  isAccessibleForFree: true,
-  priceRange: 'الدخول العام بلا تذكرة',
-  hasMap: mapUrl,
-  image: [photos.entrance, photos.ridge, photos.clouds],
-  sameAs: [mapUrl]
-};
-
-const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.a
-    }
-  }))
-};
+const siteUrl = Astro.site!.href.replace(/\/$/, '');
+const faqItems = faq.ar;
+const attractionLdAr = attractionLd('ar', siteUrl);
+const faqLdAr = faqLd(faqItems);
 
 const title = `${SITE_NAME} — الدخول، أوقات الزيارة، الموقع والخريطة`;
-const description = 'دليل عربي مستقل إلى غابة رغدان في الباحة: الدخول العام بلا تذكرة، ساعات يومية 8 ص–11:59 م، العنوان والخريطة، المواقف ودورات المياه، الطقس المباشر، الوصول من المطار، والأسئلة الشائعة قبل الزيارة.';
+const description = 'دليل عربي مستقل إلى غابة رغدان في الباحة: الدخول العام بلا تذكرة، اختلاف ساعات المصادر وكيفية تأكيدها، العنوان والخريطة، المواقف ودورات المياه، الطقس المباشر، الوصول من المطار، والأسئلة الشائعة قبل الزيارة.';
 ---
-<BaseLayout title={title} description={description} structuredData={[attractionLd, faqLd]}>
+<BaseLayout title={title} description={description} structuredData={[attractionLdAr, faqLdAr]}>
   <Header />
   <main id="main-content">
     <section class="relative min-h-[92svh] overflow-hidden bg-[var(--forest-950)] text-white">
-      <img src={photos.ridge} alt="جبال الباحة الخضراء والسحب حول مرتفعات السروات" class="absolute inset-0 h-full w-full object-cover opacity-60" fetchpriority="high" />
+      <img src={photos.entrance} alt="مدخل منتزه رغدان، صورة من 2019" class="absolute inset-0 h-full w-full object-cover opacity-60" fetchpriority="high" />
       <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,27,20,.22),rgba(10,27,20,.82)_68%,rgba(10,27,20,.96))]"></div>
       <div class="absolute inset-0 bg-[linear-gradient(0deg,rgba(17,37,29,.9),transparent_48%)]"></div>
       <div class="container-site relative flex min-h-[92svh] items-end pb-16 pt-32 lg:pb-20">
@@ -147,7 +52,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
               </div>
               <div>
                 <p class="text-3xl font-black">1,230</p>
-                <p class="mt-1 text-xs text-white/90">موقفاً بحسب بيانات 2026</p>
+                <p class="mt-1 text-xs text-white/90">موقفاً بحسب تقرير 13 يونيو 2026</p>
               </div>
               <div>
                 <p class="text-3xl font-black">دون تذكرة</p>
@@ -172,7 +77,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
           </div>
           <div class="border-b border-[var(--line)] p-6 xl:border-b-0 xl:border-l">
             <p class="text-xs font-black text-[var(--forest-700)]">الساعات المنشورة</p>
-            <p class="mt-2 font-black">8:00 ص — 11:59 م</p>
+            <p class="mt-2 font-black">08:00–00:00 / 14:00–02:00</p>
             <p class="mt-2 text-sm text-[var(--muted)]">يومياً وفق صفحة «روح السعودية»؛ تحقق قبل الذهاب.</p>
           </div>
           <div class="border-b border-[var(--line)] p-6 md:border-l md:border-b-0">
@@ -223,14 +128,12 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
         <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
           <div>
             <span class="eyebrow !text-[var(--sand)]">خلفية المكان</span>
-            <h2 class="section-title">اسمٌ مرتبط بالرخاء، ومشهدٌ أقدم من المتنزه الحديث</h2>
+            <h2 class="section-title">الاسم والسوق التاريخي والسياق الإقليمي</h2>
           </div>
           <div class="grid gap-7 text-white/92 md:grid-cols-2">
             <div>
               <p class="text-xl font-black text-white">رواية محلية عن الاسم</p>
-              <p class="mt-3 text-sm leading-7">
-                تنقل تغطيات محلية رواية شفوية تربط «رغدان» بمعنى رغد العيش ووفرة الماء والزراعة في الوادي والمدرجات المحيطة. نتعامل معها بوصفها رواية متداولة، لا تفسيراً لغوياً قاطعاً موثقاً بوثيقة تاريخية واحدة.
-              </p>
+              <p class="mt-3 text-sm leading-7">لم تثبت المصادر الرسمية التي راجعناها أصل الاسم لغوياً. يشترك السوق والقرية في اسم رغدان؛ ولا نقدم الرواية المتداولة بوصفها حقيقة موثقة.</p>
             </div>
             <div>
               <p class="text-xl font-black text-white">السوق التاريخي</p>
@@ -288,15 +191,19 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
             </article>
           ))}
         </div>
-        <div class="mt-8 grid gap-5 md:grid-cols-3">
-          <img src={photos.sign} alt="لوحة ترحيبية عند غابة رغدان" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
-          <img src={photos.forest} alt="طبيعة جبلية خضراء في منطقة الباحة" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
-          <img src={photos.clouds} alt="سحب وضباب فوق مرتفعات الباحة" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+        <div class="mt-8">
+          <p class="text-sm">الصور الإقليمية أدناه سياق فقط؛ راجع الإسناد لكل ملف.</p>
+          <div class="mt-4 grid gap-5 md:grid-cols-2">
+              <img src={photos.sign} alt="لوحة ترحيبية عند غابة رغدان" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+          <img src={photos.ridge} alt="طريق على سفح في منطقة الباحة، سياق إقليمي" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+              <img src={photos.forest} alt="مبانٍ على سفح في منطقة الباحة، سياق إقليمي" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+          <img src={photos.clouds} alt="سحب فوق منحدر؛ الموقع الدقيق غير متحقق منه" loading="lazy" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+          </div>
         </div>
       </div>
     </section>
 
-    <WeatherSection lat="20.0220551" lon="41.4334279" />
+    <WeatherSection lat="20.0221476" lon="41.4332427" />
 
     <section id="facilities" class="section-space border-y border-[var(--line)] bg-white/45">
       <div class="container-site">
@@ -304,11 +211,11 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
           <div class="lg:sticky lg:top-8 lg:self-start">
             <span class="eyebrow">الخدمات والمرافق</span>
             <h2 class="section-title">ما يحتاجه الزائر على الأرض</h2>
-            <p class="section-lead">الأرقام التالية هي أحدث بيانات خدمية عامة وجدناها من الجهات المحلية في 2026. وجود المرفق لا يعني أن كل وحدة متاحة في كل لحظة، لذلك راعِ الصيانة والازدحام.</p>
+            <p class="section-lead">الأرقام التالية هي أحدث بيانات خدمية عامة وجدناها في تقرير واس بتاريخ 13 يونيو 2026. وجود المرفق لا يعني أن كل وحدة متاحة في كل لحظة، لذلك راعِ الصيانة والازدحام.</p>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
             {[
-              ['دورات المياه', '122 دورة مياه مذكورة في بيانات 2026. عند الازدحام، استخدم الأقرب إلى المناطق الخدمية الرئيسية.'],
+              ['دورات المياه', '122 دورة مياه مذكورة في تقرير 13 يونيو 2026. عند الازدحام، استخدم الأقرب إلى المناطق الخدمية الرئيسية.'],
               ['مواقف السيارات', '1,230 موقفاً، منها 42 موقفاً مخصصاً لذوي الإعاقة. الوصول المبكر أفضل في مواسم الذروة.'],
               ['ألعاب الأطفال', '14 منطقة ألعاب بحسب البيانات المنشورة، إلى جانب مساحات مفتوحة وممرات.'],
               ['الصلاة', 'تشير أمانة المنطقة إلى وجود موقع مخصص للصلاة ضمن مرافق الغابة.'],
@@ -344,7 +251,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
             <span class="eyebrow !text-[var(--sand)]">المواقف</span>
             <h2 class="mt-5 text-3xl font-black">سعة كبيرة، لكن الذروة تظل مزدحمة</h2>
             <p class="mt-4 text-white/92">
-              تشير البيانات المنشورة إلى 1,230 موقفاً، بينها 42 موقفاً مهيأً لذوي الإعاقة. في أمسيات الصيف وعطلات نهاية الأسبوع قد تتباطأ الحركة عند المداخل والمطلات، لذلك اجعل الوصول مبكراً جزءاً من الخطة.
+              تشير البيانات المنشورة إلى 1,230 موقفاً، بينها 42 موقفاً مهيأً لذوي الإعاقة. في أمسيات الصيف وعطلات نهاية الأسبوع قد تتباطأ الحركة عند المداخل والمطلات، لذلك اجعل الوصول بعد تأكيد ساعات الدخول جزءاً من الخطة.
             </p>
             <p class="mt-6 border-t border-white/15 pt-5 text-sm text-white/90">لا توقف المركبة على حواف غير مهيأة أو في مسار طوارئ، خصوصاً أثناء الضباب.</p>
           </article>
@@ -361,8 +268,8 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
         </div>
         <div class="mt-10 grid gap-5 lg:grid-cols-4">
           {[
-            ['المطار', 'مطار الملك سعود بن عبدالعزيز في العقيق هو مطار الباحة. تضعه معلومات الطيران المدني على مسافة تقارب 46 كم شمال شرق مدينة الباحة. الخطوات العملية: استلم أمتعتك، ثم إمّا تستأجر سيارة من الأنواع المتاحة في المطار أو المدينة، وإما تستقل سيارة أجرة أو خدمة حجز نقل نحو الباحة، ثم تكمل غرباً وصولاً إلى رغدان.'],
-            ['السيارة', 'أدخل الإحداثيات 20.0220551، 41.4334279 أو افتح رابط الخريطة. راقب الضباب والمنعطفات، وخفف السرعة عند انخفاض الرؤية أو هطول المطر. املأ خزان الوقود قبل المرتفعات.'],
+            ['المطار', 'مطار الملك سعود بن عبدالعزيز في العقيق هو مطار الباحة. تحقق من الطريق ومدة الانتقال وقت الوصول. الخطوات العملية: استلم أمتعتك، ثم تحقق من توافر سيارة مستأجرة أو سيارة أجرة أو خدمة حجز نقل نحو الباحة، ثم أكمل غرباً وصولاً إلى رغدان.'],
+            ['السيارة', 'أدخل الإحداثيات 20.0221476، 41.4332427 أو افتح رابط الخريطة. راقب الضباب والمنعطفات، وخفف السرعة عند انخفاض الرؤية أو هطول المطر. املأ خزان الوقود قبل المرتفعات.'],
             ['النقل العام', 'لا نعتمد في هذا الدليل على وجود خط حافلات ثابت يصل مباشرة إلى بوابة الغابة. إن وصلت إلى الباحة بوسيلة نقل بين المدن، خطط مسبقاً لوسيلة الجزء الأخير وتحقق من شبكة النقل المحلية وقت الرحلة.'],
             ['سيارة الأجرة', 'سيارة الأجرة أو خدمات الحجز بالنقل خيار عملي من المطار أو مدينة الباحة. اتفق على نقطة العودة أو تحقق من إمكانية طلب رحلة عودة، خصوصاً في الساعات المتأخرة أو ذروة الموسم، إذ قد تقل الرحلات المتجهة إلى المرتفعات ليلاً.']
           ].map(([name, text]) => (
@@ -391,7 +298,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
           <div class="grid gap-4 sm:grid-cols-2">
             {[
               ['الطعام والمشروبات', 'ابحث في مدينة الباحة عن مطاعم عائلية ومطابخ محلية ومقاهٍ بمختلف الأنواع، أو استخدم الأكشاك وعربات الطعام الموسمية إن كانت تعمل داخل المناطق المطورة. لا تعتمد على توفر خيار محدد في كل وقت، واحرص على شرب كمية كافية من الماء.'],
-              ['السكن', 'تتوفر في نطاق الباحة فنادق وشقق مخدومة ومنتجعات وبيوت إقامة. اختر الموقع وفق قربه من المدينة أو رغبتك في الهدوء الجبلي، لا وفق ترتيب تجاري من هذا الدليل. احجز مبكراً في مواسم الذروة الصيفية.'],
+              ['السكن', 'تتوفر في نطاق الباحة فنادق وشقق مخدومة ومنتجعات وبيوت إقامة. اختر الموقع وفق قربه من المدينة أو رغبتك في الهدوء الجبلي، لا وفق ترتيب تجاري من هذا الدليل. احجز بعد تأكيد ساعات الدخول في مواسم الذروة الصيفية.'],
               ['السوبرماركت والتموين', 'من الأفضل شراء الماء والمستلزمات الأساسية والخفيفة من سوبرماركت أو متجر تموين داخل النطاق العمراني قبل صعود الطريق، خصوصاً إذا كانت زيارتك طويلة أو مع أطفال.'],
               ['الوقود والشحن', 'توجد محطات وقود على الطرق الرئيسية حول الباحة. لا نؤكد وجود شاحن مركبات كهربائية داخل الغابة؛ تحقق من تطبيق الخرائط أو مزود الشحن قبل صعود الطريق إذا كانت مركبتك كهربائية، وامتلئ الخزان قبل المرتفعات.'],
               ['خدمات داخل الغابة', 'تظهر في المواسم أكشاك وعربات طعام وخدمات بيع، إضافة إلى دورات المياه ومناطق الجلوس ومواقع الصلاة. لا تعتمد على توفر كل خيار في كل وقت، فبعض المرافق قد يتغير بتوقيت الموسم والصيانة.']
@@ -417,7 +324,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
         </div>
         <div class="mt-10 grid gap-px overflow-hidden rounded-[2rem] bg-white/12 md:grid-cols-3">
           <div class="bg-[var(--forest-950)] p-7">
-            <p class="text-sm font-black text-[var(--sand)]">الصباح الباكر</p>
+            <p class="text-sm font-black text-[var(--sand)]">وقت نهاري بعد تأكيد الدخول</p>
             <p class="mt-3 text-2xl font-black">هدوء وفرصة للسحب</p>
             <p class="mt-3 text-sm text-white/90">اختيار جيد للمشي والتصوير قبل ازدحام المناطق العائلية. الرؤية قد تتغير بسرعة.</p>
           </div>
@@ -460,14 +367,14 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
             <tbody class="divide-y divide-[var(--line)]">
               <tr>
                 <td class="p-4 align-top font-black text-[var(--forest-800)]">الشتاء<br><span class="text-xs font-normal text-[var(--muted)]">ديسمبر – فبراير</span></td>
-                <td class="p-4 align-top">برودة ليلية قد تقترب من الصفر في بعض الليالي، نهار معتدل، أمطار متفرقة محتملة وضباب صباحي متكرر.</td>
+                <td class="p-4 align-top">راجع التوقع اليومي قبل اختيار الملابس ووقت المشي؛ لا نفترض درجة حرارة أو ضباباً مضموناً.</td>
                 <td class="p-4 align-top">المشي النهاري الهادئ وتصوير الضباب.</td>
                 <td class="p-4 align-top">طبقة دافئة وجاكيت، وأحذية بقبضة جيدة.</td>
                 <td class="p-4 align-top">انخفاض الرؤية صباحاً، وأسطح زلقة عند الهطول.</td>
               </tr>
               <tr>
                 <td class="p-4 align-top font-black text-[var(--forest-800)]">الربيع<br><span class="text-xs font-normal text-[var(--muted)]">مارس – مايو</span></td>
-                <td class="p-4 align-top">أجواء لطيفة عموماً، مع احتمال زيادة الأمطارة الموسمية والغطاء النباتي الأكثر خضرة.</td>
+                <td class="p-4 align-top">راجع المطر والرؤية في التوقع اليومي؛ المتوسط الموسمي لا يحدد ظروف زيارتك.</td>
                 <td class="p-4 align-top">النزهات العائلية وتصوير الطبيعة بعد المطر.</td>
                 <td class="p-4 align-top">ملابس بطبقات، ومطر خفيف احتياطي.</td>
                 <td class="p-4 align-top">تجنب مجاري الأودية عند هطول غزير.</td>
@@ -477,12 +384,12 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
                 <td class="p-4 align-top">ألطف بكثير من المناطق الأكثر حرارة؛ نهار معتدل وليل منعش، مع ذروة ازدحام الزوار.</td>
                 <td class="p-4 align-top">الهروب من حرارة السهل، والجلوس المسائي.</td>
                 <td class="p-4 align-top">ملابس صيفية خفيفة، وقبعة للشمس الظهيرة.</td>
-                <td class="p-4 align-top">الازدحام عند المداخل والمطلات؛ تعال مبكراً.</td>
+                <td class="p-4 align-top">الازدحام عند المداخل والمطلات؛ تعال بعد تأكيد ساعات الدخول.</td>
               </tr>
               <tr>
                 <td class="p-4 align-top font-black text-[var(--forest-800)]">الخريف<br><span class="text-xs font-normal text-[var(--muted)]">سبتمبر – نوفمبر</span></td>
-                <td class="p-4 align-top">اعتدال عام وتهدئة بعد ذروة الصيف، مع فرص لضباب الصباح والإطلالات الصافية.</td>
-                <td class="p-4 align-top">التصوير والزيارات الطويلة دون زحام الذروة.</td>
+                <td class="p-4 align-top">راجع الحرارة والرؤية؛ لا نضمن إطلالة صافية أو انخفاض الازدحام.</td>
+                <td class="p-4 align-top">التصوير حين تسمح الرؤية وإتاحة الدخول.</td>
                 <td class="p-4 align-top">طبقة خفيفة للمساء، وماء كافٍ.</td>
                 <td class="p-4 align-top">تغير الرؤية سريعاً مع تشكل السحب المنخفضة.</td>
               </tr>
@@ -512,11 +419,11 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
             </div>
             <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
               <h3 class="font-black text-[var(--forest-800)]">الغطاء النباتي</h3>
-              <p class="mt-3 text-sm leading-7">يُعدّ العرعر من أبرز مكونات الغطاء النباتي الطبيعي في مرتفعات الباحة، ويمنح الغابة هويتها البصرية والبيئية. تحيط بالموقع أنواع شجيرات وعشبيات متوسطية النزعة تتأثر بالارتفاع والرطوبة المحلية.</p>
+              <p class="mt-3 text-sm leading-7">يُعدّ العرعر من أبرز مكونات الغطاء النباتي الطبيعي في مرتفعات الباحة، ويمنح الغابة هويتها البصرية والبيئية. لا نقدم هنا جرداً للأنواع؛ تجنب قطف النباتات أو إتلافها.</p>
             </div>
             <div class="rounded-[1.5rem] border border-[var(--line)] bg-white/65 p-6">
               <h3 class="font-black text-[var(--forest-800)]">الحياة الفطرية</h3>
-              <p class="mt-3 text-sm leading-7">توفر الغابة موئلاً للطيور واللافقاريات والكائنات الصغيرة المرتبطة بالغطاء الشجري. يبقى الرصد العلمي المتخصص محدوداً؛ لذلك نكتفي بوصف أنماط عامة ولا نفترض تواجد أنواع بعينها دون مصدر موثق.</p>
+              <p class="mt-3 text-sm leading-7">توفر الغابة موئلاً للطيور واللافقاريات والكائنات الصغيرة المرتبطة بالغطاء الشجري. لم يتحقق هذا الدليل من جرد للأنواع؛ ولا يَعِد بمشاهدة كائنات بعينها.</p>
             </div>
           </div>
         </div>
@@ -537,7 +444,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
             <h3 class="mt-2 text-2xl font-black">يوم هادئ ومريح</h3>
             <ul class="mt-5 space-y-3 text-sm text-white/90">
               <li>ابدأوا من المناطق المطورة القريبة من المواقف ومناطق الجلوس.</li>
-              <li>خصصوا وقتاً لمناطق الألعاب ومسارات المشي القصيرة المسطحة.</li>
+              <li>خصصوا وقتاً لمناطق الألعاب ومسارات قصيرة بعد فحص الميل والسطح.</li>
               <li>احرصوا على الإشراف المباشر قرب الحواف والمنحدرات.</li>
               <li>تجنبوا ذروة الزحام بزيارة مبكرة أو بعد العصر.</li>
             </ul>
@@ -547,8 +454,8 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
             <h3 class="mt-2 text-2xl font-black">صيد الضباب والإطلالات</h3>
             <ul class="mt-5 space-y-3 text-sm text-white/90">
               <li>راقبوا تشكل السحب المنخفضة صباحاً وتبدّل الإطلالة.</li>
-              <li>استهدفوا المطلات العلوية والحواف الآمنة للزوايا الواسعة.</li>
-              <li>جرّبوا الساعات الذهبية قرب الشروق والغروب.</li>
+              <li>استخدموا المطلات المخصصة خلف الحواجز؛ ولا تقتربوا من الحواف للتصوير.</li>
+              <li>جرّبوا الساعات الذهبية قبل الغروب ضمن ساعات الدخول المؤكدة.</li>
               <li>احترموا مسارات الغير والممرات المهيأة عند التحرك.</li>
             </ul>
           </article>
@@ -556,7 +463,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
             <p class="text-sm font-black text-[var(--sand)]">كبار السن / ذوو الحركة المحدودة</p>
             <h3 class="mt-2 text-2xl font-black">مسارات مهيأة وراحة</h3>
             <ul class="mt-5 space-y-3 text-sm text-white/90">
-              <li>استفيدوا من المواقف المهيأة والمسارات المعبدة.</li>
+              <li>اسألوا عن المواقف والمسار المهيأ المتاح حالياً؛ لم نتحقق من مسار متصل خالٍ من الدرج.</li>
               <li>وزّعوا الراحة عند المقاعد والمناطق المظللة.</li>
               <li>تجنبوا المسارات شديدة الانحدار أو غير المهيأة.</li>
               <li>حافظوا على قربكم من المرافق الرئيسية للخدمات.</li>
@@ -651,7 +558,7 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
           <div>
             <span class="eyebrow">الخريطة</span>
             <h2 class="section-title">احفظ نقطة الوصول قبل صعود الطريق</h2>
-            <p class="section-lead">إحداثيات الغابة المستخدمة هنا مأخوذة من رابط الخريطة المقدم للمشروع: 20.0220551، 41.4334279.</p>
+            <p class="section-lead">نقطة الخريطة هنا مرجع للملاحة وليست بوابة أو مسار وصول مهيأ تحققنا منه: 20.0221476، 41.4332427.</p>
             <a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex rounded-full border border-[var(--line)] bg-white px-5 py-3 text-sm font-black text-[var(--forest-900)] transition hover:bg-[var(--mist-100)]">فتح خرائط جوجل</a>
           </div>
           <div class="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--mist-100)] shadow-[var(--shadow)]">
@@ -716,23 +623,16 @@ const description = 'دليل عربي مستقل إلى غابة رغدان ف�
           <div class="mt-5 grid gap-3 text-sm md:grid-cols-2">
             <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://www.visitsaudi.com/ar/al-baha/attractions/raghadan-forest-in-al-baha">الهيئة السعودية للسياحة — «روح السعودية»: غابة رغدان</a>
             <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://baha.gov.sa/ar/Albums/VideoDetails/174">أمانة منطقة الباحة — بيانات وصور الغابة</a>
-            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://spa.gov.sa/N2611834">وكالة الأنباء السعودية — مرافق رغدان وتطويرها في 2026</a>
-            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://spa.gov.sa/N2137285">وكالة الأنباء السعودية — مشروعات «بهجة رغدان» وحديقة اللافندر</a>
+            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://spa.gov.sa/N2611834">وكالة الأنباء السعودية — مرافق رغدان وتطويرها — 13 يونيو 2026</a>
+            <a class="rounded-xl border border-[var(--line)] bg-white/55 px-4 py-3 hover:bg-white" target="_blank" rel="noopener noreferrer" href="https://spa.gov.sa/N2137285">وكالة الأنباء السعودية — مشروعات «بهجة رغدان» وحديقة اللافندر — 12 يوليو 2024</a>
           </div>
         </div>
 
-        <div class="mt-10 border-t border-[var(--line)] pt-10">
-          <h3 class="text-xl font-black">حقوق الصور والإسناد</h3>
-          <p class="mt-3 max-w-4xl text-sm text-[var(--muted)]">الصور الفوتوغرافية مستضافة من ويكيميديا كومنز وتظل حقوقها لمصوريها وأصحاب التراخيص. استُخدمت صورة مدخل رغدان لياسر بخش بترخيص المشاع الإبداعي — النَّسب والمشاركة بالمثل 4.0، وصورة لوحة الترحيب لكولييل بتخصيص الملكية العامة، وصور لمنطقة الباحة لمجود العدواني بترخيص المشاع الإبداعي — النَّسب والمشاركة بالمثل 3.0.</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <a class="rounded-full border border-[var(--line)] bg-white/60 px-3 py-2" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:%D9%85%D9%86%D8%AA%D8%B2%D9%87_%D8%BA%D8%A7%D8%A8%D8%A9_%D8%B1%D8%BA%D8%AF%D8%A7%D9%861W9828.jpg">بيانات صورة المدخل</a>
-            <a class="rounded-full border border-[var(--line)] bg-white/60 px-3 py-2" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:Welcome_Sign_-_Raghdan_Forest_1.jpg">بيانات صورة لوحة الترحيب</a>
-            <a class="rounded-full border border-[var(--line)] bg-white/60 px-3 py-2" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:Albaha9021_-_1.jpeg">بيانات صورة جبال الباحة</a>
-            <a class="rounded-full border border-[var(--line)] bg-white/60 px-3 py-2" target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-sa/4.0/deed.ar">نص ترخيص النَّسب والمشاركة بالمثل 4.0</a>
-          </div>
-        </div>
+        <p class="mt-5 flex flex-wrap gap-4 text-sm underline"><a href="https://www.spa.gov.sa/1219564">{Astro.url.pathname.startsWith('/en/') ? 'Historical market: SPA, 2014' : 'السوق التاريخي: واس، 2014'}</a><a href="https://baha.gov.sa/en/Departments/Details/112">{Astro.url.pathname.startsWith('/en/') ? 'Al Aqeeq and airport: Municipality' : 'العقيق والمطار: الأمانة'}</a><a href="https://baha.gov.sa/ar/News/Details/1896">{Astro.url.pathname.startsWith('/en/') ? 'Prince Hussam Park: dated municipality report' : 'منتزه الأمير حسام: تقرير مؤرخ للأمانة'}</a><a href="https://www.visitsaudi.com/ar/al-baha/attractions/thee-ain-heritage-village-in-albaha">{Astro.url.pathname.startsWith('/en/') ? 'Thee Ain: separate destination' : 'ذي عين: وجهة منفصلة'}</a></p>
+        <PhotoCredits />
       </div>
     </section>
+    <SourceNote />
   </main>
   <Footer />
 </BaseLayout>

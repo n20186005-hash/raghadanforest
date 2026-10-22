@@ -20,11 +20,11 @@ const {
   structuredData,
   noindex = false,
   lang = 'ar',
-  skipLabel = 'تجاوز إلى المحتوى'
+  skipLabel = lang === 'en' ? 'Skip to content' : 'تجاوز إلى المحتوى'
 } = Astro.props;
 
 const isEn = lang === 'en';
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const canonical = !noindex && Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const abs = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
 const alt = altPair(Astro.url.pathname);
 const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
@@ -64,35 +64,12 @@ const dataItems = structuredData ? (Array.isArray(structuredData) ? structuredDa
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <title>{title}</title>
-    {dataItems.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
-    <script is:inline>
-      window.__loadGuideAnalytics = function () {
-        if (window.__guideGaLoaded) return;
-        window.__guideGaLoaded = true;
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
-        document.head.appendChild(script);
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function(){ window.dataLayer.push(arguments); };
-        window.gtag('js', new Date());
-        window.gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
-      };
-      try {
-        const saved = JSON.parse(localStorage.getItem('raghadan-cookie-preferences') || '{}');
-        if (saved.analytics === true) window.__loadGuideAnalytics();
-      } catch (_) {}
-    </script>
+    {dataItems.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
+    <script is:inline defer src="/consent.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">{skipLabel}</a>
     <slot />
-    <script is:inline>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/sw.js').catch(function () {});
-        });
-      }
-    </script>
+    <script is:inline defer src="/retire-offline.js"></script>
   </body>
 </html>

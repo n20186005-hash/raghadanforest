@@ -1,10 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "raghadan-forest-guide",
+  "name": "raghadanforest",
   "compatibility_date": "2026-08-26",
   "main": "./worker.js",
   "assets": {
     "directory": "./dist",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page"
   }
 }

@@ -1,4 +1,5 @@
 ---
+import SourceNote from '../../components/SourceNote.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalHeader from '../../components/LegalHeader.astro';
 import Footer from '../../components/Footer.astro';
@@ -6,7 +7,7 @@ import { withSiteNameEn } from '../../data/site';
 import { faq, faqLd } from '../../data/guide';
 
 const title = withSiteNameEn('Tickets, Prices & Parking');
-const description = 'An independent English guide to Raghadan Forest tickets: general entry is free, possible fees for seasonal events and optional services, parking capacity (1,230) and restrooms, and access adapted for people with disabilities.';
+const description = 'An independent English guide to Raghadan Forest tickets: general entry is free, possible fees for seasonal events and optional services, parking capacity (1,230) and restrooms, and how to check mobility access.';
 
 const faqItems = [faq.en[0], faq.en[1], faq.en[3], faq.en[2], faq.en[8]];
 ---
@@ -26,13 +27,13 @@ const faqItems = [faq.en[0], faq.en[1], faq.en[3], faq.en[2], faq.en[8]];
         <article class="rounded-[2rem] bg-[var(--sand-soft)] p-7 lg:p-10">
           <span class="eyebrow">Entry</span>
           <h2 class="mt-5 text-3xl font-black">General entry is free</h2>
-          <p class="mt-4 text-[var(--muted)]">Visit Saudi states that general entry to Raghadan Forest does not require a ticket. We found no fixed published tariff for the park\'s parking in the official sources we reviewed, so we do not assume it is free or paid. Check the signs on arrival.</p>
+          <p class="mt-4 text-[var(--muted)]">Visit Saudi states that general entry to Raghadan Forest does not require a ticket. We found no fixed published tariff for the park's parking in the official sources we reviewed, so we do not assume it is free or paid. Check the signs on arrival.</p>
           <div class="mt-6 rounded-[1.3rem] bg-white/65 p-5 text-sm text-[var(--muted)]"><strong class="text-[var(--ink)]">Note:</strong> Seasonal events, games, food or any optional commercial service may have separate prices that are not part of "general entry".</div>
         </article>
         <article class="rounded-[2rem] bg-[var(--forest-800)] p-7 text-white lg:p-10">
           <span class="eyebrow !text-[var(--sand)]">Parking</span>
           <h2 class="mt-5 text-3xl font-black">Large capacity, but peak stays crowded</h2>
-          <p class="mt-4 text-white/92">Published data indicates 1,230 spaces, including 42 adapted for people with disabilities. On summer evenings and weekend holidays, movement near gates and overlooks can slow, so make early arrival part of the plan.</p>
+          <p class="mt-4 text-white/92">Published data indicates 1,230 spaces, including 42 adapted for people with disabilities. On summer evenings and weekend holidays, movement near gates and overlooks can slow, so confirm opening hours and allow extra travel time.</p>
           <p class="mt-6 border-t border-white/15 pt-5 text-sm text-white/90">Do not park on unprepared edges or in an emergency lane, especially during fog.</p>
         </article>
       </div>
@@ -42,10 +43,10 @@ const faqItems = [faq.en[0], faq.en[1], faq.en[3], faq.en[2], faq.en[8]];
       <div class="container-site">
         <span class="eyebrow">Facilities &amp; services</span>
         <h2 class="section-title">What you find on the ground for the entry</h2>
-        <p class="section-lead">The following figures are the latest public service data we found from local authorities in 2026. A facility\'s existence does not mean every unit is available at every moment, as operations are affected by maintenance and crowding.</p>
+        <p class="section-lead">The following figures are the latest public service data we found in the Saudi Press Agency report of 13 June 2026. A facility's existence does not mean every unit is available at every moment, as operations are affected by maintenance and crowding.</p>
         <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            ['Restrooms', '122 restrooms mentioned in 2026 data. During crowding use the closest to the main service areas.'],
+            ['Restrooms', '122 restrooms mentioned in the 13 June 2026 report. During crowding use the closest to the main service areas.'],
             ['Parking', '1,230 spaces, including 42 adapted for people with disabilities.'],
             ['Children play', '14 playground areas per published data, plus open spaces and trails.'],
             ['Prayer', 'The municipality indicates a designated prayer site within the forest facilities.'],
@@ -103,6 +104,7 @@ const faqItems = [faq.en[0], faq.en[1], faq.en[3], faq.en[2], faq.en[8]];
         </div>
       </div>
     </section>
+    <SourceNote />
   </main>
   <Footer />
 </BaseLayout>
