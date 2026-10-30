@@ -69,6 +69,41 @@ export function faqLd(items: { q: string; a: string }[]) {
   };
 }
 
+// بناء WebPage (صفحة موضوع) بلغة معينة مع رابط الكيان.
+export function webPageLd(lang: Lang, siteUrl: string, title: string, description: string, url: string) {
+  const isAr = lang === 'ar';
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${url}/#webpage`,
+    url,
+    name: title,
+    description,
+    inLanguage: isAr ? 'ar' : 'en',
+    isPartOf: { '@type': 'WebSite', '@id': `${siteUrl}/#website` },
+    about: { '@type': 'TouristAttraction', '@id': `${siteUrl}/#attraction` }
+  };
+}
+
+// بناء BreadcrumbList لمسار الصفحة الرئيسية ← مجموعة ← موضوع.
+export function breadcrumbLd(
+  lang: Lang,
+  siteUrl: string,
+  items: { name: string; url: string }[]
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url
+    }))
+  };
+}
+
+
 // أسئلة شائعة ثنائية اللغة (نفس المعاني، نص مستقل لكل لغة).
 export const faq: Record<Lang, { q: string; a: string }[]> = {
   ar: [
@@ -78,7 +113,7 @@ export const faq: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: 'ما ساعات فتح غابة رغدان؟',
-      a: 'عند المراجعة في 21 أكتوبر 2026، أوردت «روح السعودية» 08:00–00:00، بينما أظهر إدراج خرائط جوجل 14:00–02:00 من اليوم التالي. المصدران مختلفان؛ تحقق من التشغيل والبوابة المقصودة قبل السفر، ولا تفترض إتاحة الزيارة صباحاً أو ليلاً.'
+      a: 'عند المراجعة في 30 أكتوبر 2026، أوردت «روح السعودية» 08:00–00:00، بينما أظهر إدراج خرائط جوجل 14:00–02:00 من اليوم التالي. المصدران مختلفان؛ تحقق من التشغيل والبوابة المقصودة قبل السفر، ولا تفترض إتاحة الزيارة صباحاً أو ليلاً.'
     },
     {
       q: 'هل الغابة مناسبة للعائلات والأطفال؟',
@@ -116,7 +151,7 @@ export const faq: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: 'What are Raghadan Forest opening hours?',
-      a: 'Checked on 21 October 2026: Visit Saudi lists 08:00–00:00, while the Google Maps listing shows 14:00–02:00 the following day. These sources conflict. Confirm access and the intended gate before traveling; do not assume morning or late-night entry.'
+      a: 'Checked on 30 October 2026: Visit Saudi lists 08:00–00:00, while the Google Maps listing shows 14:00–02:00 the following day. These sources conflict. Confirm access and the intended gate before traveling; do not assume morning or late-night entry.'
     },
     {
       q: 'Is the forest suitable for families and children?',

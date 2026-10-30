@@ -1,5 +1,6 @@
 ---
 import SourceNote from '../../components/SourceNote.astro';
+import TopicMoreLinks from '../../components/TopicMoreLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalHeader from '../../components/LegalHeader.astro';
 import Footer from '../../components/Footer.astro';
@@ -104,6 +105,7 @@ const faqItems = [faq.en[0], faq.en[1], faq.en[3], faq.en[2], faq.en[8]];
         </div>
       </div>
     </section>
+    <TopicMoreLinks lang="en" slugs={['opening-hours', 'parking', 'accessibility', 'restrooms-prayer', 'crowds']} />
     <SourceNote />
   </main>
   <Footer />

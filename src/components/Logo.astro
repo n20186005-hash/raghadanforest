@@ -4,8 +4,12 @@ interface Props {
   compact?: boolean;
 }
 const { inverse = false, compact = false } = Astro.props;
+const isEn = Astro.url.pathname.startsWith('/en');
+const brand = isEn ? 'Raghadan Forest Guide' : 'دليل غابة رغدان';
+const tagline = isEn ? 'Independent non-profit knowledge project' : 'مشروع معرفي مستقل غير ربحي';
+const ariaLabel = isEn ? 'Raghadan Forest Guide — home' : 'دليل غابة رغدان - الصفحة الرئيسية';
 ---
-<a href="/" class="inline-flex items-center gap-3 no-underline" aria-label="دليل غابة رغدان - الصفحة الرئيسية">
+<a href={isEn ? '/en/' : '/'} class="inline-flex items-center gap-3 no-underline" aria-label={ariaLabel}>
   <svg class="h-11 w-11 shrink-0" viewBox="0 0 64 64" role="img" aria-hidden="true">
     <circle cx="32" cy="32" r="30" fill={inverse ? '#F4F7F4' : '#183126'} />
     <path d="M11 39.5c8.5-2.3 15.4-8 21-17.8 5.2 8.7 12.3 14.4 21 17.8" fill="none" stroke={inverse ? '#183126' : '#D9C6A2'} stroke-width="3.2" stroke-linecap="round"/>
@@ -14,8 +18,8 @@ const { inverse = false, compact = false } = Astro.props;
   </svg>
   {!compact && (
     <span class:list={["leading-tight", inverse ? "text-white" : "text-[var(--forest-950)]"]}>
-      <strong class="block text-base font-black">دليل غابة رغدان</strong>
-      <span class:list={["block text-[.68rem]", inverse ? "text-white/70" : "text-[var(--muted)]"]}>مشروع معرفي مستقل غير ربحي</span>
+      <strong class="block text-base font-black">{brand}</strong>
+      <span class:list={["block text-[.68rem]", inverse ? "text-white/70" : "text-[var(--muted)]"]}>{tagline}</span>
     </span>
   )}
 </a>

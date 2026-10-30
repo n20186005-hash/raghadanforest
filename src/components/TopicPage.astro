@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalHeader from '../components/LegalHeader.astro';
+import Footer from '../components/Footer.astro';
+import SourceNote from '../components/SourceNote.astro';
+import {
+  findTopic,
+  topicContent,
+  groupLabel,
+  relatedLinks,
+  topicPath,
+  type Lang
+} from '../data/topics';
+import {
+  webPageLd,
+  breadcrumbLd,
+  faqLd
+} from '../data/guide';
+import { withSiteName, withSiteNameEn, SITE_NAME, SITE_NAME_EN } from '../data/site';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const isEn = lang === 'en';
+const topic = findTopic(slug);
+
+if (!topic) {
+  return Astro.redirect(isEn ? '/en/' : '/');
+}
+
+const content = topicContent(topic, lang);
+const title = isEn ? withSiteNameEn(content.h1) : withSiteName(content.h1);
+const description = content.lead;
+
+const siteUrl = Astro.site ? Astro.site.href : import.meta.env.SITE;
+const pageUrl = siteUrl + Astro.url.pathname;
+const homeUrl = siteUrl + (isEn ? '/en/' : '/');
+
+const crumbs = [
+  { name: isEn ? SITE_NAME_EN : SITE_NAME, url: homeUrl },
+  { name: groupLabel(topic.group, lang), url: homeUrl + '#topics' },
+  { name: content.h1, url: pageUrl }
+];
+
+const structuredData = [
+  webPageLd(lang, siteUrl, content.h1, content.lead, pageUrl),
+  breadcrumbLd(lang, siteUrl, crumbs),
+  faqLd(content.faqs)
+];
+
+const related = relatedLinks(topic, lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  structuredData={structuredData}
+>
+  <LegalHeader isEn={isEn} />
+  <main id="main-content">
+    <section class="topic-hero section-space">
+      <div class="container-site">
+        <p class="eyebrow">{groupLabel(topic.group, lang)}</p>
+        <h1 class="topic-h1">{content.h1}</h1>
+        <p class="section-lead">{content.lead}</p>
+        <p class="topic-updated">{isEn ? `Last updated ${content.updated}` : `آخر تحديث ${content.updated}`}</p>
+      </div>
+    </section>
+
+    {
+      content.sections.map((section) => (
+        <section class="section-space">
+          <div class="container-site">
+            <div class="paper-card">
+              <h2 class="section-title">{section.heading}</h2>
+              {section.paragraphs?.map((p) => (
+                <p class="prose-ar">{p}</p>
+              ))}
+              {section.bullets && (
+                <ul class="topic-list">
+                  {section.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </section>
+      ))
+    }
+
+    <section class="section-space">
+      <div class="container-site">
+        <div class="paper-card">
+          <h2 class="section-title">{isEn ? 'Frequently asked questions' : 'أسئلة شائعة'}</h2>
+          <div class="faq-wrap">
+            {
+              content.faqs.map((f) => (
+                <details class="faq-item">
+                  <summary>{f.q}</summary>
+                  <p class="prose-ar">{f.a}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {
+      related.length > 0 && (
+        <section class="section-space">
+          <div class="container-site">
+            <h2 class="section-title">{isEn ? 'Related guides' : 'أدلة ذات صلة'}</h2>
+            <div class="related-grid">
+              {related.map((r) => (
+                <a class="related-card" href={topicPath(r.slug, lang)}>
+                  {r.title}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+  </main>
+
+  <SourceNote lang={lang} />
+  <Footer isEn={isEn} />
+</BaseLayout>
+
+<style>
+  .topic-hero {
+    background:
+      radial-gradient(120% 80% at 50% 0%, rgba(255, 255, 255, 0.18), transparent 60%),
+      linear-gradient(180deg, #183126 0%, #11251d 100%);
+    color: #f2f6f3;
+    padding-top: 7rem;
+  }
+  .topic-hero .eyebrow {
+    color: var(--mist-200);
+  }
+  .topic-h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    margin: 0.4rem 0 1rem;
+    color: #ffffff;
+  }
+  .topic-updated {
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--mist-200);
+  }
+  .paper-card {
+    padding: clamp(1.2rem, 3vw, 2rem);
+  }
+  .topic-list {
+    margin: 0.8rem 0 0;
+    padding-inline-start: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .topic-list li {
+    line-height: 1.7;
+  }
+  .faq-wrap {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .faq-item {
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #ffffff;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .faq-item p {
+    margin-top: 0.6rem;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .related-card {
+    display: block;
+    padding: 0.9rem 1rem;
+    border-radius: 0.75rem;
+    background: var(--mist-50);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .related-card:hover {
+    background: #ffffff;
+    border-color: var(--forest-700);
+  }
+</style>

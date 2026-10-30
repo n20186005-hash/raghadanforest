@@ -1,0 +1,89 @@
+---
+import {
+  GROUP_ORDER,
+  GROUP_SLUGS,
+  groupLabel,
+  findTopic,
+  topicContent,
+  topicPath,
+  type Lang
+} from '../data/topics';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+---
+
+<section id="topics" class="section-space topics-cluster">
+  <div class="container-site">
+    <p class="eyebrow">{isEn ? 'Visitor guides' : 'أدلة الزيارة'}</p>
+    <h2 class="section-title">{isEn ? 'Guides to plan your visit' : 'أدلة لتخطيط زيارتك'}</h2>
+    <p class="section-lead">
+      {
+        isEn
+          ? 'Practical, source-checked notes on hours, parking, weather, food and nearby places.'
+          : 'ملاحظات عملية مُراجَعة من المصادر حول الساعات والمواقف والطقس والطعام والأماكن القريبة.'
+      }
+    </p>
+
+    <div class="cluster-groups">
+      {
+        GROUP_ORDER.map((group) => (
+          <div class="cluster-group">
+            <h3 class="cluster-group-title">{groupLabel(group, lang)}</h3>
+            <ul class="cluster-list">
+              {GROUP_SLUGS[group].map((slug) => {
+                const t = findTopic(slug);
+                if (!t) return null;
+                const c = topicContent(t, lang);
+                return (
+                  <li>
+                    <a href={topicPath(slug, lang)}>{c.h1}</a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .topics-cluster {
+    background: var(--mist-50);
+  }
+  .cluster-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .cluster-group-title {
+    font-size: 1.1rem;
+    color: var(--forest-800);
+    border-bottom: 2px solid var(--forest-700);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
+  }
+  .cluster-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .cluster-list a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .cluster-list a:hover {
+    color: var(--forest-700);
+    border-bottom-color: var(--forest-700);
+  }
+</style>

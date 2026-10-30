@@ -1,5 +1,6 @@
 ---
 import SourceNote from '../../components/SourceNote.astro';
+import TopicMoreLinks from '../../components/TopicMoreLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalHeader from '../../components/LegalHeader.astro';
 import Footer from '../../components/Footer.astro';
@@ -121,6 +122,7 @@ const structured = [attractionLd('en', siteUrl), faqLd(faqItems)];
         </div>
       </div>
     </section>
+    <TopicMoreLinks lang="en" slugs={['from-airport', 'parking', 'al-shafa-highlands', 'dhee-ayn-village', 'one-day-al-baha']} />
     <SourceNote />
   </main>
   <Footer />

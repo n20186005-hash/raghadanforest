@@ -1,0 +1,54 @@
+---
+import { findTopic, topicContent, topicPath, type Lang } from '../data/topics';
+
+interface Props {
+  lang: Lang;
+  slugs: string[];
+}
+
+const { lang, slugs } = Astro.props;
+const isEn = lang === 'en';
+const links = slugs
+  .map((slug) => {
+    const t = findTopic(slug);
+    return t ? { slug, title: topicContent(t, lang).h1 } : null;
+  })
+  .filter((x): x is { slug: string; title: string } => x !== null);
+---
+
+{
+  links.length > 0 && (
+    <section class="section-space">
+      <div class="container-site">
+        <div class="paper-card">
+          <h2 class="section-title">{isEn ? 'More visitor guides' : 'أدلة زيارة أكثر'}</h2>
+          <ul class="more-links">
+            {links.map((link) => (
+              <li>
+                <a href={topicPath(link.slug, lang)}>{link.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .more-links {
+    list-style: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .more-links a {
+    color: var(--forest-700);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .more-links a:hover {
+    border-bottom-color: var(--forest-700);
+  }
+</style>

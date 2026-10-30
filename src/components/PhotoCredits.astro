@@ -6,6 +6,12 @@ const en = Astro.url.pathname.startsWith('/en/');
   <h3 class="text-xl font-black">{en ? 'Photo sources and licences' : 'مصادر الصور وتراخيصها'}</h3>
   <p class="mt-3 text-sm">{en ? 'Entrance and welcome-sign photographs identify Raghadan. The other three photographs are regional context, not verified park views. Images were resized and converted to WebP; BY-SA derivatives retain the corresponding licence. Historical photographs do not establish current access or facilities.' : 'تُظهر صورتا المدخل والترحيب رغدان. الصور الثلاث الأخرى سياق إقليمي وليست مناظر تحققنا من وقوعها داخل المنتزه. صُغرت الصور وحُولت إلى WebP؛ وتحتفظ مشتقات BY-SA بالترخيص نفسه. الصور التاريخية لا تثبت الدخول أو المرافق الحالية.'}</p>
   <ul class="mt-4 space-y-3 text-sm break-words">
-    {records.map(photo => <li><a class="underline" href={photo.source}>{photo.title}</a> — {photo.author} · <a class="underline" href={photo.licenseURL}>{photo.license}</a> · <a class="underline" href={photo.discussion}>{en ? 'Source discussion' : 'نقاش المصدر'}</a>{photo.stem==='clouds' && <span> — {en ? 'Source warning: missing meaningful description; exact location unverified.' : 'تحذير المصدر: لا يوجد وصف كافٍ؛ الموقع الدقيق غير متحقق منه.'}</span>}</li>)}
+    {records.map(photo => {
+      const title = en && photo.titleEn ? photo.titleEn : photo.title;
+      const author = en && photo.authorEn ? photo.authorEn : photo.author;
+      return (
+        <li><a class="underline" href={photo.source}>{title}</a> — {author} · <a class="underline" href={photo.licenseURL}>{photo.license}</a> · <a class="underline" href={photo.discussion}>{en ? 'Source discussion' : 'نقاش المصدر'}</a>{photo.stem==='clouds' && <span> — {en ? 'Source warning: missing meaningful description; exact location unverified.' : 'تحذير المصدر: لا يوجد وصف كافٍ؛ الموقع الدقيق غير متحقق منه.'}</span>}</li>
+      );
+    })}
   </ul>
 </div>
